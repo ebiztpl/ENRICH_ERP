@@ -36,13 +36,157 @@
                                         <td>
                                             <div class="material-switch pull-right">
                                                 <input id="roll_no" name="roll_no" type="checkbox" data-role="roll_no" class="chk" data-rowid="1" value="checked" <?php if ($result->roll_no == "1") {
-    echo "checked='checked'";
-}
-?> />
+                                                    echo "checked='checked'";
+                                                }
+                                                ?> />
                                                 <label for="roll_no" class="label-success"></label>
                                             </div>
                                         </td>
                                     </tr>
+                                    <!-- //new field -->
+                                    <tr>
+                                    <td class="text-rtl-right" width="100%"><?php echo $this->lang->line('enrollment_no'); ?></td>
+                                        <td>
+                                            <div class="material-switch pull-right">
+                                                <input id="enrollment_no" name="enrollment_no" type="checkbox" data-role="enrollment_no" class="chk" data-rowid="1" value="checked" <?php if ($result->enrollment_no == "1") {
+                                                    echo "checked='checked'";
+                                                }
+                                                ?> />
+                                                <label for="enrollment_no" class="label-success"></label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- //new field -->
+                                    <tr>
+                                    <td class="text-rtl-right" width="100%"><?php echo $this->lang->line('class_school'); ?></td>
+                                        <td>
+                                            <div class="material-switch pull-right">
+                                                <input id="class" name="class" type="checkbox" data-role="class" class="chk" data-rowid="1" value="checked" <?php if ($result->class == "1") {
+                                                    echo "checked='checked'";
+                                                }
+                                                ?> />
+                                                <label for="class" class="label-success"></label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- //new field section-->
+                                    <tr>
+                                    <td class="text-rtl-right" width="100%"><?php echo $this->lang->line('section_name'); ?></td>
+                                        <td>
+                                            <div class="material-switch pull-right">
+                                                <input id="section" name="section" type="checkbox" data-role="section" class="chk" data-rowid="1" value="checked" <?php if ($result->section == "1") {
+                                                    echo "checked='checked'";
+                                                }
+                                                ?> />
+                                                <label for="section" class="label-success"></label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- //new field SSSMID-->
+                                    <tr>
+                                    <td class="text-rtl-right" width="100%"><?php echo $this->lang->line('SSSMID'); ?></td>
+                                        <td>
+                                            <div class="material-switch pull-right">
+                                                <input id="SSSMID" name="SSSMID" type="checkbox" data-role="SSSMID" class="chk" data-rowid="1" value="checked" <?php if ($result->SSSMID == "1") {
+                                                    echo "checked='checked'";
+                                                }
+                                                ?> />
+                                                <label for="SSSMID" class="label-success"></label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- //new field pen_no-->
+                                    <tr>
+                                    <td class="text-rtl-right" width="100%"><?php echo $this->lang->line('pen_no'); ?></td>
+                                        <td>
+                                            <div class="material-switch pull-right">
+                                                <input id="pen_no" name="pen_no" type="checkbox" data-role="pen_no" class="chk" data-rowid="1" value="checked" <?php if ($result->pen_no == "1") {
+                                                    echo "checked='checked'";
+                                                }
+                                                ?> />
+                                                <label for="pen_no" class="label-success"></label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- //new field family_mid_no-->
+                                    <tr>
+                                    <td class="text-rtl-right" width="100%"><?php echo $this->lang->line('family_mid_no'); ?></td>
+                                        <td>
+                                            <div class="material-switch pull-right">
+                                                <input id="family_mid_no" name="family_mid_no" type="checkbox" data-role="family_mid_no" class="chk" data-rowid="1" value="checked" <?php if ($result->family_mid_no == "1") {
+                                                    echo "checked='checked'";
+                                                }
+                                                ?> />
+                                                <label for="family_mid_no" class="label-success"></label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- //new field apar_id-->
+                                    <tr>
+                                    <td class="text-rtl-right" width="100%"><?php echo $this->lang->line('apar_id'); ?></td>
+                                        <td>
+                                            <div class="material-switch pull-right">
+                                                <input id="apar_id" name="apar_id" type="checkbox" data-role="apar_id" class="chk" data-rowid="1" value="checked" <?php if ($result->apar_id == "1") {
+                                                    echo "checked='checked'";
+                                                }
+                                                ?> />
+                                                <label for="apar_id" class="label-success"></label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- //new field school_medium-->
+                                    <tr>
+                                    <td class="text-rtl-right" width="100%"><?php echo $this->lang->line('school_medium'); ?></td>
+                                        <td>
+                                            <div class="material-switch pull-right">
+                                                <input id="school_medium" name="school_medium" type="checkbox" data-role="school_medium" class="chk" data-rowid="1" value="checked" <?php if ($result->school_medium == "1") {
+                                                    echo "checked='checked'";
+                                                }
+                                                ?> />
+                                                <label for="school_medium" class="label-success"></label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- //new field last_class-->
+                                    <tr>
+                                    <td class="text-rtl-right" width="100%"><?php echo $this->lang->line('last_class'); ?></td>
+                                        <td>
+                                            <div class="material-switch pull-right">
+                                                <input id="last_class" name="last_class" type="checkbox" data-role="last_class" class="chk" data-rowid="1" value="checked" <?php if ($result->last_class == "1") {
+                                                    echo "checked='checked'";
+                                                }
+                                                ?> />
+                                                <label for="last_class" class="label-success"></label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- //new field abc_id-->
+                                    <tr>
+                                    <td class="text-rtl-right" width="100%"><?php echo $this->lang->line('abc_id'); ?></td>
+                                        <td>
+                                            <div class="material-switch pull-right">
+                                                <input id="abc_id" name="abc_id" type="checkbox" data-role="abc_id" class="chk" data-rowid="1" value="checked" <?php if ($result->abc_id == "1") {
+                                                    echo "checked='checked'";
+                                                }
+                                                ?> />
+                                                <label for="abc_id" class="label-success"></label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- //new field scholarship_form_no-->
+                                    <tr>
+                                    <td class="text-rtl-right" width="100%"><?php echo $this->lang->line('scholarship_form_no'); ?></td>
+                                        <td>
+                                            <div class="material-switch pull-right">
+                                                <input id="scholarship_form_no" name="scholarship_form_no" type="checkbox" data-role="scholarship_form_no" class="chk" data-rowid="1" value="checked" <?php if ($result->scholarship_form_no == "1") {
+                                                    echo "checked='checked'";
+                                                }
+                                                ?> />
+                                                <label for="scholarship_form_no" class="label-success"></label>
+                                            </div>
+                                        </td>
+                                    </tr>
+
                                      <tr>
                                         <td class="text-rtl-right" width="100%"><?php echo $this->lang->line('middle_name'); ?></td>
                                         <td>
@@ -476,14 +620,14 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="text-rtl-right" width="100%"><?php echo $this->lang->line('national_identification_number'); ?></td>
+                                        <td class="text-rtl-right" width="100%"><?php echo $this->lang->line('national_identification_no_aadhaar_no'); ?></td>
                                         <td>
                                             <div class="material-switch pull-right">
-                                                <input id="national_identification_no" name="national_identification_no" type="checkbox" data-role="national_identification_no" class="chk" data-rowid="1" value="checked" <?php if ($result->national_identification_no == "1") {
+                                                <input id="national_identification_no_aadhaar_no" name="national_identification_no_aadhaar_no" type="checkbox" data-role="national_identification_no_aadhaar_no" class="chk" data-rowid="1" value="checked" <?php if ($result->national_identification_no_aadhaar_no == "1") {
     echo "checked='checked'";
 }
 ?> />
-                                                <label for="national_identification_no" class="label-success"></label>
+                                                <label for="national_identification_no_aadhaar_no" class="label-success"></label>
                                             </div>
                                         </td>
                                     </tr>

@@ -52,7 +52,86 @@ class Systemfield extends Admin_Controller
             } else {
                 $data['roll_no'] = 0;
             }
-        } else if ($role == 'lastname') {
+        } 
+        else if($role == 'enrollment_no'){  // new field no 1
+             if ($status == "yes") {
+                $data['enrollment_no'] = 1;
+            } else {
+                $data['enrollment_no'] = 0;
+            }
+        } 
+        else if($role == 'class'){  // new field no 2
+             if ($status == "yes") {
+                $data['class'] = 1;
+            } else {
+                $data['class'] = 0;
+            }
+        } 
+        else if($role == 'section'){  // new field no 3
+             if ($status == "yes") {
+                $data['section'] = 1;
+            } else {
+                $data['section'] = 0;
+            }
+        } 
+        else if($role == 'SSSMID'){  // new field no 4
+             if ($status == "yes") {
+                $data['SSSMID'] = 1;
+            } else {
+                $data['SSSMID'] = 0;
+            }
+        } 
+        else if($role == 'pen_no'){  // new field no 5
+             if ($status == "yes") {
+                $data['pen_no'] = 1;
+            } else {
+                $data['pen_no'] = 0;
+            }
+        } 
+        else if($role == 'family_mid_no'){  // new field no 6
+             if ($status == "yes") {
+                $data['family_mid_no'] = 1;
+            } else {
+                $data['family_mid_no'] = 0;
+            }
+        } 
+        else if($role == 'apar_id'){  // new field no 7
+             if ($status == "yes") {
+                $data['apar_id'] = 1;
+            } else {
+                $data['apar_id'] = 0;
+            }
+        } 
+        else if($role == 'school_medium'){  // new field no 8
+             if ($status == "yes") {
+                $data['school_medium'] = 1;
+            } else {
+                $data['school_medium'] = 0;
+            }
+        } 
+        else if($role == 'last_class'){  // new field no 9
+             if ($status == "yes") {
+                $data['last_class'] = 1;
+            } else {
+                $data['last_class'] = 0;
+            }
+        } 
+        else if($role == 'abc_id'){  // new field no 10
+             if ($status == "yes") {
+                $data['abc_id'] = 1;
+            } else {
+                $data['abc_id'] = 0;
+            }
+        } 
+        else if($role == 'scholarship_form_no'){  // new field no 11
+             if ($status == "yes") {
+                $data['scholarship_form_no'] = 1;
+            } else {
+                $data['scholarship_form_no'] = 0;
+            }
+        } 
+
+        else if ($role == 'lastname') {
             if ($status == "yes") {
                 $data['lastname'] = 1;
             } else {
