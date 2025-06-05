@@ -71,7 +71,7 @@ echo $this->session->flashdata('msg');
                                         <?php if ($sch_setting->section) {?>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('section_name'); ?></label>
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('section_name_school'); ?></label>
                                                     <input id="section" name="section" placeholder="" type="text" class="form-control"  value="<?php echo set_value('section' , $student['section']); ?>" />
                                                     <span class="text-danger"><?php echo form_error('section'); ?></span>
                                                 </div>

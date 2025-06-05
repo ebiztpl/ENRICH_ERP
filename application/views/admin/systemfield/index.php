@@ -71,7 +71,7 @@
                                     </tr>
                                     <!-- //new field section-->
                                     <tr>
-                                    <td class="text-rtl-right" width="100%"><?php echo $this->lang->line('section_name'); ?></td>
+                                    <td class="text-rtl-right" width="100%"><?php echo $this->lang->line('section_name_school'); ?></td>
                                         <td>
                                             <div class="material-switch pull-right">
                                                 <input id="section" name="section" type="checkbox" data-role="section" class="chk" data-rowid="1" value="checked" <?php if ($result->section == "1") {
