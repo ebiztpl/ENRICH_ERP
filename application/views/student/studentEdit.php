@@ -17,11 +17,11 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                 <div class="around10">
 
                                     <?php if ($this->session->flashdata('msg')) {
-    ?>
+                                    ?>
                                         <?php
-echo $this->session->flashdata('msg');
-    $this->session->unset_userdata('msg');
-    ?>
+                                    echo $this->session->flashdata('msg');
+                                        $this->session->unset_userdata('msg');
+                                        ?>
                                     <?php }?>
                                     <?php echo $this->customlib->getCSRF(); ?>
                                      <input type="hidden" name="student_session_id" value="<?php echo set_value('student_session_id', $student['student_session_id']); ?>">
@@ -29,6 +29,29 @@ echo $this->session->flashdata('msg');
                                     <input type="hidden" name="sibling_name" value="<?php echo set_value('sibling_name', 0); ?>" id="sibling_name_next">
                                     <input type="hidden" name="sibling_id" value="<?php echo set_value('sibling_id', 0); ?>" id="sibling_id">
                                     <div class="row">
+
+                                                    <!-- // new field 8-->
+                                        <?php if ($sch_setting->school_medium) {?>
+                                            <div class="row">
+                                            <div class="col-md-12 form-group col-md-12">
+                                            
+                                            <label><?php echo $this->lang->line('school_medium'); ?></label><br>
+                                                <div class="form-check radio-inline">
+                                                    <input class="form-check-input" type="radio" name="school_medium" id="hindi_medium" value="Hindi" 
+                                                        <?php echo set_radio('school_medium', 'Hindi',  $student['school_medium'] == 'Hindi'? true:false); ?>>
+                                                        <label class="form-check-label" for="hindi_medium"><?php echo $this->lang->line('hindi_medium'); ?></label>
+                                                    </div>
+                                                    <div class="form-check radio-inline">
+                                                        <input class="form-check-input" type="radio" name="school_medium" id="english_medium" value="English"
+                                                            <?php echo set_radio('school_medium', 'English',$student['school_medium'] == 'English'? true:false); ?>>
+                                                            <label class="form-check-label" for="english_medium"><?php echo $this->lang->line('english_medium'); ?></label>
+                                                        </div>
+                                                    <br><span class="text-danger"><?php echo form_error('school_medium'); ?></span>                                   
+                                                </div>
+                                                </div>
+                                            <?php
+                                        }?>
+
                                         <?php if (!$adm_auto_insert) {?>
                                             <div class="col-md-3">
                                                 <div class="form-group">
@@ -57,171 +80,31 @@ echo $this->session->flashdata('msg');
                                                 </div>
                                             </div>
                                         <?php }?>
-                                          <!-- // new field 2-->
-                                        <?php if ($sch_setting->class) {?>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('class_school'); ?></label>
-                                                    <input id="class" name="class" placeholder="" type="text" class="form-control"  value="<?php echo set_value('class' , $student['class']); ?>" />
-                                                    <span class="text-danger"><?php echo form_error('class'); ?></span>
-                                                </div>
-                                            </div>
-                                        <?php }?>
-                                         <!-- // new field 3-->
-                                        <?php if ($sch_setting->section) {?>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('section_name_school'); ?></label>
-                                                    <input id="section" name="section" placeholder="" type="text" class="form-control"  value="<?php echo set_value('section' , $student['section']); ?>" />
-                                                    <span class="text-danger"><?php echo form_error('section'); ?></span>
-                                                </div>
-                                            </div>
-                                        <?php }?>
-                                            <!-- // new field 4-->
-                                        <?php if ($sch_setting->SSSMID) {?>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('SSSMID'); ?></label>
-                                                    <input id="SSSMID" name="SSSMID" placeholder="" type="text" class="form-control"  value="<?php echo set_value('SSSMID' , $student['SSSMID']); ?>" />
-                                                    <span class="text-danger"><?php echo form_error('SSSMID'); ?></span>
-                                                </div>
-                                            </div>
-                                        <?php }?>
-                                            <!-- // new field 5-->
-                                        <?php if ($sch_setting->pen_no) {?>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('pen_no'); ?></label>
-                                                    <input id="pen_no" name="pen_no" placeholder="" type="text" class="form-control"  value="<?php echo set_value('pen_no' , $student['pen_no']); ?>" />
-                                                    <span class="text-danger"><?php echo form_error('pen_no'); ?></span>
-                                                </div>
-                                            </div>
-                                        <?php }?>
-                                            <!-- // new field 6-->
-                                        <?php if ($sch_setting->apar_id) {?>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('apar_id'); ?></label>
-                                                    <input id="apar_id" name="apar_id" placeholder="" type="text" class="form-control"  value="<?php echo set_value('apar_id', $student['apar_id']); ?>" />
-                                                    <span class="text-danger"><?php echo form_error('apar_id'); ?></span>
-                                                </div>
-                                            </div>
-                                        <?php }?>
-                                            <!-- // new field 7-->
-                                        <?php if ($sch_setting->family_mid_no) {?>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('family_mid_no'); ?></label>
-                                                    <input id="family_mid_no" name="family_mid_no" placeholder="" type="text" class="form-control"  value="<?php echo set_value('family_mid_no', $student['family_mid_no']); ?>" />
-                                                    <span class="text-danger"><?php echo form_error('family_mid_no'); ?></span>
-                                                </div>
-                                            </div>
-                                        <?php }?>
-                                            <!-- // new field 8-->
-                                        <?php if ($sch_setting->school_medium) {?>
-                                         <div class="row">
-                                         <div class="col-md-12 form-group col-md-12">
-                                           
-                                                    <label><?php echo $this->lang->line('school_medium'); ?></label><br>
-
-                                                    <div class="form-check radio-inline">
-                                                        <input class="form-check-input" type="radio" name="school_medium" id="hindi_medium" value="Hindi" 
-                                                            <?php echo set_radio('school_medium', 'Hindi',  $student['school_medium'] == 'Hindi'? true:false); ?>>
-                                                        <label class="form-check-label" for="hindi_medium"><?php echo $this->lang->line('hindi_medium'); ?></label>
-                                                    </div>
-
-                                                    <div class="form-check radio-inline">
-                                                        <input class="form-check-input" type="radio" name="school_medium" id="english_medium" value="English"
-                                                            <?php echo set_radio('school_medium', 'English',$student['school_medium'] == 'English'? true:false); ?>>
-                                                        <label class="form-check-label" for="english_medium"><?php echo $this->lang->line('english_medium'); ?></label>
-                                                    </div>
-
-                                                    <br><span class="text-danger"><?php echo form_error('school_medium'); ?></span>
-                                             
-                                            </div>
-                                            </div>
-                                        <?php }?>
-
-                                              <!-- // new field 9-->
-                                        <?php if ($sch_setting->last_class) {?>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('last_class'); ?></label>
-                                                    <input id="last_class" name="last_class" placeholder="" type="text" class="form-control"  value="<?php echo set_value('last_class' ,$student['last_class']); ?>" />
-                                                    <span class="text-danger"><?php echo form_error('last_class'); ?></span>
-                                                </div>
-                                            </div>
-                                        <?php }?>
-                                              <!-- // new field 10-->
-                                        <?php if ($sch_setting->abc_id) {?>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('abc_id'); ?></label>
-                                                    <input id="abc_id" name="abc_id" placeholder="" type="text" class="form-control"  value="<?php echo set_value('abc_id', $student['abc_id']); ?>" />
-                                                    <span class="text-danger"><?php echo form_error('abc_id'); ?></span>
-                                                </div>
-                                            </div>
-                                        <?php }?>
-                                              <!-- // new field 11-->
-                                        <?php if ($sch_setting->scholarship_form_no) {?>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('scholarship_form_no'); ?></label>
-                                                    <input id="scholarship_form_no" name="scholarship_form_no" placeholder="" type="text" class="form-control"  value="<?php echo set_value('scholarship_form_no', $student['scholarship_form_no']); ?>" />
-                                                    <span class="text-danger"><?php echo form_error('scholarship_form_no'); ?></span>
-                                                </div>
-                                            </div>
-                                        <?php }?>            
-
-
-
-
 
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('class'); ?></label><small class="req"> *</small>
-                                                <select  id="class_id" name="class_id" class="form-control" >
-                                                    <option value=""><?php echo $this->lang->line('select'); ?></option>
-                                                    <?php
-foreach ($classlist as $class) {
-    ?>
-                                                        <option value="<?php echo $class['id'] ?>" <?php
-if ($student['class_id'] == $class['id']) {
-        echo "selected =selected";
-    }
-    ?>><?php echo $class['class'] ?></option>
-                                                                <?php
-$count++;
-}
-?>
-                                                </select>
-                                                <span class="text-danger"><?php echo form_error('class_id'); ?></span>
+                                                <label for="exampleInputEmail1">Application No.</label> <small class="req"> </small>
+                                                <input autofocus="" id="application_no" name="application_no" placeholder="" type="text" class="form-control"  value="<?php echo set_value('application_no', $student['application_no']); ?>" />
+                                                <span class="text-danger"><?php echo form_error('application_no'); ?></span>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('section'); ?></label><small class="req"> *</small>
-                                                <select  id="section_id" name="section_id" class="form-control" >
-                                                    <option value=""><?php echo $this->lang->line('select'); ?></option>
-                                                </select>
-                                                <span class="text-danger"><?php echo form_error('section_id'); ?></span>
-                                            </div>
-                                        </div>
-                                    </div>
+
+
+
+                                    <!-- student f - m - l - g - mob - e - dob   -->
                                     <div class="row">
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1"><?php echo $this->lang->line('first_name'); ?></label><small class="req"> *</small>
-                                                <input id="firstname" name="firstname" placeholder="" type="text" class="form-control"  value="<?php echo set_value('firstname', $student['firstname']); ?>" />
-                                                <input type="hidden" name="studentid" value="<?php echo $student["id"] ?>">
+                                                <input id="firstname" name="firstname" placeholder="" type="text" class="form-control"  value="<?php echo set_value('firstname' ,$student['firstname']); ?>" />
                                                 <span class="text-danger"><?php echo form_error('firstname'); ?></span>
                                             </div>
                                         </div>
-                                          <?php if ($sch_setting->middlename) {?>
+                                        <?php if ($sch_setting->middlename) {?>
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1"><?php echo $this->lang->line('middle_name'); ?></label>
-                                                    <input id="middlename" name="middlename" placeholder="" type="text" class="form-control"  value="<?php echo set_value('middlename', $student['middlename']); ?>" />
+                                                    <input id="middlename" name="middlename" placeholder="" type="text" class="form-control"  value="<?php echo set_value('middlename' ,$student['middlename']); ?>" />
                                                     <span class="text-danger"><?php echo form_error('middlename'); ?></span>
                                                 </div>
                                             </div>
@@ -230,12 +113,13 @@ $count++;
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1"><?php echo $this->lang->line('last_name'); ?></label>
-                                                    <input id="lastname" name="lastname" placeholder="" type="text" class="form-control"  value="<?php echo set_value('lastname', $student['lastname']); ?>" />
+                                                    <input id="lastname" name="lastname" placeholder="" type="text" class="form-control"  value="<?php echo set_value('lastname' ,$student['lastname']); ?>" />
                                                     <span class="text-danger"><?php echo form_error('lastname'); ?></span>
                                                 </div>
                                             </div>
                                         <?php }?>
-                                        <div class="col-md-3">
+                                   
+                           <div class="col-md-3">
                                             <div class="form-group">
                                                 <label for="exampleInputFile"> <?php echo $this->lang->line('gender'); ?> </label><small class="req"> *</small>
                                                 <select class="form-control" name="gender">
@@ -255,7 +139,30 @@ if ($student['gender'] == $key) {
                                                 <span class="text-danger"><?php echo form_error('gender'); ?></span>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+
+
+
+                                        <?php if ($sch_setting->mobile_no) {?>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('mobile_number'); ?></label><small class="req"> *</small>
+                                                    <input id="mobileno" name="mobileno" placeholder="" type="text" class="form-control"  value="<?php echo set_value('mobileno', $student['mobileno']); ?>" />
+                                                    <span class="text-danger"><?php echo form_error('mobileno'); ?></span>
+                                                </div>
+                                            </div>
+                                        <?php }?>
+
+                                        <?php if ($sch_setting->student_email) {?>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('email'); ?></label>
+                                                    <input id="email" name="email" placeholder="" type="text" class="form-control"  value="<?php echo set_value('email' ,$student['email']); ?>" />
+                                                    <span class="text-danger"><?php echo form_error('email'); ?></span>
+                                                </div>
+                                            </div>
+                                        <?php }?>
+
+                                                       <div class="col-md-3">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1"><?php echo $this->lang->line('date_of_birth'); ?></label><small class="req"> *</small>
                                                 <?php
@@ -270,31 +177,35 @@ if ($student['dob'] != '0000-00-00' && $student['dob'] != '') {
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <?php if ($sch_setting->category) {
-    ?>
+                                <!-- student details end -->
+
+                                <div class="row">
+             
+                                      <?php if ($sch_setting->category) {
+                                             ?>
                                             <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1"><?php echo $this->lang->line('category'); ?></label>
                                                     <select  id="category_id" name="category_id" class="form-control" >
                                                         <option value=""><?php echo $this->lang->line('select'); ?></option>
                                                         <?php
-foreach ($categorylist as $category) {
-        ?>
+                                                            foreach ($categorylist as $category) {
+                                                                    ?>
                                                             <option value="<?php echo $category['id'] ?>" <?php
-if ($student['category_id'] == $category['id']) {
-            echo "selected =selected";
-        }
-        ?>><?php echo $category['category']; ?></option>
-                                                                    <?php
-$count++;
-    }
-    ?>
+                                                            if ($student['category_id'] == $category['id']) {
+                                                                        echo "selected =selected";
+                                                                    }
+                                                            ?>><?php echo $category['category']; ?></option>
+                                                                                                                        <?php
+                                                    $count++;
+                                                        }
+                                                        ?>
                                                     </select>
                                                     <span class="text-danger"><?php echo form_error('category_id'); ?></span>
                                                 </div>
                                             </div>
-                                        <?php }if ($sch_setting->religion) {?>
+                                        <?php } ?> 
+                                        <?php if ($sch_setting->religion) {?>
                                             <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1"><?php echo $this->lang->line('religion'); ?></label>
@@ -302,7 +213,8 @@ $count++;
                                                     <span class="text-danger"><?php echo form_error('religion'); ?></span>
                                                 </div>
                                             </div>
-                                        <?php }if ($sch_setting->cast) {?>
+                                        <?php } ?> 
+                                        <?php if ($sch_setting->cast) {?>
                                             <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1"><?php echo $this->lang->line('caste'); ?></label>
@@ -310,29 +222,11 @@ $count++;
                                                     <span class="text-danger"><?php echo form_error('cast'); ?></span>
                                                 </div>
                                             </div>
-                                        <?php }if ($sch_setting->mobile_no) {?>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('mobile_number'); ?></label><small class="req"> *</small>
-                                                    <input id="mobileno" name="mobileno" placeholder="" type="text" class="form-control"  value="<?php echo set_value('mobileno', $student['mobileno']); ?>" />
-                                                    <span class="text-danger"><?php echo form_error('mobileno'); ?></span>
-                                                </div>
-                                            </div>
-                                        <?php }if ($sch_setting->student_email) {?>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('email'); ?></label>
-                                                    <input id="email" name="email" placeholder="" type="text" class="form-control"  value="<?php echo set_value('email', $student['email']); ?>" />
-                                                    <span class="text-danger"><?php echo form_error('email'); ?></span>
-                                                </div>
-                                            </div>
-                                        <?php }?>
-                                    </div>
-                                    <div class="row">
+                                     
+                                        <?php } ?>
 
 
-
-                                           <div class="col-md-3">
+                                        <div class="col-md-3">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">State</label>
                                                 <select  id="state" name="state" class="form-control">
@@ -373,33 +267,8 @@ $count++;
                                                 <span class="text-danger"><?php echo form_error('city'); ?></span>
                                             </div>
                                         </div>
-                                   
-
-
-                                        <?php if ($sch_setting->admission_date) {
-    $admission_date = "";
-    if ($student['admission_date'] != '0000-00-00' && $student['admission_date'] != '') {
-        $admission_date = date($this->customlib->getSchoolDateFormat(), $this->customlib->dateyyyymmddTodateformat($student['admission_date']));
-    }
-
-    ?>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('admission_date'); ?></label>
-                                                    <input id="admission_date" name="admission_date" placeholder="" type="text" class="form-control datee"  value="<?php echo set_value('admission_date', $admission_date) ?>" readonly="readonly" />
-                                                    <span class="text-danger"><?php echo form_error('admission_date'); ?></span>
-                                                </div>
-                                            </div>
-                                        <?php }if ($sch_setting->student_photo) {?>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="exampleInputFile"><?php echo $this->lang->line('student_photo'); ?></label>
-                                                    <input class="filestyle form-control" type='file' name='file' id="file" size='20' />
-                                                </div>
-                                                <span class="text-danger"><?php echo form_error('file'); ?></span>
-                                            </div>
-                                        <?php }if ($sch_setting->is_blood_group) {
-    ?>
+                                     <?php if ($sch_setting->is_blood_group) {
+                                                 ?>
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1"><?php echo $this->lang->line('blood_group'); ?></label>
@@ -407,39 +276,111 @@ $count++;
                                                     <select class="form-control" rows="3" placeholder="" name="blood_group">
                                                         <option value=""><?php echo $this->lang->line('select') ?></option>
                                                         <?php foreach ($bloodgroup as $bgkey => $bgvalue) {
-        ?>
+                                                              ?>
                                                             <option value="<?php echo $bgvalue ?>" <?php
-if ($bgvalue == $student["blood_group"]) {
-            echo "selected";
-        }
-        ?>><?php echo $bgvalue ?></option>
+                                                    if ($bgvalue == $student["blood_group"]) {
+                                                                echo "selected";
+                                                            }
+                                                            ?>><?php echo $bgvalue ?></option>
 
-    <?php }?>
+                                                        <?php }?>
                                                     </select>
                                                     <span class="text-danger"><?php echo form_error('house'); ?></span>
                                                 </div>
                                             </div>
-<?php }if ($sch_setting->is_student_house) {
-    ?>
-                                            <div class="col-md-3">
+                                        <?php } ?> 
+
+
+                                          <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1"><?php echo $this->lang->line('house') ?></label>
                                                     <select class="form-control" rows="3" placeholder="" name="house">
                                                         <option value=""><?php echo $this->lang->line('select') ?></option>
                                                         <?php foreach ($houses as $hkey => $hvalue) {
-        ?>
+                                                        ?>
                                                             <option value="<?php echo $hvalue["id"] ?>" <?php
-if ($hvalue["id"] == $student["school_house_id"]) {
-            echo "selected";
-        }
-        ?> ><?php echo $hvalue["house_name"] ?></option>
+                                                if ($hvalue["id"] == $student["school_house_id"]) {
+                                                            echo "selected";
+                                                        }
+                                                        ?> ><?php echo $hvalue["house_name"] ?></option>
 
-    <?php }?>
+                                                    <?php }?>
                                                     </select>
                                                     <span class="text-danger"><?php echo form_error('house'); ?></span>
                                                 </div>
                                             </div>
-										<!-- cutom subject for ritik -->
+                                            
+                                    <?php if ($sch_setting->is_student_house) {
+                                            ?>
+                                        <?php if ($sch_setting->student_photo) {?>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="exampleInputFile"><?php echo $this->lang->line('student_photo'); ?></label>
+                                                    <input class="filestyle form-control" type='file' name='file' id="file" size='20' />
+                                                </div>
+                                                <span class="text-danger"><?php echo form_error('file'); ?></span>
+                                            </div>
+                                        <?php } ?>
+                                     <?php } ?>
+
+
+                                </div>
+
+
+    <div class="row">
+                                          <!-- // new field 2-->
+                                        <?php if ($sch_setting->class) {?>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('class_school'); ?></label>
+                                                    <input id="class" name="class" placeholder="" type="text" class="form-control"  value="<?php echo set_value('class' ,$student['class']); ?>" />
+                                                    <span class="text-danger"><?php echo form_error('class'); ?></span>
+                                                </div>
+                                            </div>
+                                        <?php }?>
+                                         <!-- // new field 3-->
+                                        <?php if ($sch_setting->section) {?>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('section_name_school'); ?></label>
+                                                    <input id="section" name="section" placeholder="" type="text" class="form-control"  value="<?php echo set_value('section' ,$student['section']); ?>" />
+                                                    <span class="text-danger"><?php echo form_error('section'); ?></span>
+                                                </div>
+                                            </div>
+                                        <?php }?>
+
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('class'); ?></label><small class="req"> *</small>
+                                                <select  id="class_id" name="class_id" class="form-control" >
+                                                    <option value=""><?php echo $this->lang->line('select'); ?></option>
+                                                    <?php
+                                                    foreach ($classlist as $class) {
+                                                        ?>
+                                                                                                            <option value="<?php echo $class['id'] ?>" <?php
+                                                    if ($student['class_id'] == $class['id']) {
+                                                            echo "selected =selected";
+                                                        }
+                                                        ?>><?php echo $class['class'] ?></option>
+                                                                                                                    <?php
+                                                    $count++;
+                                                    }
+                                                    ?>
+                                                </select>
+                                                <span class="text-danger"><?php echo form_error('class_id'); ?></span>
+                                            </div>
+                                        </div>
+                                        
+                                         <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('section'); ?></label><small class="req"> *</small>
+                                                <select  id="section_id" name="section_id" class="form-control" >
+                                                    <option value=""><?php echo $this->lang->line('select'); ?></option>
+                                                </select>
+                                                <span class="text-danger"><?php echo form_error('section_id'); ?></span>
+                                            </div>
+                                        </div>
+               									<!-- cutom subject for ritik -->
 <div class="col-md-3">
 <div class="form-group">
 <label for="exampleInputEmail1">Subjects Opted</label>
@@ -457,14 +398,89 @@ foreach ($subjectlist as $key => $value) {
 </div>
 </div>
 <!-- cutom subject for ritik -->
-										      <?php } ?>
-											<div class="col-md-3">
+                                    </div>
+
+
+                                      
+          <!-- // new field 4-->
+                                        <?php if ($sch_setting->SSSMID) {?>
+                                            <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputEmail1">Application No.</label> <small class="req"> </small>
-                                                    <input autofocus="" id="application_no" name="application_no" placeholder="" type="text" class="form-control"  value="<?php echo set_value('application_no', $student['application_no']); ?>" />
-                                                    <span class="text-danger"><?php echo form_error('application_no'); ?></span>
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('SSSMID'); ?></label>
+                                                    <input id="SSSMID" name="SSSMID" placeholder="" type="text" class="form-control"  value="<?php echo set_value('SSSMID' ,$student['SSSMID']); ?>" />
+                                                    <span class="text-danger"><?php echo form_error('SSSMID'); ?></span>
                                                 </div>
-                                            </div>					
+                                            </div>
+                                        <?php }?>
+                                            <!-- // new field 5-->
+                                        <?php if ($sch_setting->pen_no) {?>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('pen_no'); ?></label>
+                                                    <input id="pen_no" name="pen_no" placeholder="" type="text" class="form-control"  value="<?php echo set_value('pen_no' ,$student['pen_no']); ?>" />
+                                                    <span class="text-danger"><?php echo form_error('pen_no'); ?></span>
+                                                </div>
+                                            </div>
+                                        <?php }?>
+                                            <!-- // new field 6-->
+                                        <?php if ($sch_setting->apar_id) {?>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('apar_id'); ?></label>
+                                                    <input id="apar_id" name="apar_id" placeholder="" type="text" class="form-control"  value="<?php echo set_value('apar_id' ,$student['apar_id']); ?>" />
+                                                    <span class="text-danger"><?php echo form_error('apar_id'); ?></span>
+                                                </div>
+                                            </div>
+                                        <?php }?>
+                                            <!-- // new field 7-->
+                                        <?php if ($sch_setting->family_mid_no) {?>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('family_mid_no'); ?></label>
+                                                    <input id="family_mid_no" name="family_mid_no" placeholder="" type="text" class="form-control"  value="<?php echo set_value('family_mid_no' ,$student['family_mid_no']); ?>" />
+                                                    <span class="text-danger"><?php echo form_error('family_mid_no'); ?></span>
+                                                </div>
+                                            </div>
+                                        <?php }?>
+                                      
+
+                                  
+                                              <!-- // new field 10-->
+                                        <?php if ($sch_setting->abc_id) {?>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('abc_id'); ?></label>
+                                                    <input id="abc_id" name="abc_id" placeholder="" type="text" class="form-control"  value="<?php echo set_value('abc_id' ,$student['abc_id']); ?>" />
+                                                    <span class="text-danger"><?php echo form_error('abc_id'); ?></span>
+                                                </div>
+                                            </div>
+                                        <?php }?>
+                                              <!-- // new field 11-->
+                                        <?php if ($sch_setting->scholarship_form_no) {?>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('scholarship_form_no'); ?></label>
+                                                    <input id="scholarship_form_no" name="scholarship_form_no" placeholder="" type="text" class="form-control"  value="<?php echo set_value('scholarship_form_no' ,$student['scholarship_form_no']); ?>" />
+                                                    <span class="text-danger"><?php echo form_error('scholarship_form_no'); ?></span>
+                                                </div>
+                                            </div>
+                                        <?php }?>
+
+                                                                         <?php if ($sch_setting->admission_date) {
+    $admission_date = "";
+    if ($student['admission_date'] != '0000-00-00' && $student['admission_date'] != '') {
+        $admission_date = date($this->customlib->getSchoolDateFormat(), $this->customlib->dateyyyymmddTodateformat($student['admission_date']));
+    }
+
+    ?>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('admission_date'); ?></label>
+                                                    <input id="admission_date" name="admission_date" placeholder="" type="text" class="form-control datee"  value="<?php echo set_value('admission_date', $admission_date) ?>" readonly="readonly" />
+                                                    <span class="text-danger"><?php echo form_error('admission_date'); ?></span>
+                                                </div>
+                                            </div>
+                                        <?php } ?> 		
 										
 										
                                         </div>
@@ -498,12 +514,14 @@ foreach ($subjectlist as $key => $value) {
                                                     <span class="text-danger"><?php echo form_error('height'); ?></span>
                                                 </div>
                                             </div>
-<?php }if ($sch_setting->measurement_date) {
-    $measurement_date = "";
-    if ($student['admission_date'] != '0000-00-00' && $student['admission_date'] != '') {
-        $measurement_date = $this->customlib->dateformat($student['measurement_date']);
-    }
-    ?>
+                                    <?php } ?>
+
+                                    <?php if ($sch_setting->measurement_date) {
+                                        $measurement_date = "";
+                                        if ($student['admission_date'] != '0000-00-00' && $student['admission_date'] != '') {
+                                            $measurement_date = $this->customlib->dateformat($student['measurement_date']);
+                                        }
+                                        ?>
                                             <div class="col-md-3 col-xs-12">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1"><?php echo $this->lang->line('measurement_date'); ?></label>
@@ -512,7 +530,9 @@ foreach ($subjectlist as $key => $value) {
                                                     <span class="text-danger"><?php echo form_error('measure_date'); ?></span>
                                                 </div>
                                             </div>
-<?php }?>
+                                    <?php }?>
+
+                                    
                                         <div class="col-md-3 pt25" style="display:none">
                                             <div class="row">
                                                 <div class="col-lg-5 col-md-6 col-sm-3 col-xs-5">
@@ -1100,7 +1120,7 @@ echo set_value('rte', $student['rte']) == "No" ? "checked" : "";
                                                 </div>
                                                 <span class="text-danger"><?php echo form_error('rte'); ?></span>
                                             </div>
-<?php }if ($sch_setting->previous_school_details) {?>
+                                <?php }if ($sch_setting->previous_school_details) {?>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1"><?php echo $this->lang->line('previous_school_details'); ?></label>
@@ -1108,15 +1128,26 @@ echo set_value('rte', $student['rte']) == "No" ? "checked" : "";
                                                     <span class="text-danger"><?php echo form_error('previous_school'); ?></span>
                                                 </div>
                                             </div>
-<?php }if ($sch_setting->student_note) {?>
-                                            <div class="col-md-6">
+                                <?php } ?> 
+                                 <!-- // new field 9-->
+                                        <?php if ($sch_setting->last_class) {?>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('last_class'); ?></label>
+                                                    <input id="last_class" name="last_class" placeholder="" type="text" class="form-control"  value="<?php echo set_value('last_class' ,$student['last_class']); ?>" />
+                                                    <span class="text-danger"><?php echo form_error('last_class'); ?></span>
+                                                </div>
+                                            </div>
+                                        <?php }?>
+                                        <?php if ($sch_setting->student_note) {?>
+                                            <div class="col-md-7">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1"><?php echo $this->lang->line('note'); ?></label>
                                                     <textarea class="form-control" rows="3" placeholder="" name="note"><?php echo set_value('note', $student['note']); ?></textarea>
                                                     <span class="text-danger"><?php echo form_error('previous_school'); ?></span>
                                                 </div>
                                             </div>
-<?php }?>
+                                         <?php }?>
                                     </div>
 									<!-- new code -->
 
