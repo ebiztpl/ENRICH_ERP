@@ -951,6 +951,8 @@ echo $currency_symbol . amountFormat(($total_balance_amount - $alot_fee_discount
     </div>
 </div>
 
+  <!-- collect fees modal -->
+
 <div id="listCollectionModal" class="modal fade">
     <div class="modal-dialog">
         <form action="<?php echo site_url('studentfee/addfeegrp'); ?>" method="POST" id="collect_fee_group">

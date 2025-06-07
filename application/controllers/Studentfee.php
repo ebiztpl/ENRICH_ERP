@@ -25,6 +25,7 @@ class Studentfee extends Admin_Controller
 
     public function index()
     {
+        
         if (!$this->rbac->hasPrivilege('collect_fees', 'can_view')) {
             access_denied();
         }
@@ -1498,6 +1499,8 @@ if(isset($record_array[0]->newamount)){
         $record              = $this->input->post('data');
         $record_array        = json_decode($record);
 
+       
+
 if(isset($record_array[0]->newamount)){
     $newamount = $record_array[0]->newamount;
 }else{
@@ -1506,9 +1509,9 @@ if(isset($record_array[0]->newamount)){
 
 
 if(isset($record_array[0]->newdate)){
-    $newdate = $record_array[0]->newdate;
+    $newdate =  $record_array[0]->newdate;
 }else{
-    $newdate = '';
+    $newdate = date('d/m/Y');
 }
 
         $fees_array = array();

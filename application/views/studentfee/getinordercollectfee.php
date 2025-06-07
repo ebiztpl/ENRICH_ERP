@@ -565,7 +565,7 @@ if($fine_amount_status){
  ?>
  <script>
 $(document).ready(function() {
-    $('.ritik_inorder').val(<?php echo $newamount; ?>);
+    $('.ritik_inorder').val(<?php echo  $total_amount3; ?>);
 });
 
 </script>
