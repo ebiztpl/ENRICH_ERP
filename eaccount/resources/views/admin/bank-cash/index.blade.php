@@ -113,6 +113,7 @@ $trash_show = config('role_manage.BankCash.TrashShow');
                                                 <th>{{ __('root.bank_cash.name') }}</th>
                                                 <th>{{ __('root.bank_cash.account_number') }}</th>
                                                 <th>{{ __('root.bank_cash.description') }}</th>
+                                                <th>{{ __('Payment Mode') }}</th>
                                                 <th>{{ __('root.bank_cash.options') }}</th>
                                             </tr>
                                         </thead>
@@ -129,6 +130,8 @@ $trash_show = config('role_manage.BankCash.TrashShow');
                                                     <td>{{ $item->name }}</td>
                                                     <td>{{ $item->account_number }}</td>
                                                     <td>{{ $item->description }}</td>
+                                                    <td>{{ $item->paymentname ?? 'N/A' }}</td>
+
                                                     <td class="tdTrashAction">
                                                         <a @if ($edit == 0) class="dis-none" @endif
                                                             class="btn btn-xs btn-info waves-effect"
@@ -189,6 +192,7 @@ $trash_show = config('role_manage.BankCash.TrashShow');
                                                     <th>{{ __('root.bank_cash.name') }}</th>
                                                     <th>{{ __('root.bank_cash.account_number') }}</th>
                                                     <th>{{ __('root.bank_cash.description') }}</th>
+                                                    <th>{{ __('Payment Mode') }}</th>
                                                     <th>{{ __('root.bank_cash.options') }}</th>
                                                 </tr>
                                             </thead>

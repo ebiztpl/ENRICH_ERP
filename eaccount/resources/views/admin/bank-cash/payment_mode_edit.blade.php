@@ -4,16 +4,16 @@
 
 <?php
 
-$moduleName = __('root.bank_cash.bank_cash_manage');
-$createItemName = __('root.common.create') . ' ' . $moduleName;
+$moduleName = __('root.payment_mode.payment_mode_message');
+$createItemName = __('root.common.edit') . ' ' . $moduleName;
 
 $breadcrumbMainName = $moduleName;
-$breadcrumbCurrentName = __('root.common.create');
+$breadcrumbCurrentName = __('root.common.edit');
 
 $breadcrumbMainIcon = "fas fa-university";
 $breadcrumbCurrentIcon = "archive";
 
-$ModelName = 'App\BankCash';
+$ModelName = 'App\Payment_Mode';
 $ParentRouteName = 'bank_cash';
 
 ?>
@@ -57,54 +57,44 @@ $ParentRouteName = 'bank_cash';
 
                             <div class="body">
                                 <form class="form" id="form_validation" method="post"
-                                      action="{{ route($ParentRouteName.'.store') }}">
+                                      action="{{ route($ParentRouteName.'.payment_mode.edit.save',$data->id) }}">
 
                                     {{ csrf_field() }}
                                     <div class="row clearfix">
 
-
-                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 field_area">
-                                            <div class="form-group form-float">
-                                                <div class="form-line">
-                                                    <select data-live-search="true" class="form-control show-tick"
-                                                        name="payment_mode">
-													
-                                                        @foreach ($payment_mode as $project)
-                                                            <option 
-                                                                value="{{ $project->id }}">{{ $project->name }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-
-
                                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                             <div class="form-group form-float">
                                                 <div class="form-line">
-                                                    <input autofocus value="{{ old('name')  }}" name="name" type="text"
+                                                    <input autofocus value="{{ old('name',$data->name)}}"   name="name" type="text"
                                                            class="form-control">
                                                     <label class="form-label">Name</label>
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                            <div class="form-group form-float">
-                                                <div class="form-line">
-                                                    <input value="{{ old('account_number') }}" name="account_number" type="text"
-                                                           class="form-control">
-                                                    <label class="form-label">Account Number</label>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    @php
+                                    $type = old('type', $data->status ?? '1'); 
+                                @endphp
+
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    <div class="form-group form-float">
+                                        <span>Type</span> &nbsp;&nbsp;
+
+                                        <input value="1" name="type" type="radio" id="radio_1" class="with-gap radio-col-cyan"
+                                            {{ $type == '1' ? 'checked' : '' }}>
+                                        <label for="radio_1">Active</label>
+
+                                        <input value="0" name="type" type="radio" id="radio_2" class="with-gap radio-col-cyan"
+                                            {{ $type == '0' ? 'checked' : '' }}>
+                                        <label for="radio_2">Inactive</label>
+                                    </div>
+                                </div>
+
 
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group form-float">
                                                 <div class="form-line">
-                                                    <textarea  class="form-control" name="description">{{ old('description')  }}</textarea>
+                                                    <textarea  class="form-control" name="description">{{ old('description',$data->description)  }}</textarea>
                                                     <label class="form-label">Description</label>
                                                 </div>
                                             </div>
@@ -267,7 +257,7 @@ $ParentRouteName = 'bank_cash';
                 var FieldName1 = " Name";
 
                 if (input_values.name == 0) {
-                    toastr["error"]('Bank Cash Name Is Required');
+                    toastr["error"]('Payment Mode Name Is Required');
                     e.preventDefault();
                 }
 

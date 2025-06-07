@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\BankCash;
 use Illuminate\Http\Request;
 use App\Branch;
+use App\Payment_Mode;
 use Barryvdh\DomPDF\Facade as PDF;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class BankCashController extends Controller
@@ -14,6 +17,7 @@ class BankCashController extends Controller
 
     //    Important properties
     public $parentModel = BankCash::class;
+    public $payment_Mode = Payment_Mode::class;
     public $parentRoute = 'bank_cash';
     public $parentView = "admin.bank-cash";
 
@@ -31,17 +35,32 @@ class BankCashController extends Controller
         $data = [];
 if($branch_id == 1){
 
-    $items = $this->parentModel::orderBy('created_at', 'desc')->paginate(60);
+$items = DB::table('bank_cashes')
+    ->select('bank_cashes.*', 'payment_mode.name as paymentname', 'payment_mode.id as payment_id')
+    ->leftJoin('payment_mode', 'bank_cashes.payment_mode_id', '=', 'payment_mode.id')
+    ->orderBy('bank_cashes.created_at', 'desc')
+    ->paginate(60);
+
+
+
+    
     $data['total_trashed_bank_cashes'] = $this->parentModel::onlyTrashed()->count();
 }else{
     $branch_array = \DB::table('bank_cash_branches')->where('branch_id',$branch_id)->pluck('bank_cash')->toArray();
 
-    $items = $this->parentModel::whereIn('id',$branch_array)->orderBy('created_at', 'desc')->paginate(60);
+    $items = DB::table('bank_cashes')
+    ->select('bank_cashes.*', 'payment_mode.name as paymentname', 'payment_mode.id as payment_id')
+    ->leftJoin('payment_mode', 'bank_cashes.payment_mode_id', '=', 'payment_mode.id')
+    ->orderBy('bank_cashes.created_at', 'desc')
+    ->whereIn('bank_cashes.id', $branch_array)
+    ->paginate(60);
+
+    
     $data['total_trashed_bank_cashes'] = $this->parentModel::onlyTrashed()->count();
 
 }
 
-       
+      
 
 
        
@@ -51,8 +70,7 @@ if($branch_id == 1){
         //     $data['total_trashed_bank_cashes'] = $this->parentModel::onlyTrashed()->count();
         //     Cache::put('total_trashed_bank_cashes', $data['total_trashed_bank_cashes']);
         // }
-
-      
+    
         return view($this->parentView . '.index', $data)->with('items', $items);
     }
 
@@ -62,8 +80,12 @@ if($branch_id == 1){
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {  \Artisan::call('cache:clear');
-        return view($this->parentView . '.create');
+    {  
+        \Artisan::call('cache:clear');
+        $payment_mode = array();
+        $payment_mode = $this->payment_Mode::where('status',1)->get();
+     
+        return view($this->parentView . '.create',compact('payment_mode'));
     }
 
     /**
@@ -81,6 +103,7 @@ if($branch_id == 1){
 	 $inserted_id++;
         $this->parentModel::create([
             'name' => $request->name,
+            'payment_mode_id' => $request->payment_mode,
             'account_number' => $request->account_number,
             'description' => $request->description,
             'created_by' => auth()->user()->email,
@@ -125,12 +148,16 @@ if($branch_id == 1){
      */
     public function edit($id)
     {  \Artisan::call('cache:clear');
-        $items = $this->parentModel::find($id);
-        if (empty($items)) {
+        $item = $this->parentModel::find($id);
+
+        $payment_mode = array();
+        $payment_mode = $this->payment_Mode::where('status',1)->get();
+
+        if (empty($item)) {
             Session::flash('error', "Item not found");
             return redirect()->back();
         }
-        return view($this->parentView . '.edit')->with('item', $items);
+        return view($this->parentView . '.edit',compact('payment_mode','item'));
     }
 
     /**
@@ -147,6 +174,7 @@ if($branch_id == 1){
         ]);
         $items = $this->parentModel::find($id);
         $items->name = $request->name;
+        $items->payment_mode_id = $request->payment_mode;
         $items->account_number = $request->account_number;
         $items->description = $request->description;
         $items->updated_by = auth()->user()->email;
@@ -366,7 +394,7 @@ if($branch_id == 1){
     public function linkingsave(Request $request, $id)
     {
         
-  \Artisan::call('cache:clear');
+     \Artisan::call('cache:clear');
 
       $branches = $request->branches; 
        foreach($branches as $branche){
@@ -377,7 +405,7 @@ if($branch_id == 1){
        }
 
 
-      \DB::table('bank_cash_branches')->where('bank_cash',$id)->whereNotIn('branch_id',$branches)->delete();
+      DB::table('bank_cash_branches')->where('bank_cash',$id)->whereNotIn('branch_id',$branches)->delete();
 
 
         Session::flash('success', "Update Successfully");
@@ -385,7 +413,104 @@ if($branch_id == 1){
     }
 
 	
+    public function payment_mode_create()
+    {
+        Artisan::call('cache:clear');
+        return view($this->parentView . '.payment_mode');
+    }
 	
 	
+    public function payment_save(Request $request) {
+       Artisan::call('cache:clear');
+       
+       $request->validate([
+            'name' => 'required|string|unique:bank_cashes',
+        ]);
+        $name  = $request->post('name');
+        $is_active  = $request->post('type');
+        $description  = $request->post('description');
+     
+
+        $this->payment_Mode::create([
+            'name' => $name,
+            'description' => $description,
+            'status' => $is_active ?? '0',
+            'created_at' => now(),  
+            'updated_at' => now(),
+
+        ]);
+      
+        Session::flash('success', "Successfully  Create");
+      
+        return redirect()->back();
+    }
+
+
+    public function payment_mode_edit($id) {
+
+         Artisan::call('cache:clear');
+
+        $data   =   $this->payment_Mode::findOrFail($id);
+        if (empty($data)) {
+            Session::flash('error', "Item not found");
+            return redirect()->back();
+        }
+        return view($this->parentView . '.payment_mode_edit',compact('data'));
+    }
+
+    public function payment_mode_edit_save(Request $request, $id) {
+        Artisan::call('cache:clear');
+        $request->validate([
+            'name' => 'sometimes|string|unique:payment_mode,name,' . $id,
+        ]);
+        $items = $this->payment_Mode::find($id);
+ 
+        if (empty($items)) {
+            Session::flash('error', "Item not found");
+            return redirect()->back();
+        }
+        $items->name = $request->name;
+        $items->description = $request->description;
+        $items->status = $request->type;
+        $items->updated_at = now();
+        $items->save();
+        Session::flash('success', "Update Successfully");
+        return redirect()->route('bank_cash.payment_show');
+    }
+
+     public function payment_show(Request $request)
+    {  Artisan::call('cache:clear');
+     
+        $payment_Mode = $this->payment_Mode::all();
+
+     
+        if (empty($payment_Mode)) {
+            Session::flash('error', "Item not found");
+            return redirect()->back();
+        }
+        return view($this->parentView . '.payment_show',compact('payment_Mode'));
+    }
+
+
+     public function payment_mode_destroy($id)
+    {  
+        
+        \Artisan::call('cache:clear');
+        $items = $this->payment_Mode::find($id);
+        if (empty($items)) {
+            Session::flash('error', "Item not found");
+            return redirect()->back();
+        }
+       
+        try {
+            $items->delete();
+            Session::flash('success', "Successfully Trashed");
+            Cache::forget('total_bank_cashes');
+        } catch (\Exception $e) {
+            Session::flash('error', $e->getMessage());
+        }
+        return redirect()->back();
+    }
+
 
 }

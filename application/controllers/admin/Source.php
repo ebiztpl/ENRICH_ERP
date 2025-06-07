@@ -171,7 +171,7 @@ class Source extends Admin_Controller
 
             // do stuff here
           //  $url =  'https://enrichapp.co.in/eaccount/public/login?gt='.$id.'&br='.$barcnh_i; // this can be set based on whatever
-            $url =  'http://localhost/madhav_collage_erp/eaccount/public/login?gt='.$id.'&br='.$barcnh_i; // this can be set based on whatever
+            $url =  'http://localhost/ENRICH_ERP/eaccount/public/login?gt='.$id.'&br='.$barcnh_i; // this can be set based on whatever
             
             // no redirect
             header( "Location: $url" );
