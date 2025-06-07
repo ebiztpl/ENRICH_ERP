@@ -955,7 +955,7 @@ echo $currency_symbol . amountFormat(($total_balance_amount - $alot_fee_discount
 
 <div id="listCollectionModal" class="modal fade">
     <div class="modal-dialog">
-        <form action="<?php echo site_url('studentfee/addfeegrp'); ?>" method="POST" id="collect_fee_group">
+        <form action="<?php echo site_url('studentfee/addfeegrp'); ?>" method="POST" id="collect_fee_group" enctype="multipart/form-data">
             <div class="modal-content">
         <!-- //================ -->
         <input  type="hidden" class="form-control" id="group_std_id" name="student_session_id" value="<?php echo $student["student_session_id"]; ?>" readonly="readonly"/>
@@ -1644,41 +1644,43 @@ $(document).on('click', '.singlereceipt', function () {
         });
     });
 
-    $("#collect_fee_group").submit(function (e) {
-        var form = $(this);
-        var url = form.attr('action');
-        var smt_btn = $(this).find("button[type=submit]");
-        $.ajax({
-            type: "POST",
-            url: url,
-            dataType: 'JSON',
-            data: form.serialize(), // serializes the form's elements.
-            beforeSend: function () {
-                smt_btn.button('loading');
-            },
-            success: function (response) {
-                if (response.status === 1) {
+$("#collect_fee_group").submit(function (e) {
+    e.preventDefault(); 
 
-                    location.reload(true);
-                } else if (response.status === 0) {
-                    $.each(response.error, function (index, value) {
-                        var errorDiv = '#form_collection_' + index + '_error';
-                        $(errorDiv).empty().append(value);
-                    });
-                }
-            },
-            error: function (xhr) { // if error occured
+    var form = $(this)[0];
+    var url = $(this).attr('action');
+    var smt_btn = $(this).find("button[type=submit]");
 
-                alert("<?php echo $this->lang->line('error_occurred_please_try_again'); ?>");
+    var formData = new FormData(form); 
 
-            },
-            complete: function () {
-                smt_btn.button('reset');
+    $.ajax({
+        type: "POST",
+        url: url,
+        dataType: 'JSON',
+        contentType: false, 
+        processData: false, 
+        data: formData,
+        beforeSend: function () {
+            smt_btn.button('loading');
+        },
+        success: function (response) {
+            if (response.status === 1) {
+                location.reload(true);
+            } else if (response.status === 0) {
+                $.each(response.error, function (index, value) {
+                    var errorDiv = '#form_collection_' + index + '_error';
+                    $(errorDiv).empty().append(value);
+                });
             }
-        });
-
-        e.preventDefault(); // avoid to execute the actual submit of the form.
+        },
+        error: function (xhr) {
+            alert("<?php echo $this->lang->line('error_occurred_please_try_again'); ?>");
+        },
+        complete: function () {
+            smt_btn.button('reset');
+        }
     });
+});
 
 
 $(document).on('change','#select_all',function(){
