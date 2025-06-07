@@ -1710,6 +1710,7 @@ $lang['read_more'] = "Read More";
 $lang['reason'] = "Reason";	
 $lang['recently_added_student'] = "Recently Added Student";	
 $lang['recipient'] = "Recipient";	
+$lang['recipt_number'] = "Recipt Number";	
 $lang['record_already_exist'] = "Record Already Exist";	
 $lang['record_deleted_successfully'] = "Record Deleted Successfully";	
 $lang['record_id'] = "Record ID";	
