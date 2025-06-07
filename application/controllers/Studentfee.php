@@ -745,6 +745,19 @@ if(($dayta > 0) && ($dayta != 0) && ($dayta == $total_amount)){
 
             $collected_by             = $this->customlib->getAdminSessionUserName() . "(" . $staff_record['employee_id'] . ")";
             $student_fees_discount_id = $this->input->post('student_fees_discount_id');
+
+            $recipt_image_path = '';  
+            if (isset($_FILES["recipt_image"]) && !empty($_FILES['recipt_image']['name'])) {
+                $img_name = $this->media_storage->fileupload1("recipt_image", "./uploads/reciptimage/");
+
+                if ($img_name !== null) {
+                     $recipt_image_path = "uploads/reciptimage/" . $img_name;
+                } else {
+                     $recipt_image_path = '';
+                    }
+            } 
+
+        
             $json_array               = array(
                 'amount'          => convertCurrencyFormatToBaseAmount($this->input->post('amount')),
                 'amount_discount' => convertCurrencyFormatToBaseAmount($this->input->post('amount_discount')),
@@ -753,6 +766,8 @@ if(($dayta > 0) && ($dayta != 0) && ($dayta == $total_amount)){
                 'description'     => $this->input->post('description'),
                 'collected_by'    => $collected_by,
                 'payment_mode'    => $this->input->post('payment_mode'),
+                'recipt_number'   => $this->input->post('recipt_number'),
+                'recipt_image_path' => $recipt_image_path,
                 'received_by'     => $staff_record['id'],
             );
 
@@ -1055,7 +1070,8 @@ $vocuher =  $check->invoice_id.'/'.$check->sub_invoice_id;
     }
 
     public function geBalanceFee()
-    {
+    { 
+       
         $this->form_validation->set_rules('fee_groups_feetype_id', $this->lang->line('fee_groups_feetype_id'), 'required|trim|xss_clean');
         $this->form_validation->set_rules('student_fees_master_id', $this->lang->line('student_fees_master_id'), 'required|trim|xss_clean');
         $this->form_validation->set_rules('student_session_id', $this->lang->line('student_session_id'), 'required|trim|xss_clean');

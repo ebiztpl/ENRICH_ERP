@@ -837,6 +837,22 @@ echo $currency_symbol . amountFormat(($total_balance_amount - $alot_fee_discount
                             </div>
                         </div>
                 
+                    <div class="col-lg-12">
+                        <div class="form-group row">
+                            <label for="inputPassword3" class="col-sm-3 control-label"><?php echo $this->lang->line('recipt_number')?></label>
+                            <div class="col-sm-9">
+                            <input type="text" autofocus="" class="form-control" name="recipt_number" id="recipt_number"/>
+                            </div>
+                        </div>    
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="form-group row">
+                        <label for="exampleInputFile" class="col-sm-3 control-label"><?php echo $this->lang->line('recipt_option')?></label>
+                        <div class="col-sm-9">
+                        <input class="filestyle form-control" type='file' name='recipt_image' id="file"/>
+                        </div>
+                    </div>
 
                         <div class="form-group">
                             <label for="inputPassword3" class="col-sm-3 control-label"><?php echo $this->lang->line('note'); ?></label>
@@ -1120,10 +1136,15 @@ echo $currency_symbol . amountFormat(($total_balance_amount - $alot_fee_discount
         var payment_mode = $('input[name="payment_mode_fee"]:checked').val();
         var student_fees_discount_id = $('#discount_group').val();
         var bank_cash_error = $('#bank_cash_error').val();
+        
+        var recipt_number = $('#recipt_number').val();
+        // var recipt_image = $('#recipt_image').val();
+
+
         $.ajax({
             url: '<?php echo site_url("studentfee/addstudentfee") ?>',
             type: 'post',
-            data: {action: action, student_session_id: student_session_id, date: date, type: feetype, amount: amount, amount_discount: amount_discount, amount_fine: amount_fine, description: description, student_fees_master_id: student_fees_master_id, fee_groups_feetype_id: fee_groups_feetype_id,fee_category:fee_category, transport_fees_id:transport_fees_id, payment_mode: payment_mode, guardian_phone: guardian_phone, guardian_email: guardian_email, student_fees_discount_id: student_fees_discount_id, parent_app_key: parent_app_key,bank_cash_error: bank_cash_error},
+            data: {action: action, student_session_id: student_session_id,recipt_number:recipt_number, date: date, type: feetype, amount: amount, amount_discount: amount_discount, amount_fine: amount_fine, description: description, student_fees_master_id: student_fees_master_id, fee_groups_feetype_id: fee_groups_feetype_id,fee_category:fee_category, transport_fees_id:transport_fees_id, payment_mode: payment_mode, guardian_phone: guardian_phone, guardian_email: guardian_email, student_fees_discount_id: student_fees_discount_id, parent_app_key: parent_app_key,bank_cash_error: bank_cash_error},
             dataType: 'json',
             success: function (response) {
                 $this.button('reset');
@@ -1684,8 +1705,7 @@ $("#collect_fee_group").submit(function (e) {
 
 
 $(document).on('change','#select_all',function(){
-  console.log("sdfsfs");
-        $('input:checkbox').not(this).prop('checked', this.checked);
+  $('input:checkbox').not(this).prop('checked', this.checked);
 });
 </script>
 <script>
