@@ -209,7 +209,7 @@ ul.fees-list.fees-list-in-box {
             <div class="form-group row">
                 <label for="inputPassword3" class="col-sm-3 control-label"><?php echo $this->lang->line('recipt_number')?></label>
                 <div class="col-sm-9">
-                <input type="number" autofocus="" class="form-control" name="discount_amount" id="discount_amount" max="<?= $newamount ?>" value="0">
+                <input type="number" autofocus="" class="form-control" name="discount_amount" id="discount_amount"/>
                 </div>
             </div>    
         </div>
