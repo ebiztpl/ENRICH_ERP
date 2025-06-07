@@ -152,7 +152,7 @@ ul.fees-list.fees-list-in-box {
 
         <div class="col-lg-12">
             <div class="form-group row">
-                <label for="inputPassword3" class="col-sm-3 control-label">Bank Cash <small class="req"> *</small></label>
+                <label for="inputPassword3" class="col-sm-3 control-label">Account <small class="req"> *</small></label>
                 <div class="col-sm-9">
                                     <select autofocus="" id="ledger" name="ledger" class="form-control" >
                                                 <option value=""><?php echo $this->lang->line('select'); ?></option>
@@ -205,6 +205,25 @@ ul.fees-list.fees-list-in-box {
             </div>    
         </div>
 
+        <div class="col-lg-12">
+            <div class="form-group row">
+                <label for="inputPassword3" class="col-sm-3 control-label"><?php echo $this->lang->line('recipt_number')?></label>
+                <div class="col-sm-9">
+                <input type="number" autofocus="" class="form-control" name="discount_amount" id="discount_amount" max="<?= $newamount ?>" value="0">
+                </div>
+            </div>    
+        </div>
+
+        <div class="col-lg-12">
+            <div class="form-group row">
+                <label for="inputPassword3" class="col-sm-3 control-label">Discount</label>
+                <div class="col-sm-9">
+                <input type="number" autofocus="" class="form-control" name="discount_amount" id="discount_amount" max="<?= $newamount ?>" value="0">
+                </div>
+            </div>    
+        </div>
+
+        
 
         <span>
     </div>
@@ -565,7 +584,7 @@ if($fine_amount_status){
  ?>
  <script>
 $(document).ready(function() {
-    $('.ritik_inorder').val(<?php echo $newamount; ?>);
+    $('.ritik_inorder').val(<?php echo  $total_amount3; ?>);
 });
 
 </script>

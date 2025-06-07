@@ -134,12 +134,12 @@ if (!empty($student["image"])) {
                                                         <th><?php echo $this->lang->line('category'); ?></th>
                                                         <td>
                                                             <?php
-foreach ($categorylist as $value) {
-    if ($student['category_id'] == $value['id']) {
-        echo $value['category'];
-    }
-}
-?>
+                                                        foreach ($categorylist as $value) {
+                                                            if ($student['category_id'] == $value['id']) {
+                                                                echo $value['category'];
+                                                            }
+                                                        }
+                                                        ?>
                                                         </td>
                                                         <?php if ($sch_setting->rte) {?>
                                                             <th><?php echo $this->lang->line('rte'); ?></th>
@@ -221,15 +221,15 @@ $total_discount_amount = 0;
 $total_balance_amount  = 0;
 $alot_fee_discount     = 0;
 
-foreach ($student_due_fee as $key => $fee) {
+ foreach ($student_due_fee as $key => $fee) {
+  
+   
 
-// echo "<pre>";
-// print_r($fee->fees);die;
 
 
     foreach ($fee->fees as $fee_key => $fee_value) {
 
-
+ 
 
 
         $this->db->select()->from('student_fees_master_head');
@@ -268,17 +268,17 @@ foreach ($student_due_fee as $key => $fee) {
         $total_balance_amount += $feetype_balance;
         ?>
                                             <?php
-if ($feetype_balance > 0 && strtotime($fee_value->due_date) < strtotime(date('Y-m-d'))) {
+                    if ($feetype_balance > 0 && strtotime($fee_value->due_date) < strtotime(date('Y-m-d'))) {
             ?>
                                                 <tr class="danger font12">
                                                     <?php
-} else {
-            ?>
-                                                <tr class="dark-gray">
-                                                    <?php
-}
-        ?>
-                                                <td>
+                                } else {
+                                         ?>
+                                    <tr class="dark-gray">
+                                <?php
+                            }
+                        ?>
+                    <td>
           <input class="checkbox" type="checkbox" name="fee_checkbox" data-fee_master_id="<?php echo $fee_value->id ?>" data-fee_session_group_id="<?php echo $fee_value->fee_session_group_id ?>" data-fee_groups_feetype_id="<?php echo $fee_value->fee_groups_feetype_id ?>" data-fee_category="fees"  data-trans_fee_id="0"> 
                                                 </td>
                                                 <td align="left" class="text-rtl-right">
@@ -951,17 +951,19 @@ echo $currency_symbol . amountFormat(($total_balance_amount - $alot_fee_discount
     </div>
 </div>
 
+  <!-- collect fees modal -->
+
 <div id="listCollectionModal" class="modal fade">
     <div class="modal-dialog">
         <form action="<?php echo site_url('studentfee/addfeegrp'); ?>" method="POST" id="collect_fee_group">
             <div class="modal-content">
-<!-- //================ -->
- <input  type="hidden" class="form-control" id="group_std_id" name="student_session_id" value="<?php echo $student["student_session_id"]; ?>" readonly="readonly"/>
-<input  type="hidden" class="form-control" id="group_parent_app_key" name="parent_app_key" value="<?php echo $student['parent_app_key'] ?>" readonly="readonly"/>
-<input  type="hidden" class="form-control" id="group_guardian_phone" name="guardian_phone" value="<?php echo $student['guardian_phone'] ?>" readonly="readonly"/>
-<input  type="hidden" class="form-control" id="group_guardian_email" name="guardian_email" value="<?php echo $student['guardian_email'] ?>" readonly="readonly"/>
-<!-- //================ -->
-                <div class="modal-header">
+        <!-- //================ -->
+        <input  type="hidden" class="form-control" id="group_std_id" name="student_session_id" value="<?php echo $student["student_session_id"]; ?>" readonly="readonly"/>
+        <input  type="hidden" class="form-control" id="group_parent_app_key" name="parent_app_key" value="<?php echo $student['parent_app_key'] ?>" readonly="readonly"/>
+        <input  type="hidden" class="form-control" id="group_guardian_phone" name="guardian_phone" value="<?php echo $student['guardian_phone'] ?>" readonly="readonly"/>
+        <input  type="hidden" class="form-control" id="group_guardian_email" name="guardian_email" value="<?php echo $student['guardian_email'] ?>" readonly="readonly"/>
+        <!-- //================ -->
+                    <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title"><?php echo $this->lang->line('collect_fees'); ?></h4>
                 </div>

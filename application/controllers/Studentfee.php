@@ -25,6 +25,7 @@ class Studentfee extends Admin_Controller
 
     public function index()
     {
+        
         if (!$this->rbac->hasPrivilege('collect_fees', 'can_view')) {
             access_denied();
         }
@@ -575,9 +576,7 @@ if(($dayta > 0) && ($dayta != 0) && ($dayta == $total_amount)){
         }
 
         $data['feearray'] = $fees_array;
-        $result           = array(
-            'view' => $this->load->view('studentfee/getcollectfee', $data, true),
-        );
+        
 
         $this->output->set_output(json_encode($result));
     }
@@ -1215,7 +1214,10 @@ $vocuher =  $check->invoice_id.'/'.$check->sub_invoice_id;
     }
 
     public function addfeegrp()
-    {
+    {       
+
+      
+        
         $staff_record = $this->staff_model->get($this->customlib->getStaffID());
         $this->form_validation->set_error_delimiters('', '');
         $this->form_validation->set_rules('row_counter[]', $this->lang->line('fees_list'), 'required|trim|xss_clean');
@@ -1267,7 +1269,7 @@ $vocuher =  $check->invoice_id.'/'.$check->sub_invoice_id;
 
             $deposited_fees = $this->studentfeemaster_model->fee_deposit_collections($collected_array);
 
-   //start  discount save
+            //start  discount save
 
 
    if ($deposited_fees && is_array($deposited_fees) && (intval( $this->input->post('discount_amount')) > 0)) {
@@ -1292,7 +1294,7 @@ if ($savedep && is_array($savedep)) {
     $subamt  = 0;
     $vocuher = '';
     foreach ($savedep as $deposited_fees_key => $deposited_fees_value) {
-$vocuher .=  '('.$deposited_fees_value['invoice_id'].'/'.$deposited_fees_value['sub_invoice_id'].') ,';
+    $vocuher .=  '('.$deposited_fees_value['invoice_id'].'/'.$deposited_fees_value['sub_invoice_id'].') ,';
   $subamt +=   convertCurrencyFormatToBaseAmount($deposited_fees_value['amount_s']);
     }
 
@@ -1498,6 +1500,8 @@ if(isset($record_array[0]->newamount)){
         $record              = $this->input->post('data');
         $record_array        = json_decode($record);
 
+       
+
 if(isset($record_array[0]->newamount)){
     $newamount = $record_array[0]->newamount;
 }else{
@@ -1506,9 +1510,9 @@ if(isset($record_array[0]->newamount)){
 
 
 if(isset($record_array[0]->newdate)){
-    $newdate = $record_array[0]->newdate;
+    $newdate =  $record_array[0]->newdate;
 }else{
-    $newdate = '';
+    $newdate = date('d/m/Y');
 }
 
         $fees_array = array();
