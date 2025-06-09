@@ -613,7 +613,37 @@ Route::group(['middleware' => 'auth'], function () {
         'uses' => 'BankCashController@create',
         'as' => 'bank_cash.create'
     ])->middleware('bank_cash.create');
+// payment mode create 	
+    Route::get('/bank-cash/payment_mode', [
+        'uses' => 'BankCashController@payment_mode_create',
+        'as' => 'bank_cash.payment_mode.create'
+    ])->middleware('bank_cash.create');
 	
+    Route::post('/bank-cash/payment_save', [
+        'uses' => 'BankCashController@payment_save',
+        'as' => 'bank_cash.payment_mode.save'
+    ])->middleware('bank_cash.create');
+	
+    Route::get('/bank-cash/payment_edit_view/{id}', [
+        'uses' => 'BankCashController@payment_mode_edit',
+        'as' => 'bank_cash.payment_mode.edit'
+    ])->middleware('bank_cash.create');
+	
+    Route::post('/bank-cash/payment_edit/{id}', [
+        'uses' => 'BankCashController@payment_mode_edit_save',
+        'as' => 'bank_cash.payment_mode.edit.save'
+        ])->middleware('bank_cash.create');
+        
+    Route::get('/bank-cash/payment_show', [
+        'uses' => 'BankCashController@payment_show',
+        'as' => 'bank_cash.payment_show'
+    ])->middleware('bank_cash.create');
+        
+    Route::get('/bank-cash/payment_mode_destroy/{id}', [
+        'uses' => 'BankCashController@payment_mode_destroy',
+        'as' => 'bank_cash.payment_mode.destroy'
+    ])->middleware('bank_cash.create');
+        
 
 	
 	

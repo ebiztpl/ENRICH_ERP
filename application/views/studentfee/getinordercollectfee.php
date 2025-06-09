@@ -220,11 +220,9 @@ ul.fees-list.fees-list-in-box {
               <div class="col-sm-9">
             <input class="filestyle form-control" type='file' name='recipt_image' id="file"/>
             </div>
+         </div>
         </div>
 
-
-        <span>
-    </div>
 <ul class="fees-list fees-list-in-box">
 
 <li class="item">

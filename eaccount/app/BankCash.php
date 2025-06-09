@@ -14,6 +14,7 @@ class BankCash extends Model
     protected $dates = ['deleted_at'];
     protected $fillable = [
         'name',
+        'payment_mode_id',
         'account_number',
         'description',
         'created_by',

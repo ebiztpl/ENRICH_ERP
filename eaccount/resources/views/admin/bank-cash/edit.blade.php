@@ -59,6 +59,32 @@ $ParentRouteName = 'bank_cash';
                                     action="{{ route($ParentRouteName . '.update', ['id' => $item->id]) }}">
                                     {{ csrf_field() }}
                                     <div class="row clearfix">
+
+
+                                       <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 field_area">
+                                            <div class="form-group form-float">
+                                                <div class="form-line">
+                                                    <select data-live-search="true" class="form-control show-tick"
+                                                        name="payment_mode">
+													<option value="">Select Payment Mode </option>
+                                                  @foreach ($payment_mode as $project)
+                                                    <option value="{{ $project->id }}"
+                                                        {{ $item->payment_mode_id === $project->id ? 'selected' : '' }}>
+                                                        {{ $project->name }}
+                                                    </option>
+                                                @endforeach
+
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
+
+
+
                                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                             <div class="form-group form-float">
                                                 <div class="form-line">

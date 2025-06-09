@@ -195,6 +195,34 @@ $branchid =$activ->id; ?>
                             <a @if (config('role_manage.BankCash.All') == 0) class="dis-none" @endif
                                 href="{{ route('bank_cash') }}">{{ __('root.menu.bank_cash_all') }}</a>
                         </li>
+
+                         {{-- Payment Mode Start --}}
+
+
+                         <li  class="" ><!--/active -->
+                            <a class="menu-toggle" class="dis-none" href="javascript:void(0);">
+                                <span>{{ __('root.menu.payment_mode') }}</span>
+                            </a>
+                             {{-- Payment Mode Start --}}
+                            <ul class="ml-menu">
+
+                                {{-- Payment Mode Start --}}
+                                        <li>
+                                            <a 
+                                                href="{{ route('bank_cash.payment_show') }}">{{ __('root.menu.voucher_all') }}</a>
+                                        </li>
+                                        <li >
+                                            <a 
+                                                href="{{ route('bank_cash.payment_mode.create') }}">{{ __('root.menu.voucher_create') }}</a>
+                                        </li>
+                            
+                                {{-- Payment Mode End --}}
+                            </ul>
+                        </li>
+
+                         {{-- Payment Mode End --}}
+
+
                         <li @if (Request::url() === route('bank_cash.create')) class="active" @endif>
                             <a @if (config('role_manage.BankCash.Create') == 0) class="dis-none" @endif
                                 href="{{ route('bank_cash.create') }}">{{ __('root.menu.bank_cash_create') }}</a>
