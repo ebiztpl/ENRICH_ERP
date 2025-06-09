@@ -34,6 +34,40 @@ class Media_storage
         return null;
     }
 
+public function fileupload1($media_name, $upload_path = "")
+{
+    if (
+        isset($_FILES[$media_name]) &&
+        is_uploaded_file($_FILES[$media_name]['tmp_name']) &&
+        $_FILES[$media_name]['error'] === UPLOAD_ERR_OK
+    ) {
+        $name = basename($_FILES[$media_name]['name']);
+        $file_name = time() . "-" . uniqid(rand(), true) . "!" . $name;
+
+        $upload_path = rtrim($upload_path, '/') . '/';
+
+      
+        $destination_dir = FCPATH . $upload_path; 
+        $destination = $destination_dir . $file_name;
+
+        
+        if (!is_dir($destination_dir)) {
+            mkdir($destination_dir, 0777, true);
+        }
+
+        if (move_uploaded_file($_FILES[$media_name]["tmp_name"], $destination)) {
+            return $file_name;
+        } else {
+            error_log("Failed to move file to: $destination");
+        }
+    }
+
+    return null;
+}
+
+
+
+
     public function filedownload($file_name, $download_path = "")
     {
 

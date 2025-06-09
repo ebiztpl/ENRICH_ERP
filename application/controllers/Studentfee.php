@@ -1215,8 +1215,6 @@ $vocuher =  $check->invoice_id.'/'.$check->sub_invoice_id;
 
     public function addfeegrp()
     {       
-
-      
         
         $staff_record = $this->staff_model->get($this->customlib->getStaffID());
         $this->form_validation->set_error_delimiters('', '');
@@ -1246,6 +1244,16 @@ $vocuher =  $check->invoice_id.'/'.$check->sub_invoice_id;
                 $fee_category             = $this->input->post('fee_category_' . $total_row_value);
                 $student_transport_fee_id = $this->input->post('trans_fee_id_' . $total_row_value);
 
+                $recipt_image_path = '';  
+                if (isset($_FILES["recipt_image"]) && !empty($_FILES['recipt_image']['name'])) {
+                    $img_name = $this->media_storage->fileupload1("recipt_image", "./uploads/reciptimage/");
+
+                    if ($img_name !== null) {
+                        $recipt_image_path = "uploads/reciptimage/" . $img_name;
+                    } else {
+                        $recipt_image_path = '';
+                    }
+                }             
                 $json_array = array(
                     'amount'          => $this->input->post('fee_amount_' . $total_row_value),
                     'date'            => date('Y-m-d', $this->customlib->datetostrtotime($this->input->post('collected_date'))),
@@ -1256,6 +1264,8 @@ $vocuher =  $check->invoice_id.'/'.$check->sub_invoice_id;
                     'amount_fine'     => $this->input->post('fee_groups_feetype_fine_amount_' . $total_row_value),
                     'payment_mode'    => $this->input->post('payment_mode_fee'),
                     'received_by'     => $staff_record['id'],
+                    'recipt_number'   => $this->input->post('recipt_number'),
+                    'recipt_image_path' => $recipt_image_path
                 );
 
                 $collected_array[] = array(
@@ -1314,7 +1324,7 @@ if ($savedep && is_array($savedep)) {
         'created_at' =>date('Y-m-d H:i:s'),
       );
 
-// print_r($tobeinserted) ;die;
+   
 
       $this->account->insert('transactions', $tobeinserted);
       $record_id = $this->account->insert_id();

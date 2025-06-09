@@ -209,21 +209,19 @@ ul.fees-list.fees-list-in-box {
             <div class="form-group row">
                 <label for="inputPassword3" class="col-sm-3 control-label"><?php echo $this->lang->line('recipt_number')?></label>
                 <div class="col-sm-9">
-                <input type="number" autofocus="" class="form-control" name="discount_amount" id="discount_amount" max="<?= $newamount ?>" value="0">
+                <input type="text" autofocus="" class="form-control" name="recipt_number" id="recipt_number"/>
                 </div>
             </div>    
         </div>
 
-        <div class="col-lg-12">
+         <div class="col-lg-12">
             <div class="form-group row">
-                <label for="inputPassword3" class="col-sm-3 control-label">Discount</label>
-                <div class="col-sm-9">
-                <input type="number" autofocus="" class="form-control" name="discount_amount" id="discount_amount" max="<?= $newamount ?>" value="0">
-                </div>
-            </div>    
+            <label for="exampleInputFile" class="col-sm-3 control-label"><?php echo $this->lang->line('recipt_option')?></label>
+              <div class="col-sm-9">
+            <input class="filestyle form-control" type='file' name='recipt_image' id="file"/>
+            </div>
         </div>
 
-        
 
         <span>
     </div>
@@ -585,6 +583,7 @@ if($fine_amount_status){
  <script>
 $(document).ready(function() {
     $('.ritik_inorder').val(<?php echo  $total_amount3; ?>);
+     $('.filestyle').dropify();
 });
 
 </script>
