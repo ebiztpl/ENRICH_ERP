@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
+
 if (!defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
@@ -627,11 +629,45 @@ if(($dayta > 0) && ($dayta != 0) && ($dayta == $total_amount)){
                 $data['student_processing_fee'] = true;
             }
         }
+             $this->account->select('*');
+            $this->account->from('payment_mode');
+            $this->account->where('status', '1');
+            $this->account->where('deleted_at IS NULL', null, false);
 
+            $this->account->group_by('name'); 
+            $query = $this->account->get();
+            $data['payment_modes'] = $query->result(); 
         $this->load->view('layout/header', $data);
         $this->load->view('studentfee/studentAddfee', $data);
         $this->load->view('layout/footer', $data);
     }
+
+
+    public function getbankcashbyid(){
+        $bank_cash_id = $this->input->post('bank_cash_id');
+        $this->account->select('*');
+        $this->account->from('bank_cashes');
+        $this->account->where('payment_mode_id', $bank_cash_id);
+        $this->account->where('deleted_at IS NULL', null, false);
+        $bank_cash    = $this->account->get();
+        $bank_cash    = $bank_cash->result();
+
+       
+
+        if (!empty($bank_cash)) {
+            $result = array(
+                'status' => 'success',
+                'data'   => $bank_cash,
+            );
+        } else {
+            $result = array(
+                'status' => 'fail',
+                'data'   => '',
+            );
+        }
+        $this->output->set_output(json_encode($result));    
+    }
+
 
     public function getProcessingfees($id)
     {
@@ -1562,6 +1598,20 @@ if(isset($record_array[0]->newdate)){
 
         $data['bank_cash'] = $this->accountant_model->bank_cash();
 
+            $this->account->select('*');
+            $this->account->from('payment_mode');
+            $this->account->where('status', '1');
+            $this->account->where('deleted_at IS NULL', null, false);
+
+            $this->account->group_by('name'); 
+            $query = $this->account->get();
+            $data['payment_modes'] = $query->result(); 
+
+       
+     
+                                    
+
+        //  print_r($data['payment_modes']);die;                                   
         // echo "<pre>";
         // print_r($fees_array);die;
          $data['newamount'] = $newamount;
@@ -1592,7 +1642,7 @@ if(isset($record_array[0]->newdate)){
          if($query->num_rows() > 0) {
 
             
-     $result .=   "<div class='row'><div class='col-md-6'>";
+            $result .=   "<div class='row'><div class='col-md-6'>";
                  foreach($head_data as $head){
 
                     // $addarray[] = $head->head_id; 

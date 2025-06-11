@@ -14,7 +14,7 @@ class Subject extends Admin_Controller
     }
 
     public function index()
-    {
+    { 
         if (!$this->rbac->hasPrivilege('subject', 'can_view')) {
             access_denied();
         }

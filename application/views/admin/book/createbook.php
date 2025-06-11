@@ -244,7 +244,7 @@ if (set_value('book_language') == $drop->id) {
                             <div class="clearfix"></div>
                             <div class="form-group col-md-3">
                                 <label for="exampleInputEmail1">Publishing Year</label>
-                                <input type="number" min="1900" max="<?= date('Y') ?>" name="publishing_year" step="1" value="<?= date('Y') ?>"   class="form-control"  />
+                                <input type="number" min="1000" max="<?= date('Y') ?>" name="publishing_year" step="1" value="<?= date('Y') ?>"   class="form-control"  />
                                 <span class="text-danger"><?php echo form_error('publishing_year'); ?></span>
                             </div>
                             <div class="form-group col-md-3">

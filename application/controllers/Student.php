@@ -364,7 +364,9 @@ class Student extends Admin_Controller
 
     public function create()
     {
-   
+        
+        
+
         if (!$this->rbac->hasPrivilege('student', 'can_add')) {
             access_denied();
         }
@@ -454,7 +456,7 @@ class Student extends Admin_Controller
                 array('check_student_mobile_exists', array($this->student_model, 'check_student_mobile_no_exists')),
             )
         );
-    $this->form_validation->set_rules(
+        $this->form_validation->set_rules(
             'roll_no', $this->lang->line('roll_number'), array(
                 'xss_clean',
                 array('check_student_roll_exists', array($this->student_model, 'check_student_roll_no_exists')),
@@ -476,7 +478,186 @@ class Student extends Admin_Controller
         if (!$this->sch_setting_detail->adm_auto_insert) {
             $this->form_validation->set_rules('admission_no', $this->lang->line('admission_no'), 'trim|required|xss_clean|is_unique[students.admission_no]');
         }
+         // start here for valiation of new fields
+        if ($this->sch_setting_detail->roll_number_req) {
+            $this->form_validation->set_rules('roll_no', $this->lang->line('roll_no'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->enrollment_no_req) {
+            $this->form_validation->set_rules('enrollment_no', $this->lang->line('enrollment_no'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->application_no_req) {
+            $this->form_validation->set_rules('application_no','Application no', 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->middle_name_req) {
+            $this->form_validation->set_rules('middlename',$this->lang->line('middle_name'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->last_name_req) {
+            $this->form_validation->set_rules('lastname',$this->lang->line('last_name'), 'trim|required|xss_clean');
+        }
 
+        if ($this->sch_setting_detail->mobile_number_req) {
+            $this->form_validation->set_rules('mobileno',$this->lang->line('mobileno'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->email_req) {
+            $this->form_validation->set_rules('email',$this->lang->line('email'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->category_req) {
+            $this->form_validation->set_rules('category_id',$this->lang->line('category'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->religion_req) {
+            $this->form_validation->set_rules('religion',$this->lang->line('religion'), 'trim|required|xss_clean');
+        }
+   
+        if ($this->sch_setting_detail->caste_req) {
+            $this->form_validation->set_rules('cast',$this->lang->line('caste'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->state_req) {
+            $this->form_validation->set_rules('state','State', 'required');
+        }
+        if ($this->sch_setting_detail->city_req) {
+            $this->form_validation->set_rules('city','City', 'required');
+        }
+        if ($this->sch_setting_detail->blood_group_req) {
+            $this->form_validation->set_rules('blood_group',$this->lang->line('blood_group'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->is_student_house_req) {
+            $this->form_validation->set_rules('house',$this->lang->line('house'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->student_photo_req) {
+            $this->form_validation->set_rules('file',$this->lang->line('file'), 'trim|required|xss_clean');
+        }
+       if ($this->sch_setting_detail->subject_option_req) {
+            $this->form_validation->set_rules('subarray[]', 'Subjects Opted', 'required');
+        }
+        if ($this->sch_setting_detail->sssmid_req) {
+            $this->form_validation->set_rules('SSSMID',$this->lang->line('SSSMID'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->pen_number_req) {
+            $this->form_validation->set_rules('pen_no',$this->lang->line('pen_no'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->apar_id_req) {
+            $this->form_validation->set_rules('apar_id',$this->lang->line('apar_id'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->family_mid_number_req) {
+            $this->form_validation->set_rules('family_mid_no',$this->lang->line('family_mid_no'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->abc_id_req) {
+            $this->form_validation->set_rules('abc_id',$this->lang->line('abc_id'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->scholar_ship_form_req) {
+            $this->form_validation->set_rules('scholarship_form_no',$this->lang->line('scholarship_form_no'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->admission_date_req) {
+            $this->form_validation->set_rules('admission_date', 'Admission Date', 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->stuent_height_req) {
+            $this->form_validation->set_rules('height',$this->lang->line('height'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->student_weight_req) {
+            $this->form_validation->set_rules('weight',$this->lang->line('weight'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->measurement_date_req) {
+            $this->form_validation->set_rules('measure_date',$this->lang->line('measurement_date'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->father_name_req) {
+            $this->form_validation->set_rules('father_name',$this->lang->line('father_name'), 'trim|required|xss_clean');
+        }
+   
+        if ($this->sch_setting_detail->father_phone_req) {
+            $this->form_validation->set_rules('father_phone',$this->lang->line('father_phone'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->father_occupation_req) {
+            $this->form_validation->set_rules('father_occupation',$this->lang->line('father_occupation'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->father_photo_req) {
+            $this->form_validation->set_rules('father_pic',$this->lang->line('father_pic'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->father_photo_req) {
+            $this->form_validation->set_rules('father_pic',$this->lang->line('father_pic'), 'callback_handle_upload[father_pic]');
+        }
+        if ($this->sch_setting_detail->mather_name_req) {
+            $this->form_validation->set_rules('mother_name',$this->lang->line('mother_name'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->mather_phone_req) {
+            $this->form_validation->set_rules('mother_phone',$this->lang->line('mother_phone'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->mather_occupation_req) {
+            $this->form_validation->set_rules('mother_occupation',$this->lang->line('mother_occupation'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->mather_photo_req) {
+            $this->form_validation->set_rules('mother_pic',$this->lang->line('mother_pic'), 'callback_handle_upload[mother_pic]');
+        }
+        if ($this->sch_setting_detail->is_guardian_mather_father_req) {
+            $this->form_validation->set_rules('guardian_is',$this->lang->line('if_guardian_is'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->gurdian_name_req) {
+            $this->form_validation->set_rules('guardian_name',$this->lang->line('guardian_name'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->gurdian_religion_req) {
+            $this->form_validation->set_rules('guardian_relation',$this->lang->line('guardian_relation'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->gurdian_phone_req) {
+            $this->form_validation->set_rules('guardian_phone',$this->lang->line('guardian_phone'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->gurdian_occupation_req) {
+            $this->form_validation->set_rules('guardian_occupation',$this->lang->line('guardian_occupation'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->gurdian_email_req) {
+            $this->form_validation->set_rules('guardian_email',$this->lang->line('guardian_email'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->gurdian_photo_req) {
+            $this->form_validation->set_rules('guardian_pic',$this->lang->line('guardian_photo'), 'required|callback_handle_upload[guardian_pic]');
+        }
+        if ($this->sch_setting_detail->gurdian_address_req) {
+            $this->form_validation->set_rules('guardian_address',$this->lang->line('guardian_address'), 'trim|required|xss_clean');
+        }
+   
+        if ($this->sch_setting_detail->gurdian_address_req) {
+            $this->form_validation->set_rules('guardian_address',$this->lang->line('guardian_address'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->guardian_currentaddress_req) {
+            $this->form_validation->set_rules('current_address',$this->lang->line('current_address'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->guardian_permentaddress_req) {
+            $this->form_validation->set_rules('permanent_address',$this->lang->line('permanent_address'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->bank_account_req) {
+            $this->form_validation->set_rules('bank_account_no',$this->lang->line('bank_account_no'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->bank_name_req) {
+            $this->form_validation->set_rules('bank_name',$this->lang->line('bank_name'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->ifsc_code_req) {
+            $this->form_validation->set_rules('ifsc_code',$this->lang->line('ifsc_code'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->aadhaar_identification_req) {
+            $this->form_validation->set_rules('adhar_no',$this->lang->line('national_identification_no_aadhaar_no'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->local_identification_req) {
+            $this->form_validation->set_rules('samagra_id',$this->lang->line('local_identification_number'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->previous_school_req) {
+            $this->form_validation->set_rules('previous_school',$this->lang->line('previous_school_details'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->rte_req) {
+            $this->form_validation->set_rules('rte',$this->lang->line('rte'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->last_class_req) {
+            $this->form_validation->set_rules('last_class',$this->lang->line('last_class'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->note_req) {
+            $this->form_validation->set_rules('note',$this->lang->line('note'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->upload_documents_req) {
+
+            $this->form_validation->set_rules('first_title',$this->lang->line('title'), 'trim|required|xss_clean');
+            $this->form_validation->set_rules('first_doc',$this->lang->line('documents'), 'required');
+
+        }
+   
+       
+
+ // end here for valiation of new fields
         $this->form_validation->set_rules('file', $this->lang->line('image'), 'callback_handle_upload[file]');
 
         $transport_feemaster_id = $this->input->post('transport_feemaster_id');
@@ -493,7 +674,7 @@ class Student extends Admin_Controller
             $this->load->view('student/studentCreate', $data);
             $this->load->view('layout/footer', $data);
         } else {
-              
+          
             $custom_field_post  = $this->input->post("custom_fields[students]");
             $custom_value_array = array();
             if (!empty($custom_field_post)) {
@@ -533,6 +714,7 @@ class Student extends Admin_Controller
 				'application_no'    => $this->input->post('application_no'),
                 'rte'               => $this->input->post('rte'),
                 'state'             => $this->input->post('state'),
+                'previous_school_medium' => $this->input->post('previous_school_medium'),
                 'city'              => $this->input->post('city'),
                 'pincode'           => $this->input->post('pincode'),
                 'cast'              => $this->input->post('cast'),
@@ -756,9 +938,7 @@ class Student extends Admin_Controller
                     $this->studentfeemaster_model->assign_bulk_fees($fee_session_group_id, $student_session_id, array());
                 }
 
-				
-				
-				          $subarray = $this->input->post('subarray');
+				$subarray = $this->input->post('subarray');
                 if (!empty($subarray)) {
                     $subarray_data_insert = array();
                     foreach ($subarray as $key => $subject) {
@@ -1421,10 +1601,10 @@ class Student extends Admin_Controller
                 $this->form_validation->set_rules("custom_fields[students][" . $custom_fields_id . "]", $custom_fields_name, 'trim|required');
             }
         }
-    //  lastname validation 
-	//  if ($data['sch_setting']->lastname) {
-	// 		  $this->form_validation->set_rules('lastname', $this->lang->line('last_name'), 'trim|required|xss_clean');
-	// 	 }
+        //  lastname validation 
+        //  if ($data['sch_setting']->lastname) {
+        // 		  $this->form_validation->set_rules('lastname', $this->lang->line('last_name'), 'trim|required|xss_clean');
+        // 	 }
         $this->form_validation->set_rules('firstname', $this->lang->line('first_name'), 'trim|required|xss_clean');
         $this->form_validation->set_rules('dob', $this->lang->line('date_of_birth'), 'trim|required|xss_clean');
         $this->form_validation->set_rules('class_id', $this->lang->line('class'), 'trim|required|xss_clean');
@@ -1461,6 +1641,186 @@ class Student extends Admin_Controller
             )
         );
 
+
+        if (!$this->sch_setting_detail->adm_auto_insert) {
+            $this->form_validation->set_rules('admission_no', $this->lang->line('admission_no'), 'trim|required|xss_clean|is_unique[students.admission_no]');
+        }
+         // start here for valiation of new fields
+        if ($this->sch_setting_detail->roll_number_req) {
+            $this->form_validation->set_rules('roll_no', $this->lang->line('roll_no'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->enrollment_no_req) {
+            $this->form_validation->set_rules('enrollment_no', $this->lang->line('enrollment_no'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->application_no_req) {
+            $this->form_validation->set_rules('application_no','Application no', 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->middle_name_req) {
+            $this->form_validation->set_rules('middlename',$this->lang->line('middle_name'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->last_name_req) {
+            $this->form_validation->set_rules('lastname',$this->lang->line('last_name'), 'trim|required|xss_clean');
+        }
+
+        if ($this->sch_setting_detail->mobile_number_req) {
+            $this->form_validation->set_rules('mobileno',$this->lang->line('mobileno'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->email_req) {
+            $this->form_validation->set_rules('email',$this->lang->line('email'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->category_req) {
+            $this->form_validation->set_rules('category_id',$this->lang->line('category'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->religion_req) {
+            $this->form_validation->set_rules('religion',$this->lang->line('religion'), 'trim|required|xss_clean');
+        }
+   
+        if ($this->sch_setting_detail->caste_req) {
+            $this->form_validation->set_rules('cast',$this->lang->line('caste'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->state_req) {
+            $this->form_validation->set_rules('state','State', 'required');
+        }
+        if ($this->sch_setting_detail->city_req) {
+            $this->form_validation->set_rules('city','City', 'required');
+        }
+        if ($this->sch_setting_detail->blood_group_req) {
+            $this->form_validation->set_rules('blood_group',$this->lang->line('blood_group'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->is_student_house_req) {
+            $this->form_validation->set_rules('house',$this->lang->line('house'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->student_photo_req) {
+            $this->form_validation->set_rules('file',$this->lang->line('file'), 'trim|required|xss_clean');
+        }
+       if ($this->sch_setting_detail->subject_option_req) {
+            $this->form_validation->set_rules('subarray[]', 'Subjects Opted', 'required');
+        }
+        if ($this->sch_setting_detail->sssmid_req) {
+            $this->form_validation->set_rules('SSSMID',$this->lang->line('SSSMID'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->pen_number_req) {
+            $this->form_validation->set_rules('pen_no',$this->lang->line('pen_no'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->apar_id_req) {
+            $this->form_validation->set_rules('apar_id',$this->lang->line('apar_id'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->family_mid_number_req) {
+            $this->form_validation->set_rules('family_mid_no',$this->lang->line('family_mid_no'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->abc_id_req) {
+            $this->form_validation->set_rules('abc_id',$this->lang->line('abc_id'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->scholar_ship_form_req) {
+            $this->form_validation->set_rules('scholarship_form_no',$this->lang->line('scholarship_form_no'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->admission_date_req) {
+            $this->form_validation->set_rules('admission_date', 'Admission Date', 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->stuent_height_req) {
+            $this->form_validation->set_rules('height',$this->lang->line('height'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->student_weight_req) {
+            $this->form_validation->set_rules('weight',$this->lang->line('weight'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->measurement_date_req) {
+            $this->form_validation->set_rules('measure_date',$this->lang->line('measurement_date'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->father_name_req) {
+            $this->form_validation->set_rules('father_name',$this->lang->line('father_name'), 'trim|required|xss_clean');
+        }
+   
+        if ($this->sch_setting_detail->father_phone_req) {
+            $this->form_validation->set_rules('father_phone',$this->lang->line('father_phone'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->father_occupation_req) {
+            $this->form_validation->set_rules('father_occupation',$this->lang->line('father_occupation'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->father_photo_req) {
+            $this->form_validation->set_rules('father_pic',$this->lang->line('father_pic'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->father_photo_req) {
+            $this->form_validation->set_rules('father_pic',$this->lang->line('father_pic'), 'callback_handle_upload[father_pic]');
+        }
+        if ($this->sch_setting_detail->mather_name_req) {
+            $this->form_validation->set_rules('mother_name',$this->lang->line('mother_name'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->mather_phone_req) {
+            $this->form_validation->set_rules('mother_phone',$this->lang->line('mother_phone'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->mather_occupation_req) {
+            $this->form_validation->set_rules('mother_occupation',$this->lang->line('mother_occupation'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->mather_photo_req) {
+            $this->form_validation->set_rules('mother_pic',$this->lang->line('mother_pic'), 'callback_handle_upload[mother_pic]');
+        }
+        if ($this->sch_setting_detail->is_guardian_mather_father_req) {
+            $this->form_validation->set_rules('guardian_is',$this->lang->line('if_guardian_is'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->gurdian_name_req) {
+            $this->form_validation->set_rules('guardian_name',$this->lang->line('guardian_name'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->gurdian_religion_req) {
+            $this->form_validation->set_rules('guardian_relation',$this->lang->line('guardian_relation'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->gurdian_phone_req) {
+            $this->form_validation->set_rules('guardian_phone',$this->lang->line('guardian_phone'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->gurdian_occupation_req) {
+            $this->form_validation->set_rules('guardian_occupation',$this->lang->line('guardian_occupation'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->gurdian_email_req) {
+            $this->form_validation->set_rules('guardian_email',$this->lang->line('guardian_email'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->gurdian_photo_req) {
+            $this->form_validation->set_rules('guardian_pic',$this->lang->line('guardian_photo'), 'required|callback_handle_upload[guardian_pic]');
+        }
+        if ($this->sch_setting_detail->gurdian_address_req) {
+            $this->form_validation->set_rules('guardian_address',$this->lang->line('guardian_address'), 'trim|required|xss_clean');
+        }
+   
+        if ($this->sch_setting_detail->gurdian_address_req) {
+            $this->form_validation->set_rules('guardian_address',$this->lang->line('guardian_address'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->guardian_currentaddress_req) {
+            $this->form_validation->set_rules('current_address',$this->lang->line('current_address'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->guardian_permentaddress_req) {
+            $this->form_validation->set_rules('permanent_address',$this->lang->line('permanent_address'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->bank_account_req) {
+            $this->form_validation->set_rules('bank_account_no',$this->lang->line('bank_account_no'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->bank_name_req) {
+            $this->form_validation->set_rules('bank_name',$this->lang->line('bank_name'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->ifsc_code_req) {
+            $this->form_validation->set_rules('ifsc_code',$this->lang->line('ifsc_code'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->aadhaar_identification_req) {
+            $this->form_validation->set_rules('adhar_no',$this->lang->line('national_identification_no_aadhaar_no'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->local_identification_req) {
+            $this->form_validation->set_rules('samagra_id',$this->lang->line('local_identification_number'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->previous_school_req) {
+            $this->form_validation->set_rules('previous_school',$this->lang->line('previous_school_details'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->rte_req) {
+            $this->form_validation->set_rules('rte',$this->lang->line('rte'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->last_class_req) {
+            $this->form_validation->set_rules('last_class',$this->lang->line('last_class'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->note_req) {
+            $this->form_validation->set_rules('note',$this->lang->line('note'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->upload_documents_req) {
+
+            $this->form_validation->set_rules('first_title',$this->lang->line('title'), 'trim|required|xss_clean');
+            $this->form_validation->set_rules('first_doc',$this->lang->line('documents'), 'required');
+
+        }
 		
 		
 		
@@ -1535,6 +1895,7 @@ class Student extends Admin_Controller
                 'firstname'         => $this->input->post('firstname'),
 				'application_no'         => $this->input->post('application_no'),
                 'rte'               => $this->input->post('rte'),
+                'previous_school_medium' => $this->input->post('previous_school_medium'),
                 'state'             => $this->input->post('state'),
                 'city'              => $this->input->post('city'),
                 'pincode'           => $this->input->post('pincode'),

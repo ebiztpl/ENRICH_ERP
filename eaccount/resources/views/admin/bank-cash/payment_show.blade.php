@@ -99,7 +99,7 @@ $ParentRouteName = 'bank_cash';
                                                             <a class="btn btn-xs btn-info waves-effect" href="{{ route('bank_cash.payment_mode.edit',$value->id) }}" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="material-icons">mode_edit</i></a>
                                                             
                             <a class="btn btn-xs btn-danger waves-effect"
-                            href=""
+                            href="{{  route('bank_cash.payment_mode.destroy',$value->id) }}"
                             onclick="return confirm('Are you sure you want to delete this item?')"
                             data-toggle="tooltip" title="Delete">
                             <i class="material-icons">delete</i>
