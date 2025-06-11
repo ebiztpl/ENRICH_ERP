@@ -128,21 +128,16 @@ ul.fees-list.fees-list-in-box {
           <div class="form-group row">  
             <label for="inputPassword3" class="col-sm-3 control-label"> <?php echo $this->lang->line('payment_mode'); ?></label>
             <div class="col-sm-9">
+            
+              <?php foreach($payment_modes as $key => $row): ?>
                 <label class="radio-inline">
-                    <input type="radio" name="payment_mode_fee" value="Cash" checked="checked"> <?php echo $this->lang->line('cash'); ?></label>
-                <label class="radio-inline">
-                    <input type="radio" name="payment_mode_fee" value="Cheque"> <?php echo $this->lang->line('cheque'); ?></label>
-                <label class="radio-inline">
-                    <input type="radio" name="payment_mode_fee" value="DD"><?php echo $this->lang->line('dd'); ?></label>
-                <label class="radio-inline">
-                    <input type="radio" name="payment_mode_fee" value="bank_transfer"><?php echo $this->lang->line('bank_transfer'); ?>
+                    <input type="radio" class="payment_mode_fee" name="payment_mode_fee" value="<?php echo $row->id; ?>" >
+                    <?php echo $row->name; ?>
                 </label>
-                <label class="radio-inline">
-                    <input type="radio" name="payment_mode_fee" value="upi"><?php echo $this->lang->line('upi'); ?>
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" name="payment_mode_fee" value="card"><?php echo $this->lang->line('card'); ?>
-                </label>
+            <?php endforeach; ?>
+
+
+
                 <span class="text-danger" id="payment_mode_error"></span>
             </div>
             <span id="form_collection_payment_mode_fee_error" class="text text-danger"></span>
@@ -155,19 +150,9 @@ ul.fees-list.fees-list-in-box {
                 <label for="inputPassword3" class="col-sm-3 control-label">Account <small class="req"> *</small></label>
                 <div class="col-sm-9">
                                     <select autofocus="" id="ledger" name="ledger" class="form-control" >
-                                                <option value=""><?php echo $this->lang->line('select'); ?></option>
-                                                <?php
-                                                $count = 1;
-                                                    foreach ($bank_cash as $bank) { ?>
-                                                    <option value="<?php echo $bank['id'] ?>" <?php
-                                                    if (set_value('ledger') == $bank['id']) {
-                                                                echo "selected =selected";
-                                                    } ?>><?php echo $bank['name'] ?></option>
-                                                <?php
-                                                    $count++;
-                                                    }
-                                                ?>
-                                            </select>
+                                              
+                                           
+                                    </select>
                                     <span class="text-danger " id="ledger_error"></span>
                                 </div>
                                 </div>    
@@ -583,6 +568,45 @@ $(document).ready(function() {
     $('.ritik_inorder').val(<?php echo  $total_amount3; ?>);
      $('.filestyle').dropify();
 });
+
+
+$('.payment_mode_fee').change(function(){
+ let id = $('.payment_mode_fee:checked').val(); 
+    
+    if (!id) {
+        alert("Please select a payment mode");
+        return false;
+    }  else {
+
+        $('#ledger').empty(); // clear old options
+        $.ajax({
+            type: "POST",
+            url: base_url + "studentfee/getbankcashbyid",
+            data: { 'bank_cash_id': id },
+            dataType: "json",
+            success: function (data) {
+
+                if(data.status == "fail"){
+                    $('#ledger').append("<option value=''>No Account Found</option>");
+                    return false;
+                } else {
+                let div_data = "<option value=''>Select Account</option>";
+                $.each(data.data, function (i, obj) {
+                    div_data += "<option value='" + obj.id + "'>" + obj.name + "</option>";
+                });
+                $('#ledger').append(div_data);
+                }
+
+               
+            }
+        });
+
+    }
+
+});
+
+
+
 
 </script>
 

@@ -674,6 +674,10 @@ $branchid =$activ->id; ?>
                             <a
                                 href="{{ route('bill_recieved') }}">Bill Received Create</a>
                         </li>
+                           <li>
+                            <a
+                                href="{{ route('direct_bill') }}">Direct Bill Received</a>
+                        </li>
                         <li>
                             <a
                                 href="{{ route('bill_recieved_list') }}">Bill Received List</a>

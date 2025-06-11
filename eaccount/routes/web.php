@@ -613,6 +613,7 @@ Route::group(['middleware' => 'auth'], function () {
         'uses' => 'BankCashController@create',
         'as' => 'bank_cash.create'
     ])->middleware('bank_cash.create');
+	
 // payment mode create 	
     Route::get('/bank-cash/payment_mode', [
         'uses' => 'BankCashController@payment_mode_create',
@@ -628,13 +629,14 @@ Route::group(['middleware' => 'auth'], function () {
         'uses' => 'BankCashController@payment_mode_edit',
         'as' => 'bank_cash.payment_mode.edit'
     ])->middleware('bank_cash.create');
-	
+
     Route::post('/bank-cash/payment_edit/{id}', [
         'uses' => 'BankCashController@payment_mode_edit_save',
         'as' => 'bank_cash.payment_mode.edit.save'
         ])->middleware('bank_cash.create');
         
-    Route::get('/bank-cash/payment_show', [
+  
+        Route::get('/bank-cash/payment_show', [
         'uses' => 'BankCashController@payment_show',
         'as' => 'bank_cash.payment_show'
     ])->middleware('bank_cash.create');
@@ -643,10 +645,8 @@ Route::group(['middleware' => 'auth'], function () {
         'uses' => 'BankCashController@payment_mode_destroy',
         'as' => 'bank_cash.payment_mode.destroy'
     ])->middleware('bank_cash.create');
-        
-
-	
-	
+     
+    // payment mode create end
 	
 
     Route::post('/bank-cash/store', [
@@ -1441,6 +1441,18 @@ Route::group(['middleware' => 'auth'], function () {
         'uses' => 'LanguageController@index',
         'as' => 'language'
     ])->middleware('language.module_show');
+
+
+        // direct bill recive
+    Route::get('/direct-bill-recieved', [
+        'uses' => 'LanguageController@direct_bill_recieved',
+        'as' => 'direct_bill'
+    ])->middleware('language.module_show');
+    // direct bill recive
+    Route::post('/bill_recieved/direct_bill_recievedstore', [
+        'uses' => 'LanguageController@direct_bill_recievedstore',
+        'as' => 'bill_recieved.direct_bill_recievedstore'
+    ])->middleware('language.create');
 
     Route::get('/language/show/{id}', [
         'uses' => 'LanguageController@show',

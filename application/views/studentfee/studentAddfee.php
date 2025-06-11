@@ -789,24 +789,12 @@ echo $currency_symbol . amountFormat(($total_balance_amount - $alot_fee_discount
                         <div class="form-group">
                             <label for="inputPassword3" class="col-sm-3 control-label"><?php echo $this->lang->line('payment_mode'); ?></label>
                             <div class="col-sm-9">
+                            <?php foreach($payment_modes as $key => $row): ?>
                                 <label class="radio-inline">
-                                    <input type="radio" name="payment_mode_fee" value="Cash" checked="checked"><?php echo $this->lang->line('cash'); ?>
+                                    <input type="radio" class="payment_mode_fee" name="payment_mode_fee" value="<?php echo $row->id; ?>" >
+                                    <?php echo $row->name; ?>
                                 </label>
-                                <label class="radio-inline">
-                                    <input type="radio" name="payment_mode_fee" value="Cheque"><?php echo $this->lang->line('cheque'); ?>
-                                </label>
-                                <label class="radio-inline">
-                                    <input type="radio" name="payment_mode_fee" value="DD"><?php echo $this->lang->line('dd'); ?>
-                                </label>
-                                <label class="radio-inline">
-                                    <input type="radio" name="payment_mode_fee" value="bank_transfer"><?php echo $this->lang->line('bank_transfer'); ?>
-                                </label>
-                                <label class="radio-inline">
-                                    <input type="radio" name="payment_mode_fee" value="upi"><?php echo $this->lang->line('upi'); ?>
-                                </label>
-                                <label class="radio-inline">
-                                    <input type="radio" name="payment_mode_fee" value="card"><?php echo $this->lang->line('card'); ?>
-                                </label>
+                            <?php endforeach; ?>
                                 <span class="text-danger" id="payment_mode_error"></span>
                             </div>
                         </div>
@@ -816,17 +804,7 @@ echo $currency_symbol . amountFormat(($total_balance_amount - $alot_fee_discount
                             <div class="col-sm-9">
                                  <select autofocus="" id="bank_cash_error" name="bank_cash_error" class="form-control" >
                                                 <option value=""><?php echo $this->lang->line('select'); ?></option>
-                                                <?php
-                                                $count = 1;
-                                                    foreach ($bank_cash as $bank) { ?>
-                                                    <option value="<?php echo $bank['id'] ?>" <?php
-                                                    if (set_value('ledger') == $bank['id']) {
-                                                                echo "selected =selected";
-                                                    } ?>><?php echo $bank['name'] ?></option>
-                                                <?php
-                                                    $count++;
-                                                    }
-                                                ?>
+                                                
                                             </select>  
                                  <span class="text-danger" id="bank_cash_errorr_error"></span>
                             </div>
@@ -1959,6 +1937,44 @@ $.ajax({
             });
 
 });
+
+
+$('.payment_mode_fee').change(function(){
+ let id = $('.payment_mode_fee:checked').val(); 
+    
+    if (!id) {
+        alert("Please select a payment mode");
+        return false;
+    }  else {
+
+        $('#bank_cash_error').empty(); 
+        $.ajax({
+            type: "POST",
+            url: base_url + "studentfee/getbankcashbyid",
+            data: { 'bank_cash_id': id },
+            dataType: "json",
+            success: function (data) {
+
+                if(data.status == "fail"){
+                    $('#bank_cash_error').append("<option value=''>No Account Found</option>");
+                    return false;
+                } else {
+                let div_data = "<option value=''>Select Account</option>";
+                $.each(data.data, function (i, obj) {
+                    div_data += "<option value='" + obj.id + "'>" + obj.name + "</option>";
+                });
+                $('#bank_cash_error').append(div_data);
+                }
+
+               
+            }
+        });
+
+    }
+
+});
+
+
 </script>
 
 

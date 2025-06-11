@@ -68,7 +68,8 @@ $ParentRouteName = 'bank_cash';
                                                 <div class="form-line">
                                                     <select data-live-search="true" class="form-control show-tick"
                                                         name="payment_mode">
-													
+													<option 
+                                                                value="">Select Payment Moe</option>
                                                         @foreach ($payment_mode as $project)
                                                             <option 
                                                                 value="{{ $project->id }}">{{ $project->name }}</option>

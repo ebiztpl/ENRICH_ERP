@@ -67,7 +67,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                             </div>
                                         <?php }?>
 
-
+ <div class="row">
                                         <?php if (!$adm_auto_insert) {?>
                                             <div class="col-md-3">
                                                 <div class="form-group">
@@ -77,6 +77,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                                 </div>
                                             </div>
                                         <?php }?>
+
                                         <?php if ($sch_setting->roll_no) {?>
                                             <div class="col-md-3">
                                                 <div class="form-group">
@@ -86,6 +87,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                                 </div>
                                             </div>
                                         <?php }?>
+
                                         <!-- // new field 1-->
                                         <?php if ($sch_setting->enrollment_no) {?>
                                             <div class="col-md-3">
@@ -97,7 +99,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                             </div>
                                         <?php }?>
 
-
+ <?php if ($sch_setting->application_no) {?>
                                         <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">Application No.</label> <small class="req"> </small>
@@ -105,8 +107,8 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                                     <span class="text-danger"><?php echo form_error('application_no'); ?></span>
                                                 </div>
                                         </div>	
-
-                                 <!-- student f - m - l - g - mob - e - dob   -->
+   <?php }?>
+        </div>                         <!-- student f - m - l - g - mob - e - dob   -->
                                     <div class="row">
                                         <div class="col-md-3">
                                             <div class="form-group">
@@ -222,7 +224,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                         </div>
                                         <?php } ?> 
 
-
+  <?php if ($sch_setting->state) {?>
                                         <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">State</label>
@@ -243,8 +245,8 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                                     <span class="text-danger"><?php echo form_error('state'); ?></span>
                                                 </div>
                                         </div>
-
-
+<?php } ?> 
+<?php if ($sch_setting->city) {?>
                                         <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">City</label>
@@ -264,6 +266,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                                     <span class="text-danger"><?php echo form_error('city'); ?></span>
                                                 </div>
                                         </div>
+                                        <?php } ?> 
                                     </div>
                                     <div class="row">
                                         <?php 
@@ -328,30 +331,11 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                     </div>
 
                                     <div class="row">
-                                          <!-- // new field 2-->
-                                        <?php if ($sch_setting->class) {?>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('class_school'); ?></label>
-                                                    <input id="class" name="class" placeholder="" type="text" class="form-control"  value="<?php echo set_value('class'); ?>" />
-                                                    <span class="text-danger"><?php echo form_error('class'); ?></span>
-                                                </div>
-                                            </div>
-                                        <?php }?>
-                                         <!-- // new field 3-->
-                                        <?php if ($sch_setting->section) {?>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('section_name_school'); ?></label>
-                                                    <input id="section" name="section" placeholder="" type="text" class="form-control"  value="<?php echo set_value('section'); ?>" />
-                                                    <span class="text-danger"><?php echo form_error('section'); ?></span>
-                                                </div>
-                                            </div>
-                                        <?php }?>
+                                       
 
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('class'); ?></label><small class="req"> * </small>
+                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('class').' /'.$this->lang->line('class_school') ?></label><small class="req"> * </small>
                                                 <select  id="class_id" name="class_id" class="form-control"  >
                                                      <option value=""><?php echo $this->lang->line('select'); ?></option>
                                                     <?php
@@ -371,7 +355,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('section'); ?></label><small class="req"> *</small>
+                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('section').' /'.$this->lang->line('section_name_school') ?></label><small class="req"> *</small>
                                                 <select  id="section_id" name="section_id" class="form-control" >
                                                     <option value=""><?php echo $this->lang->line('select'); ?></option>
                                                 </select>
@@ -379,7 +363,8 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                             </div>
                                         </div>
                                         <!-- cutom subject for ritik -->
-                                                <div class="col-md-3">
+                                         <?php if ($sch_setting->subject_option) {?> 
+                                        <div class="col-md-3">
                                                     <div class="form-group">
                                                     <label for="exampleInputEmail1">Subjects Opted</label>
 
@@ -394,7 +379,8 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                                     </select>
                                                     <span class="text-danger"><?php echo form_error('subarray[]'); ?></span>
                                                     </div>
-                                                </div>
+                                        </div>
+                                           <?php }?>
                                         <!-- cutom subject for ritik -->
                                     </div>
                                             <!-- // new field 4-->
@@ -503,7 +489,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                                 </div>
                                             </div>
 <?php }?>
-                                        <div class="col-md-3" style="display:none;">
+                                        <div class="col-md-3" >
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1"><?php echo $this->lang->line('fees_discount'); ?></label>
                                                 <input id="fees_discount" name="fees_discount" placeholder="" type="text" class="form-control"  value="<?php echo set_value('fees_discount', 0); ?>"  />
@@ -511,7 +497,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                             </div>
                                         </div>
 
-                                        <div class="col-md-3 pt25" style="display:none">
+                                        <div class="col-md-3 pt25">
                                             <div class="row">
                                                 <div class="col-md-5">
                                                     <button type="button" class="btn btn-sm mysiblings anchorbtn "><i class="fa fa-plus"></i> <?php echo $this->lang->line('add_sibling'); ?></button>
@@ -1055,6 +1041,31 @@ if ($sch_setting->guardian_phone) {
                                                     <span class="text-danger"><?php echo form_error('last_class'); ?></span>
                                                 </div>
                                             </div>
+                                        <?php }?>
+                                        <?php if ($sch_setting->previous_medium) {?>
+
+                                            <div class="col-md-2">
+                                               
+                                           
+                                                    <label>Previous School Medium</label><br>
+
+                                                    <div class="form-check ">
+                                                        <input class="form-check-input" type="radio" name="previous_school_medium" id="previous_hindi_medium" value="Hindi" 
+                                                            <?php echo set_radio('previous_medium_english', 'Hindi', true); ?>>
+                                                        <label class="form-check-label" for="previous_hindi_medium"><?php echo $this->lang->line('hindi_medium'); ?></label>
+                                                    </div>
+
+                                                    <div class="form-check ">
+                                                        <input class="form-check-input" type="radio" name="previous_school_medium" id="previous_medium_english" value="English"
+                                                            <?php echo set_radio('previous_medium_english', 'English'); ?>>
+                                                        <label class="form-check-label" for="previous_medium_english"><?php echo $this->lang->line('english_medium'); ?></label>
+                                                    </div>
+
+                                                    <br><span class="text-danger"><?php echo form_error('previous_school_medium'); ?></span>
+                                             
+                                          
+                                            </div>
+
                                         <?php }?>
 
                                           <?php if ($sch_setting->student_note) {?>

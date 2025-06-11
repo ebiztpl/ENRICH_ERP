@@ -16,6 +16,7 @@ class Book extends Admin_Controller
 
     public function index()
     {
+       
         if (!$this->rbac->hasPrivilege('books', 'can_view')) {
             access_denied();
         }

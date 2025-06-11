@@ -98,6 +98,134 @@ class LanguageController extends Controller
         return redirect()->back();
     }
 
+
+ // direct bill recive   
+ public function direct_bill_recievedstore(Request $request)
+ {
+
+     \Artisan::call('cache:clear');
+     $activ = Session::get('branch_array');
+     $branch_id =$activ->id;
+    
+
+     $request->validate([
+         'head' =>'required',
+         'sub_head'=> 'required',
+         'amount'	=>'required',
+         'new_column' => 'required',
+         'submitted_by'=>  'required',
+         'submitted_date'=> 'required',
+         'expense_approve'=> 'required',
+         'approved_date'=>  'required',
+     ]);
+
+
+     if ($request->hasFile('upload')) {
+         $request->validate([
+         'upload' => 'image',
+     ]);
+     }
+
+     $date2 = new \DateTime($request->submitted_date);
+     $submitted_date = $date2->format('Y-m-d'); // 31-07-2012 '2008-11-11'
+
+     $date3 = new \DateTime($request->approved_date);
+     $approved_date = $date3->format('Y-m-d'); // 31-07-2012 '2008-11-11'
+
+ $data =  array( 'head' =>$request->head,
+       'sub_head'=>   $request->sub_head,
+       'bill_amount'	=>    $request->amount,
+      'type'=>2, // 2 mean its direct bill recived
+       'new_column' => $request->new_column ,
+       'voucher_no'=> $request->voucher_no,
+       'details'=> $request->description,
+        'submitted_by'=>  $request->submitted_by,
+         'submitted_date'=> $submitted_date,
+         'approved_by'=> $request->expense_approve,
+         'approved_date'=> $approved_date,
+         'branch_id'=> $branch_id,
+         'created_by' => auth()->user()->email,
+
+
+ );
+ $inserted_id = \DB::table('expense')->insertGetId($data);
+
+
+ if ($request->hasFile('upload')) {
+  
+     $upload = $request->upload;
+     $temporaryName = time() . $upload->getClientOriginalName();
+     $upload->move("upload/expense", $temporaryName);
+     $img = 'upload/expense/' . $temporaryName;
+
+
+    
+     \DB::table('expense')->where('id',$inserted_id)->update(array( 'upload'=> $img));
+ }
+    
+  
+  
+ Session::flash('success', "Expense Created Successfully");
+  
+ return redirect()->back();
+   
+    
+ }
+
+     public function direct_bill_recieved(Request $request)
+    {
+        \Artisan::call('cache:clear');
+        $data = [];
+    
+        $data['head'] = \DB::table('income_expense_groups')->where('deleted_at',NULL)->orderBy('created_at', 'desc')->get();
+
+        $activ = Session::get('branch_array');
+        $branch_id =$activ->id;
+        $checkaray = \DB::table('ledger_branch')->where('branch_id',$branch_id)->pluck('ledger_id')->toArray();
+
+
+
+         if($branch_id != 1){
+            $ledger = \DB::table('income_expense_heads')->where('type',1)->whereIn('id',$checkaray)->where('deleted_at',Null)->orderBy('created_at', 'desc')->get();
+
+         }else{
+            $ledger = \DB::table('income_expense_heads')->where('type',1)->where('deleted_at',Null)->orderBy('created_at', 'desc')->get();
+
+         }
+
+        if($branch_id == 2){
+        $expense_paid =\DB::connection('second_db')->table('staff')->where('expense_create',1)->get();
+        $expense_approve =\DB::connection('second_db')->table('staff')->where('expense_approve',1)->get();
+
+        }elseif($branch_id == 3){
+            $expense_paid =\DB::connection('third_db')->table('staff')->where('expense_create',1)->get();
+            $expense_approve =\DB::connection('third_db')->table('staff')->where('expense_approve',1)->get();
+        }elseif($branch_id == 4){
+            $expense_paid =\DB::connection('fourth_db')->table('staff')->where('expense_create',1)->get();
+            $expense_approve =\DB::connection('fourth_db')->table('staff')->where('expense_approve',1)->get();
+        }elseif($branch_id == 11){
+            $expense_paid =\DB::connection('fifth_db')->table('staff')->where('expense_create',1)->get();
+            $expense_approve =\DB::connection('fifth_db')->table('staff')->where('expense_approve',1)->get();
+        }elseif($branch_id == 12){
+            $expense_paid =\DB::connection('sixth_db')->table('staff')->where('expense_create',1)->get();
+            $expense_approve =\DB::connection('sixth_db')->table('staff')->where('expense_approve',1)->get();
+        }else{
+            $expense_paid = array();
+            $expense_approve =array();
+      
+        }
+
+        return view( 'admin.expense'. '.direct_bill_recive', $data)->with('ledger', $ledger)
+        ->with('expense_paid', $expense_paid)->with('expense_approve', $expense_approve);
+    }
+
+
+
+
+
+
+
+
     /**
      * Display the specified resource.
      *
@@ -642,8 +770,7 @@ foreach ($ledger as $ledg){
 
     }
 
-     
-    public function bill_recievedstore(Request $request)
+  public function bill_recievedstore(Request $request)
     {
         \Artisan::call('cache:clear');
         $activ = Session::get('branch_array');
@@ -654,11 +781,12 @@ foreach ($ledger as $ledg){
             'head' =>'required',
         'sub_head'=> 'required',
          'ledger'=> 'required',
-        // 'bill_no'=> 'required|unique:expense',
+         'bill_no'=> 'required|unique:expense',
          'bill_date'=> 'required',
           'amount'	=>'required',
-       //  'gst'=> 'required',
-       //   'total_amount'=>  'required',
+         'gst'=> 'required',
+          'total_amount'=>  'required',
+          'new_column' => 'required',
           'type'=> 'required',
        'submitted_by'=>  'required',
             'submitted_date'=> 'required',
@@ -690,9 +818,11 @@ foreach ($ledger as $ledg){
          'bill_date'=>   $bill_date,
           'bill_amount'	=>    $request->amount,
          'gst'=> $request->gst,
+         'type'=>1,
           'total'=>    $request->total_amount,
+          'new_column' => $request->new_column ,
           'goods_services'=>  $request->type,
-          'tds'=>$request->tds??0,
+          'tds'=>$request->tds,
           'voucher_no'=> $request->voucher_no,
           'details'=> $request->description,
         

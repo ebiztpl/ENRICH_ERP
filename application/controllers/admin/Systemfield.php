@@ -46,11 +46,70 @@ class Systemfield extends Admin_Controller
             } else {
                 $data['is_student_house'] = 0;
             }
-        } else if ($role == 'roll_no') {
+        } 
+        else if ($role == 'roll_number_req') {
+            if ($status == "yes") {
+                $data['roll_number_req'] = 1;
+            } else {
+                $data['roll_number_req'] = 0;
+            }
+        } 
+
+        else if ($role == 'roll_no') {
             if ($status == "yes") {
                 $data['roll_no'] = 1;
             } else {
                 $data['roll_no'] = 0;
+            }
+        } 
+        else if ($role == 'application_no') {
+            if ($status == "yes") {
+                $data['application_no'] = 1;
+            } else {
+                $data['application_no'] = 0;
+            }
+        } 
+        else if ($role == 'application_no_req') {
+            if ($status == "yes") {
+                $data['application_no_req'] = 1;
+            } else {
+                $data['application_no_req'] = 0;
+            }
+        } 
+        else if ($role == 'previous_medium') {
+            if ($status == "yes") {
+                $data['previous_medium'] = 1;
+            } else {
+                $data['previous_medium'] = 0;
+            }
+        } 
+        else if ($role == 'previous_medium_req') {
+            if ($status == "yes") {
+                $data['previous_medium_req'] = 1;
+            } else {
+                $data['previous_medium_req'] = 0;
+            }
+        } 
+        else if ($role == 'school_medium_req') {
+            if ($status == "yes") {
+                $data['school_medium_req'] = 1;
+            } else {
+                $data['school_medium_req'] = 0;
+            }
+        } 
+        else if ($role == 'last_class_req') {
+            if ($status == "yes") {
+                $data['last_class_req'] = 1;
+            } else {
+                $data['last_class_req'] = 0;
+            }
+        } 
+
+        else if ($role == 'enrollment_no_req') {
+            if ($status == "yes") {
+                $data['enrollment_no_req'] = 1;
+            } else {
+                $data['enrollment_no_req'] = 0;
             }
         } 
         else if($role == 'enrollment_no'){  // new field no 1
@@ -59,21 +118,21 @@ class Systemfield extends Admin_Controller
             } else {
                 $data['enrollment_no'] = 0;
             }
-        } 
-        else if($role == 'class'){  // new field no 2
-             if ($status == "yes") {
-                $data['class'] = 1;
-            } else {
-                $data['class'] = 0;
-            }
-        } 
-        else if($role == 'section'){  // new field no 3
-             if ($status == "yes") {
-                $data['section'] = 1;
-            } else {
-                $data['section'] = 0;
-            }
-        } 
+         } 
+        // else if($role == 'class'){  // new field no 2
+        //      if ($status == "yes") {
+        //         $data['class'] = 1;
+        //     } else {
+        //         $data['class'] = 0;
+        //     }
+        // } 
+        // else if($role == 'section'){  // new field no 3
+        //      if ($status == "yes") {
+        //         $data['section'] = 1;
+        //     } else {
+        //         $data['section'] = 0;
+        //     }
+        // } 
         else if($role == 'SSSMID'){  // new field no 4
              if ($status == "yes") {
                 $data['SSSMID'] = 1;
@@ -81,11 +140,377 @@ class Systemfield extends Admin_Controller
                 $data['SSSMID'] = 0;
             }
         } 
+        else if($role == 'sssmid_req'){  
+             if ($status == "yes") {
+                $data['sssmid_req'] = 1;
+            } else {
+                $data['sssmid_req'] = 0;
+            }
+        } 
+        else if($role == 'pen_number_req'){  
+             if ($status == "yes") {
+                $data['pen_number_req'] = 1;
+            } else {
+                $data['pen_number_req'] = 0;
+            }
+        } 
+        else if($role == 'family_mid_number_req'){  
+             if ($status == "yes") {
+                $data['family_mid_number_req'] = 1;
+            } else {
+                $data['family_mid_number_req'] = 0;
+            }
+        } 
+        else if($role == 'abc_id_req'){  
+             if ($status == "yes") {
+                $data['abc_id_req'] = 1;
+            } else {
+                $data['abc_id_req'] = 0;
+            }
+        } 
+        else if($role == 'apar_id_req'){  
+             if ($status == "yes") {
+                $data['apar_id_req'] = 1;
+            } else {
+                $data['apar_id_req'] = 0;
+            }
+        } 
         else if($role == 'pen_no'){  // new field no 5
              if ($status == "yes") {
                 $data['pen_no'] = 1;
             } else {
                 $data['pen_no'] = 0;
+            }
+        } 
+        else if($role == 'scholar_ship_form_req'){  // new field no 5
+             if ($status == "yes") {
+                $data['scholar_ship_form_req'] = 1;
+            } else {
+                $data['scholar_ship_form_req'] = 0;
+            }
+        } 
+        else if($role == 'middle_name_req'){  
+             if ($status == "yes") {
+                $data['middle_name_req'] = 1;
+            } else {
+                $data['middle_name_req'] = 0;
+            }
+        } 
+        else if($role == 'last_name_req'){  
+             if ($status == "yes") {
+                $data['last_name_req'] = 1;
+            } else {
+                $data['last_name_req'] = 0;
+            }
+        } 
+        else if($role == 'category_req'){  
+             if ($status == "yes") {
+                $data['category_req'] = 1;
+            } else {
+                $data['category_req'] = 0;
+            }
+        } 
+        else if($role == 'religion_req'){  
+             if ($status == "yes") {
+                $data['religion_req'] = 1;
+            } else {
+                $data['religion_req'] = 0;
+            }
+        } 
+        else if($role == 'caste_req'){  
+             if ($status == "yes") {
+                $data['caste_req'] = 1;
+            } else {
+                $data['caste_req'] = 0;
+            }
+        } 
+        else if($role == 'city_req'){  
+             if ($status == "yes") {
+                $data['city_req'] = 1;
+            } else {
+                $data['city_req'] = 0;
+            }
+        } 
+        else if($role == 'city'){  
+             if ($status == "yes") {
+                $data['city'] = 1;
+            } else {
+                $data['city'] = 0;
+            }
+        } 
+        else if($role == 'state'){  
+             if ($status == "yes") {
+                $data['state'] = 1;
+            } else {
+                $data['state'] = 0;
+            }
+        } 
+        else if($role == 'state_req'){  
+             if ($status == "yes") {
+                $data['state_req'] = 1;
+            } else {
+                $data['state_req'] = 0;
+            }
+        } 
+        else if($role == 'subject_option'){  
+             if ($status == "yes") {
+                $data['subject_option'] = 1;
+            } else {
+                $data['subject_option'] = 0;
+            }
+        } 
+        else if($role == 'subject_option_req'){  
+             if ($status == "yes") {
+                $data['subject_option_req'] = 1;
+            } else {
+                $data['subject_option_req'] = 0;
+            }
+        } 
+        else if($role == 'mobile_number_req'){  
+             if ($status == "yes") {
+                $data['mobile_number_req'] = 1;
+            } else {
+                $data['mobile_number_req'] = 0;
+            }
+        } 
+        else if($role == 'email_req'){  
+             if ($status == "yes") {
+                $data['email_req'] = 1;
+            } else {
+                $data['email_req'] = 0;
+            }
+        } 
+        else if($role == 'admission_date_req'){  
+             if ($status == "yes") {
+                $data['admission_date_req'] = 1;
+            } else {
+                $data['admission_date_req'] = 0;
+            }
+        } 
+        else if($role == 'student_photo_req'){  
+             if ($status == "yes") {
+                $data['student_photo_req'] = 1;
+            } else {
+                $data['student_photo_req'] = 0;
+            }
+        } 
+        else if($role == 'is_student_house_req'){  
+             if ($status == "yes") {
+                $data['is_student_house_req'] = 1;
+            } else {
+                $data['is_student_house_req'] = 0;
+            }
+        } 
+        else if($role == 'blood_group_req'){  
+             if ($status == "yes") {
+                $data['blood_group_req'] = 1;
+            } else {
+                $data['blood_group_req'] = 0;
+            }
+        } 
+        else if($role == 'stuent_height_req'){  
+             if ($status == "yes") {
+                $data['stuent_height_req'] = 1;
+            } else {
+                $data['stuent_height_req'] = 0;
+            }
+        } 
+        else if($role == 'student_weight_req'){  
+             if ($status == "yes") {
+                $data['student_weight_req'] = 1;
+            } else {
+                $data['student_weight_req'] = 0;
+            }
+        } 
+        else if($role == 'father_name_req'){  
+             if ($status == "yes") {
+                $data['father_name_req'] = 1;
+            } else {
+                $data['father_name_req'] = 0;
+            }
+        } 
+        else if($role == 'father_phone_req'){  
+             if ($status == "yes") {
+                $data['father_phone_req'] = 1;
+            } else {
+                $data['father_phone_req'] = 0;
+            }
+        } 
+        else if($role == 'father_occupation_req'){  
+             if ($status == "yes") {
+                $data['father_occupation_req'] = 1;
+            } else {
+                $data['father_occupation_req'] = 0;
+            }
+        } 
+        else if($role == 'father_photo_req'){  
+             if ($status == "yes") {
+                $data['father_photo_req'] = 1;
+            } else {
+                $data['father_photo_req'] = 0;
+            }
+        } 
+        else if($role == 'mather_name_req'){  
+             if ($status == "yes") {
+                $data['mather_name_req'] = 1;
+            } else {
+                $data['mather_name_req'] = 0;
+            }
+        } 
+        else if($role == 'mather_phone_req'){  
+             if ($status == "yes") {
+                $data['mather_phone_req'] = 1;
+            } else {
+                $data['mather_phone_req'] = 0;
+            }
+        } 
+        else if($role == 'mather_occupation_req'){  
+             if ($status == "yes") {
+                $data['mather_occupation_req'] = 1;
+            } else {
+                $data['mather_occupation_req'] = 0;
+            }
+        } 
+        else if($role == 'mather_photo_req'){  
+             if ($status == "yes") {
+                $data['mather_photo_req'] = 1;
+            } else {
+                $data['mather_photo_req'] = 0;
+            }
+        } 
+        else if($role == 'gurdian_phone_req'){  
+             if ($status == "yes") {
+                $data['gurdian_phone_req'] = 1;
+            } else {
+                $data['gurdian_phone_req'] = 0;
+            }
+        } 
+        // gurdian_religion_req is relation
+        else if($role == 'gurdian_religion_req'){  
+             if ($status == "yes") {
+                $data['gurdian_religion_req'] = 1;
+            } else {
+                $data['gurdian_religion_req'] = 0;
+            }
+        } 
+        else if($role == 'gurdian_email_req'){  
+             if ($status == "yes") {
+                $data['gurdian_email_req'] = 1;
+            } else {
+                $data['gurdian_email_req'] = 0;
+            }
+        } 
+        else if($role == 'gurdian_occupation_req'){  
+             if ($status == "yes") {
+                $data['gurdian_occupation_req'] = 1;
+            } else {
+                $data['gurdian_occupation_req'] = 0;
+            }
+        } 
+        else if($role == 'gurdian_photo_req'){  
+             if ($status == "yes") {
+                $data['gurdian_photo_req'] = 1;
+            } else {
+                $data['gurdian_photo_req'] = 0;
+            }
+        } 
+        else if($role == 'gurdian_address_req'){  
+             if ($status == "yes") {
+                $data['gurdian_address_req'] = 1;
+            } else {
+                $data['gurdian_address_req'] = 0;
+            }
+        } 
+        else if($role == 'guardian_currentaddress_req'){  
+             if ($status == "yes") {
+                $data['guardian_currentaddress_req'] = 1;
+            } else {
+                $data['guardian_currentaddress_req'] = 0;
+            }
+        } 
+        else if($role == 'bank_account_req'){  
+             if ($status == "yes") {
+                $data['bank_account_req'] = 1;
+            } else {
+                $data['bank_account_req'] = 0;
+            }
+        } 
+        else if($role == 'bank_name_req'){  
+             if ($status == "yes") {
+                $data['bank_name_req'] = 1;
+            } else {
+                $data['bank_name_req'] = 0;
+            }
+        } 
+        else if($role == 'ifsc_code_req'){  
+             if ($status == "yes") {
+                $data['ifsc_code_req'] = 1;
+            } else {
+                $data['ifsc_code_req'] = 0;
+            }
+        } 
+        else if($role == 'aadhaar_identification_req'){  
+             if ($status == "yes") {
+                $data['aadhaar_identification_req'] = 1;
+            } else {
+                $data['aadhaar_identification_req'] = 0;
+            }
+        } 
+        else if($role == 'measurement_date_req'){  
+             if ($status == "yes") {
+                $data['measurement_date_req'] = 1;
+            } else {
+                $data['measurement_date_req'] = 0;
+            }
+        } 
+        else if($role == 'rte_req'){  
+             if ($status == "yes") {
+                $data['rte_req'] = 1;
+            } else {
+                $data['rte_req'] = 0;
+            }
+        } 
+        else if($role == 'upload_documents_req'){  
+             if ($status == "yes") {
+                $data['upload_documents_req'] = 1;
+            } else {
+                $data['upload_documents_req'] = 0;
+            }
+        } 
+        else if($role == 'local_identification_req'){  
+             if ($status == "yes") {
+                $data['local_identification_req'] = 1;
+            } else {
+                $data['local_identification_req'] = 0;
+            }
+        } 
+        //school is detail
+        else if($role == 'previous_school_req'){  
+             if ($status == "yes") {
+                $data['previous_school_req'] = 1;
+            } else {
+                $data['previous_school_req'] = 0;
+            }
+        } 
+        else if($role == 'note_req'){  
+             if ($status == "yes") {
+                $data['note_req'] = 1;
+            } else {
+                $data['note_req'] = 0;
+            }
+        } 
+        else if($role == 'guardian_permentaddress_req'){  
+             if ($status == "yes") {
+                $data['guardian_permentaddress_req'] = 1;
+            } else {
+                $data['guardian_permentaddress_req'] = 0;
+            }
+        } 
+        else if($role == 'gurdian_name_req'){  
+             if ($status == "yes") {
+                $data['gurdian_name_req'] = 1;
+            } else {
+                $data['gurdian_name_req'] = 0;
             }
         } 
         else if($role == 'family_mid_no'){  // new field no 6
