@@ -104,6 +104,37 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                                 </div>
                                             </div>
                             <?php } ?>
+                           <?php if ($sch_setting->school_medium) { ?>
+                                <div class="col-md-4 col-xs-4">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('school_medium') ?></label>
+                                                    <select class="form-control" rows="3" placeholder="" name="school_medium">
+                                                        <option value=""><?php echo $this->lang->line('select') ?></option>
+
+                                                        <option value="Hindi">Hindi</option>
+                                                        <option value="English">English</option>
+                                       
+                                                    </select>
+                                                    <span class="text-danger"><?php echo form_error('house'); ?></span>
+                                                </div>
+                                            </div>
+                            <?php } ?>
+                          <?php if ($sch_setting->subject_option) {?> 
+                                <div class="col-md-4 col-xs-4">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('subject_group_list') ?></label>
+                                                    <select class="form-control" rows="3" placeholder="" name="subject_group_id">
+                                                        <option value=""><?php echo $this->lang->line('select') ?></option>
+                                                     <?php foreach($subjectgroupList as $row):?>
+                                                        <option value="<?=$row->id?>"><?=$row->name?></option>
+                                                      
+                                       <?php endforeach;?>
+                                                    </select>
+                                                    <span class="text-danger"><?php echo form_error('house'); ?></span>
+                                                </div>
+                                            </div>
+                                                <?php } ?>
+                          
                             </div>
 
 <!-- custom filter by me -->

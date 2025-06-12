@@ -1160,9 +1160,9 @@ echo set_value('rte', $student['rte']) == "No" ? "checked" : "";
                                         <?php if ($sch_setting->student_note) {?>
                                             <div class="col-md-7">
                                                 <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('note'); ?></label>
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('note'); ?></label><?php if($sch_setting->note_req){ ?><small class="req"> *</small><?php }?>
                                                     <textarea class="form-control" rows="3" placeholder="" name="note"><?php echo set_value('note', $student['note']); ?></textarea>
-                                                    <span class="text-danger"><?php echo form_error('previous_school'); ?></span>
+                                                    <span class="text-danger"><?php echo form_error('note'); ?></span>
                                                 </div>
                                             </div>
                                          <?php }?>
