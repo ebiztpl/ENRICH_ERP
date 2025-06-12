@@ -105,7 +105,7 @@ $currency_symbol = $admin_session['currency_symbol'];
                             <h3 class="widget-user-username"><?php echo $this->customlib->getFullName($student['firstname'], $student['middlename'], $student['lastname'], $sch_setting->middlename, $sch_setting->lastname); ?></h3>
                             <h5 class="widget-user-desc mb5"><?php echo $this->lang->line('admission_no'); ?> <span class="text-aqua"><?php echo $student['admission_no']; ?></span></h5>
                             <h5 class="widget-user-desc"><?php echo $this->lang->line('roll_number'); ?> <span class="text-aqua"><?php echo $student['roll_no']; ?></h5>
-                        </div>
+                       </div>
                     </div>
 
                     <div class="box-body box-profile pt0">
@@ -451,12 +451,78 @@ $currency_symbol = $admin_session['currency_symbol'];
                                     <table class="table3 table-hover table-striped tmb0">
                                         <tbody>
 											
-											
-											
+										
 											<tr>
-                                                    <td>Application No.</td>
-                                                    <td><?php echo $student['application_no']; ?></td>
+                                                <td>Application No.</td>
+                                                <td><?php echo $student['application_no']; ?></td>
+                                            </tr>
+
+                                           <?php  if ($sch_setting->enrollment_no) {
+                                                ?>
+                                                <tr>
+                                                    <td><?php echo $this->lang->line('enrollment_no'); ?></td>
+                                                    <td><?php echo $student['enrollment_no']; ?></td>
                                                 </tr>
+                                            <?php
+                                            }
+											
+                                            ?>   
+                                           <?php  if ($sch_setting->SSSMID) {
+                                                ?>
+                                                <tr>
+                                                    <td><?php echo $this->lang->line('SSSMID'); ?></td>
+                                                    <td><?php echo $student['SSSMID']; ?></td>
+                                                </tr>
+                                            <?php
+                                            }
+											
+                                            ?>   
+                                           <?php  if ($sch_setting->pen_no) {
+                                                ?>
+                                                <tr>
+                                                    <td><?php echo $this->lang->line('pen_no'); ?></td>
+                                                    <td><?php echo $student['pen_no']; ?></td>
+                                                </tr>
+                                            <?php
+                                            }
+                                            ?>   
+                                           <?php  if ($sch_setting->family_mid_no) {
+                                                ?>
+                                                <tr>
+                                                    <td><?php echo $this->lang->line('family_mid_no'); ?></td>
+                                                    <td><?php echo $student['family_mid_no']; ?></td>
+                                                </tr>
+                                            <?php
+                                            }
+                                            ?>   
+                                           <?php  if ($sch_setting->apar_id) {
+                                                ?>
+                                                <tr>
+                                                    <td><?php echo $this->lang->line('apar_id'); ?></td>
+                                                    <td><?php echo $student['apar_id']; ?></td>
+                                                </tr>
+                                            <?php
+                                            }
+                                            ?>   
+                                           <?php  if ($sch_setting->abc_id) {
+                                                ?>
+                                                <tr>
+                                                    <td><?php echo $this->lang->line('abc_id'); ?></td>
+                                                    <td><?php echo $student['abc_id']; ?></td>
+                                                </tr>
+                                            <?php
+                                            }
+                                            ?>   
+                                           <?php  if ($sch_setting->scholarship_form_no) {
+                                                ?>
+                                                <tr>
+                                                    <td><?php echo $this->lang->line('scholarship_form_no'); ?></td>
+                                                    <td><?php echo $student['scholarship_form_no']; ?></td>
+                                                </tr>
+                                            <?php
+                                            }
+                                            ?>   
+
                                             <?php if ($sch_setting->admission_date) {
                                             ?>
                                                 <tr>
@@ -561,6 +627,7 @@ $currency_symbol = $admin_session['currency_symbol'];
                                             }
 											
                                             ?>
+                                        
 											
                                         </tbody>
                                     </table>

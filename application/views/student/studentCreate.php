@@ -81,7 +81,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                         <?php if ($sch_setting->roll_no) {?>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('roll_number'); ?></label>
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('roll_number'); ?></label><?php if($sch_setting->roll_number_req){ ?><small class="req"> *</small> <?php }?>
                                                     <input id="roll_no" name="roll_no" placeholder="" type="text" class="form-control"  value="<?php echo set_value('roll_no'); ?>" />
                                                     <span class="text-danger"><?php echo form_error('roll_no'); ?></span>
                                                 </div>
@@ -92,7 +92,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                         <?php if ($sch_setting->enrollment_no) {?>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('enrollment_no'); ?></label>
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('enrollment_no'); ?></label><?php if($sch_setting->enrollment_no_req){ ?><small class="req"> *</small> <?php }?>
                                                     <input id="enrollment_no" name="enrollment_no" placeholder="" type="text" class="form-control"  value="<?php echo set_value('enrollment_no'); ?>" />
                                                     <span class="text-danger"><?php echo form_error('enrollment_no'); ?></span>
                                                 </div>
@@ -102,7 +102,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
  <?php if ($sch_setting->application_no) {?>
                                         <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputEmail1">Application No.</label> <small class="req"> </small>
+                                                    <label for="exampleInputEmail1">Application No.</label> <small class="req"> </small><?php if($sch_setting->application_no_req){ ?><small class="req"> *</small> <?php }?>
                                                     <input autofocus="" id="application_no" name="application_no" placeholder="" type="text" class="form-control"  value="<?php echo set_value('application_no'); ?>" />
                                                     <span class="text-danger"><?php echo form_error('application_no'); ?></span>
                                                 </div>
@@ -120,7 +120,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                         <?php if ($sch_setting->middlename) {?>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('middle_name'); ?></label>
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('middle_name'); ?></label><?php if($sch_setting->middle_name_req){ ?><small class="req"> *</small> <?php }?>
                                                     <input id="middlename" name="middlename" placeholder="" type="text" class="form-control"  value="<?php echo set_value('middlename'); ?>" />
                                                     <span class="text-danger"><?php echo form_error('middlename'); ?></span>
                                                 </div>
@@ -129,7 +129,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                         <?php if ($sch_setting->lastname) {?>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('last_name'); ?></label>
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('last_name'); ?></label><?php if($sch_setting->last_name_req){ ?><small class="req"> *</small> <?php }?>
                                                     <input id="lastname" name="lastname" placeholder="" type="text" class="form-control"  value="<?php echo set_value('lastname'); ?>" />
                                                     <span class="text-danger"><?php echo form_error('lastname'); ?></span>
                                                 </div>
@@ -169,7 +169,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                         <?php if ($sch_setting->student_email) {?>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('email'); ?></label>
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('email'); ?></label><?php if($sch_setting->email_req){ ?><small class="req"> *</small> <?php }?>
                                                     <input id="email" name="email" placeholder="" type="text" class="form-control"  value="<?php echo set_value('email'); ?>" />
                                                     <span class="text-danger"><?php echo form_error('email'); ?></span>
                                                 </div>
@@ -190,7 +190,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                         <?php if ($sch_setting->category) {?>
                                             <div class="col-md-2">
                                                 <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('category'); ?></label>
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('category'); ?></label><?php if($sch_setting->category_req){ ?><small class="req"> *</small> <?php }?>
                                                     <select  id="category_id" name="category_id" class="form-control" >
                                                         <option value=""><?php echo $this->lang->line('select'); ?></option>
                                                         <?php foreach ($categorylist as $category) {?>
@@ -209,7 +209,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                         <?php }if ($sch_setting->religion) {?>
                                             <div class="col-md-2">
                                                 <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('religion'); ?></label>
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('religion'); ?></label><?php if($sch_setting->religion_req){ ?><small class="req"> *</small> <?php }?>
                                                     <input id="religion" name="religion" placeholder="" type="text" class="form-control"  value="<?php echo set_value('religion'); ?>" />
                                                     <span class="text-danger"><?php echo form_error('religion'); ?></span>
                                                 </div>
@@ -217,7 +217,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                         <?php }if ($sch_setting->cast) {?>
                                         <div class="col-md-2">
                                                 <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('caste'); ?></label>
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('caste'); ?></label><?php if($sch_setting->caste_req){ ?><small class="req"> *</small> <?php }?>
                                                     <input id="cast" name="cast" placeholder="" type="text" class="form-control"  value="<?php echo set_value('cast'); ?>" />
                                                     <span class="text-danger"><?php echo form_error('cast'); ?></span>
                                                 </div>
@@ -227,7 +227,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
   <?php if ($sch_setting->state) {?>
                                         <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputEmail1">State</label>
+                                                    <label for="exampleInputEmail1">State</label><?php if($sch_setting->state_req){ ?><small class="req"> *</small> <?php }?>
                                                     <select  id="state" name="state" class="form-control">
                                                         <option value=""><?php echo $this->lang->line('select'); ?></option>
                                                         <?php
@@ -249,7 +249,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
 <?php if ($sch_setting->city) {?>
                                         <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputEmail1">City</label>
+                                                    <label for="exampleInputEmail1">City</label><?php if($sch_setting->city_req){ ?><small class="req"> *</small> <?php }?>
                                                     <select  id="city" name="city" class="form-control"  >
                                                         <option value=""><?php echo $this->lang->line('select'); ?></option>
                                                         <?php
@@ -274,7 +274,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                                ?>
                                        <div class="col-md-3 col-xs-12">
                                            <div class="form-group">
-                                               <label for="exampleInputEmail1"><?php echo $this->lang->line('blood_group'); ?></label>
+                                               <label for="exampleInputEmail1"><?php echo $this->lang->line('blood_group'); ?></label><?php if($sch_setting->blood_group_req){ ?><small class="req"> *</small> <?php }?>
                                                    <?php
                                                ?>
                                                <select class="form-control" rows="3" placeholder="" name="blood_group">
@@ -296,7 +296,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                                 ?>
                                             <div class="col-md-3 col-xs-12">
                                                 <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('house') ?></label>
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('house') ?></label><?php if($sch_setting->is_student_house_req){ ?><small class="req"> *</small> <?php }?>
                                                     <select class="form-control" rows="3" placeholder="" name="house">
                                                         <option value=""><?php echo $this->lang->line('select') ?></option>
                                                         <?php foreach ($houses as $hkey => $hvalue) {
@@ -317,7 +317,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                       <?php if ($sch_setting->student_photo) {?>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputFile"><?php echo $this->lang->line('student_photo'); ?></label>
+                                                    <label for="exampleInputFile"><?php echo $this->lang->line('student_photo'); ?></label><?php if($sch_setting->student_photo_req){ ?><small class="req"> *</small> <?php }?>
                                                     <div><input class="filestyle form-control" type='file' name='file' id="file" size='20' />
                                                     </div>
                                                     <span class="text-danger"><?php echo form_error('file'); ?></span></div>
@@ -366,7 +366,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                          <?php if ($sch_setting->subject_option) {?> 
                                         <div class="col-md-3">
                                                     <div class="form-group">
-                                                    <label for="exampleInputEmail1">Subjects Opted</label>
+                                                    <label for="exampleInputEmail1">Subjects Opted</label><?php if($sch_setting->subject_option_req){ ?><small class="req"> *</small> <?php }?>
 
                                                     <select class="form-control" id="subarray" name="subarray[]" multiple="multiple" >
                                                     <?php
@@ -387,7 +387,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                         <?php if ($sch_setting->SSSMID) {?>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('SSSMID'); ?></label>
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('SSSMID'); ?></label><?php if($sch_setting->sssmid_req){ ?><small class="req"> *</small> <?php }?>
                                                     <input id="SSSMID" name="SSSMID" placeholder="" type="text" class="form-control"  value="<?php echo set_value('SSSMID'); ?>" />
                                                     <span class="text-danger"><?php echo form_error('SSSMID'); ?></span>
                                                 </div>
@@ -397,7 +397,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                         <?php if ($sch_setting->pen_no) {?>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('pen_no'); ?></label>
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('pen_no'); ?></label><?php if($sch_setting->pen_number_req){ ?><small class="req"> *</small> <?php }?>
                                                     <input id="pen_no" name="pen_no" placeholder="" type="text" class="form-control"  value="<?php echo set_value('pen_no'); ?>" />
                                                     <span class="text-danger"><?php echo form_error('pen_no'); ?></span>
                                                 </div>
@@ -407,7 +407,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                         <?php if ($sch_setting->apar_id) {?>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('apar_id'); ?></label>
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('apar_id'); ?></label><?php if($sch_setting->apar_id_req){ ?><small class="req"> *</small> <?php }?>
                                                     <input id="apar_id" name="apar_id" placeholder="" type="text" class="form-control"  value="<?php echo set_value('apar_id'); ?>" />
                                                     <span class="text-danger"><?php echo form_error('apar_id'); ?></span>
                                                 </div>
@@ -417,7 +417,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                         <?php if ($sch_setting->family_mid_no) {?>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('family_mid_no'); ?></label>
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('family_mid_no'); ?></label><?php if($sch_setting->family_mid_number_req){ ?><small class="req"> *</small> <?php }?>
                                                     <input id="family_mid_no" name="family_mid_no" placeholder="" type="text" class="form-control"  value="<?php echo set_value('family_mid_no'); ?>" />
                                                     <span class="text-danger"><?php echo form_error('family_mid_no'); ?></span>
                                                 </div>
@@ -430,7 +430,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                         <?php if ($sch_setting->abc_id) {?>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('abc_id'); ?></label>
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('abc_id'); ?></label><?php if($sch_setting->abc_id_req){ ?><small class="req"> *</small> <?php }?>
                                                     <input id="abc_id" name="abc_id" placeholder="" type="text" class="form-control"  value="<?php echo set_value('abc_id'); ?>" />
                                                     <span class="text-danger"><?php echo form_error('abc_id'); ?></span>
                                                 </div>
@@ -440,7 +440,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                         <?php if ($sch_setting->scholarship_form_no) {?>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('scholarship_form_no'); ?></label>
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('scholarship_form_no'); ?></label><?php if($sch_setting->scholar_ship_form_req){ ?><small class="req"> *</small> <?php }?>
                                                     <input id="scholarship_form_no" name="scholarship_form_no" placeholder="" type="text" class="form-control"  value="<?php echo set_value('scholarship_form_no'); ?>" />
                                                     <span class="text-danger"><?php echo form_error('scholarship_form_no'); ?></span>
                                                 </div>
@@ -450,7 +450,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                           <?php if ($sch_setting->admission_date) {?>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('admission_date'); ?></label>
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('admission_date'); ?></label><?php if($sch_setting->admission_date_req){ ?><small class="req"> *</small><?php }?>
                                                     <input id="admission_date" name="admission_date" placeholder="" type="text" class="form-control datee"  value="<?php echo set_value('admission_date', date($this->customlib->getSchoolDateFormat())); ?>" readonly="readonly" />
                                                     <span class="text-danger"><?php echo form_error('admission_date'); ?></span>
                                                 </div>
@@ -464,7 +464,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                                 <?php if ($sch_setting->student_height) {?>
                                             <div class="col-md-3 col-xs-12">
                                                 <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('height'); ?></label>
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('height'); ?></label><?php if($sch_setting->stuent_height_req){ ?><small class="req"> *</small><?php }?>
                                                 <?php ?>
                                                     <input type="text" name="height" class="form-control" value="<?php echo set_value('height'); ?>" >
                                                     <span class="text-danger"><?php echo form_error('height'); ?></span>
@@ -473,7 +473,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                                 <?php }if ($sch_setting->student_weight) {?>
                                             <div class="col-md-3 col-xs-12">
                                                 <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('weight'); ?></label>
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('weight'); ?></label><?php if($sch_setting->stuent_height_req){ ?><small class="req"> *</small><?php }?>
     <?php ?>
                                                     <input type="text" name="weight" class="form-control" value="<?php echo set_value('weight'); ?>">
                                                     <span class="text-danger"><?php echo form_error('weight'); ?></span>
@@ -482,21 +482,22 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
 <?php }if ($sch_setting->measurement_date) {?>
                                             <div class="col-md-3 col-xs-12">
                                                 <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('measurement_date'); ?></label>
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('measurement_date'); ?></label><?php if($sch_setting->measurement_date_req){ ?><small class="req"> *</small><?php }?>
     <?php ?>
                                                     <input type="text" id="measure_date" value="<?php echo set_value('measure_date', date($this->customlib->getSchoolDateFormat())); ?>" name="measure_date" class="form-control date">
                                                     <span class="text-danger"><?php echo form_error('measure_date'); ?></span>
                                                 </div>
                                             </div>
 <?php }?>
+<?php if ($sch_setting->fees_discount) {?>
                                         <div class="col-md-3" >
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('fees_discount'); ?></label>
+                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('fees_discount'); ?></label><?php if($sch_setting->fees_discount_req){ ?><small class="req"> *</small><?php }?>
                                                 <input id="fees_discount" name="fees_discount" placeholder="" type="text" class="form-control"  value="<?php echo set_value('fees_discount', 0); ?>"  />
                                                 <span class="text-danger"><?php echo form_error('fees_discount'); ?></span>
                                             </div>
                                         </div>
-
+<?php }?>
                                         <div class="col-md-3 pt25">
                                             <div class="row">
                                                 <div class="col-md-5">
@@ -748,7 +749,7 @@ echo $this->customlib->dateformat($fee_type_value->due_date);
 <?php if ($sch_setting->father_name) {?>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('father_name'); ?></label>
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('father_name'); ?></label><?php if($sch_setting->father_name_req){ ?><small class="req"> *</small><?php }?>
                                                     <input id="father_name" name="father_name" placeholder="" type="text" class="form-control"  value="<?php echo set_value('father_name'); ?>" />
                                                     <span class="text-danger"><?php echo form_error('father_name'); ?></span>
                                                 </div>
@@ -756,7 +757,7 @@ echo $this->customlib->dateformat($fee_type_value->due_date);
 <?php }if ($sch_setting->father_phone) {?>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('father_phone'); ?></label>
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('father_phone'); ?></label><?php if($sch_setting->father_phone_req){ ?><small class="req"> *</small><?php }?>
                                                     <input id="father_phone" name="father_phone" placeholder="" type="text" class="form-control"  value="<?php echo set_value('father_phone'); ?>" />
                                                     <span class="text-danger"><?php echo form_error('father_phone'); ?></span>
                                                 </div>
@@ -764,7 +765,7 @@ echo $this->customlib->dateformat($fee_type_value->due_date);
 <?php }if ($sch_setting->father_occupation) {?>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('father_occupation'); ?></label>
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('father_occupation'); ?></label><?php if($sch_setting->father_occupation_req){ ?><small class="req"> *</small><?php }?>
                                                     <input id="father_occupation" name="father_occupation" placeholder="" type="text" class="form-control"  value="<?php echo set_value('father_occupation'); ?>" />
                                                     <span class="text-danger"><?php echo form_error('father_occupation'); ?></span>
                                                 </div>
@@ -772,7 +773,7 @@ echo $this->customlib->dateformat($fee_type_value->due_date);
 <?php }if ($sch_setting->father_pic) {?>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputFile"><?php echo $this->lang->line('father_photo'); ?></label>
+                                                    <label for="exampleInputFile"><?php echo $this->lang->line('father_photo'); ?></label><?php if($sch_setting->father_photo_req){ ?><small class="req"> *</small><?php }?>
                                                     <div><input class="filestyle form-control" type='file' name='father_pic' id="file" size='20' />
                                                     </div>
                                                     <span class="text-danger"><?php echo form_error('file'); ?></span></div>
@@ -783,7 +784,7 @@ echo $this->customlib->dateformat($fee_type_value->due_date);
 <?php if ($sch_setting->mother_name) {?>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('mother_name'); ?></label>
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('mother_name'); ?></label><?php if($sch_setting->mather_name_req){ ?><small class="req"> *</small><?php }?>
                                                     <input id="mother_name" name="mother_name" placeholder="" type="text" class="form-control"  value="<?php echo set_value('mother_name'); ?>" />
                                                     <span class="text-danger"><?php echo form_error('mother_name'); ?></span>
                                                 </div>
@@ -791,7 +792,7 @@ echo $this->customlib->dateformat($fee_type_value->due_date);
 <?php }if ($sch_setting->mother_phone) {?>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('mother_phone'); ?></label>
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('mother_phone'); ?></label><?php if($sch_setting->mather_phone_req){ ?><small class="req"> *</small><?php }?>
                                                     <input id="mother_phone" name="mother_phone" placeholder="" type="text" class="form-control"  value="<?php echo set_value('mother_phone'); ?>" />
                                                     <span class="text-danger"><?php echo form_error('mother_phone'); ?></span>
                                                 </div>
@@ -799,7 +800,7 @@ echo $this->customlib->dateformat($fee_type_value->due_date);
 <?php }if ($sch_setting->mother_occupation) {?>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('mother_occupation'); ?></label>
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('mother_occupation'); ?></label><?php if($sch_setting->mather_occupation_req){ ?><small class="req"> *</small><?php }?>
                                                     <input id="mother_occupation" name="mother_occupation" placeholder="" type="text" class="form-control"  value="<?php echo set_value('mother_occupation'); ?>" />
                                                     <span class="text-danger"><?php echo form_error('mother_occupation'); ?></span>
                                                 </div>
@@ -807,16 +808,14 @@ echo $this->customlib->dateformat($fee_type_value->due_date);
 <?php }if ($sch_setting->mother_pic) {?>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputFile"><?php echo $this->lang->line('mother_photo'); ?></label>
+                                                    <label for="exampleInputFile"><?php echo $this->lang->line('mother_photo'); ?></label><?php if($sch_setting->mather_photo_req){ ?><small class="req"> *</small><?php }?>
                                                     <div><input class="filestyle form-control" type='file' name='mother_pic' id="file" size='20' />
                                                     </div>
                                                     <span class="text-danger"><?php echo form_error('file'); ?></span></div>
                                             </div>
 <?php }?>
                                     </div>
-                                    <?php
-if ($sch_setting->guardian_name) {
-        ?>
+
                                         <div class="row">
                                         <div class="form-group col-md-12">
                                             <label><?php echo $this->lang->line('if_guardian_is'); ?><small class="req"> *</small>&nbsp;&nbsp;&nbsp;</label>
@@ -838,15 +837,11 @@ echo set_value('guardian_is') == "other" ? "checked" : "";
                                             <span class="text-danger"><?php echo form_error('guardian_is'); ?></span>
                                         </div>
                                     </div>
-                                        <?php
-}
-    ?>
+
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="row">
-                                                 <?php
-if ($sch_setting->guardian_name) {
-        ?>
+   
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="exampleInputEmail1"><?php echo $this->lang->line('guardian_name'); ?></label><small class="req"> *</small>
@@ -854,10 +849,10 @@ if ($sch_setting->guardian_name) {
                                                         <span class="text-danger"><?php echo form_error('guardian_name'); ?></span>
                                                     </div>
                                                 </div>
-<?php }if ($sch_setting->guardian_relation) {?>
+<?php if ($sch_setting->guardian_relation) {?>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="exampleInputEmail1"><?php echo $this->lang->line('guardian_relation'); ?></label>
+                                                            <label for="exampleInputEmail1"><?php echo $this->lang->line('guardian_relation'); ?></label><?php if($sch_setting->gurdian_religion_req){ ?><small class="req"> *</small><?php }?>
                                                             <input id="guardian_relation" name="guardian_relation" placeholder="" type="text" class="form-control"  value="<?php echo set_value('guardian_relation'); ?>" />
                                                             <span class="text-danger"><?php echo form_error('guardian_relation'); ?></span>
                                                         </div>
@@ -865,9 +860,8 @@ if ($sch_setting->guardian_name) {
                                     <?php }?>
                                             </div>
                                             <div class="row">
-                                                <?php
-if ($sch_setting->guardian_phone) {
-        ?>
+ 
+ 
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="exampleInputEmail1"><?php echo $this->lang->line('guardian_phone'); ?></label><small class="req"> *</small>
@@ -875,12 +869,12 @@ if ($sch_setting->guardian_phone) {
                                                         <span class="text-danger"><?php echo form_error('guardian_phone'); ?></span>
                                                     </div>
                                                 </div>
-                                            <?php }
+                                            <?php 
     if ($sch_setting->guardian_occupation) {
         ?>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="exampleInputEmail1"><?php echo $this->lang->line('guardian_occupation'); ?></label>
+                                                        <label for="exampleInputEmail1"><?php echo $this->lang->line('guardian_occupation'); ?></label><?php if($sch_setting->gurdian_occupation_req){ ?><small class="req"> *</small><?php }?>
                                                         <input id="guardian_occupation" name="guardian_occupation" placeholder="" type="text" class="form-control"  value="<?php echo set_value('guardian_occupation'); ?>" />
                                                         <span class="text-danger"><?php echo form_error('guardian_occupation'); ?></span>
                                                     </div>
@@ -891,7 +885,7 @@ if ($sch_setting->guardian_phone) {
                                     <?php if ($sch_setting->guardian_email) {?>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('guardian_email'); ?></label>
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('guardian_email'); ?></label><?php if($sch_setting->guardian_email){ ?><small class="req"> *</small><?php }?>
                                                     <input id="guardian_email" name="guardian_email" placeholder="" type="text" class="form-control"  value="<?php echo set_value('guardian_email'); ?>" />
                                                     <span class="text-danger"><?php echo form_error('guardian_email'); ?></span>
                                                 </div>
@@ -899,14 +893,14 @@ if ($sch_setting->guardian_phone) {
 <?php }if ($sch_setting->guardian_pic) {?>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputFile"><?php echo $this->lang->line('guardian_photo'); ?></label>
+                                                    <label for="exampleInputFile"><?php echo $this->lang->line('guardian_photo'); ?></label><?php if($sch_setting->gurdian_photo_req){ ?><small class="req"> *</small><?php }?>
                                                     <div><input class="filestyle form-control" type='file' name='guardian_pic' id="file" size='20' />
                                                     </div>
                                                     <span class="text-danger"><?php echo form_error('file'); ?></span></div>
                                             </div>
 <?php }if ($sch_setting->guardian_address) {?>
                                             <div class="col-md-6">
-                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('guardian_address'); ?></label>
+                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('guardian_address'); ?></label><?php if($sch_setting->gurdian_address_req){ ?><small class="req"> *</small><?php }?>
                                                 <textarea id="guardian_address" name="guardian_address" placeholder="" class="form-control" rows="2"><?php echo set_value('guardian_address'); ?></textarea>
                                                 <span class="text-danger"><?php echo form_error('guardian_address'); ?></span>
                                             </div>
@@ -936,7 +930,7 @@ if ($sch_setting->guardian_phone) {
                                                             </label>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="exampleInputEmail1"><?php echo $this->lang->line('current_address'); ?></label>
+                                                            <label for="exampleInputEmail1"><?php echo $this->lang->line('current_address'); ?></label><?php if($sch_setting->guardian_currentaddress_req){ ?><small class="req"> *</small><?php }?>
                                                             <textarea id="current_address" name="current_address" placeholder=""  class="form-control" ><?php echo set_value('current_address'); ?></textarea>
                                                             <span class="text-danger"><?php echo form_error('current_address'); ?></span>
                                                         </div>
@@ -950,7 +944,7 @@ if ($sch_setting->guardian_phone) {
                                                             </label>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="exampleInputEmail1"><?php echo $this->lang->line('permanent_address'); ?></label>
+                                                            <label for="exampleInputEmail1"><?php echo $this->lang->line('permanent_address'); ?></label><?php if($sch_setting->guardian_permentaddress_req){ ?><small class="req"> *</small><?php }?>
                                                             <textarea id="permanent_address" name="permanent_address" placeholder="" class="form-control"><?php echo set_value('permanent_address'); ?></textarea>
                                                             <span class="text-danger"><?php echo form_error('permanent_address'); ?></span>
                                                         </div>
@@ -966,21 +960,21 @@ if ($sch_setting->guardian_phone) {
                                                     <?php if ($sch_setting->bank_account_no) {?>
                                                     <div class="col-md-4">
                                                         <div class="form-group">
-                                                            <label for="exampleInputEmail1"><?php echo $this->lang->line('bank_account_number'); ?></label>
+                                                            <label for="exampleInputEmail1"><?php echo $this->lang->line('bank_account_number'); ?></label></label><?php if($sch_setting->bank_account_req){ ?><small class="req"> *</small><?php }?>
                                                             <input id="bank_account_no" name="bank_account_no" placeholder="" type="text" class="form-control"  value="<?php echo set_value('bank_account_no'); ?>" />
                                                             <span class="text-danger"><?php echo form_error('bank_account_no'); ?></span>
                                                         </div>
                                                     </div><?php }if ($sch_setting->bank_name) {?>
                                                     <div class="col-md-4">
                                                         <div class="form-group">
-                                                            <label for="exampleInputEmail1"><?php echo $this->lang->line('bank_name'); ?></label>
+                                                            <label for="exampleInputEmail1"><?php echo $this->lang->line('bank_name'); ?></label></label><?php if($sch_setting->bank_name_req){ ?><small class="req"> *</small><?php }?>
                                                             <input id="bank_name" name="bank_name" placeholder="" type="text" class="form-control"  value="<?php echo set_value('bank_name'); ?>" />
                                                             <span class="text-danger"><?php echo form_error('bank_name'); ?></span>
                                                         </div>
                                                     </div><?php }if ($sch_setting->ifsc_code) {?>
                                                     <div class="col-md-4">
                                                         <div class="form-group">
-                                                            <label for="exampleInputEmail1"><?php echo $this->lang->line('ifsc_code'); ?></label>
+                                                            <label for="exampleInputEmail1"><?php echo $this->lang->line('ifsc_code'); ?></label><?php if($sch_setting->ifsc_code_req){ ?><small class="req"> *</small><?php }?>
                                                             <input id="ifsc_code" name="ifsc_code" placeholder="" type="text" class="form-control"  value="<?php echo set_value('ifsc_code'); ?>" />
                                                             <span class="text-danger"><?php echo form_error('ifsc_code'); ?></span>
                                                         </div>
@@ -993,7 +987,7 @@ if ($sch_setting->guardian_phone) {
                                                         <div class="form-group">
                                                             <label for="exampleInputEmail1">
     <?php echo $this->lang->line('national_identification_no_aadhaar_no'); ?>
-                                                            </label>
+                                                            </label><?php if($sch_setting->aadhaar_identification_req){ ?><small class="req"> *</small><?php }?>
                                                             <input id="adhar_no" name="adhar_no" placeholder="" type="text" class="form-control"  value="<?php echo set_value('adhar_no'); ?>" />
                                                             <span class="text-danger"><?php echo form_error('adhar_no'); ?></span>
                                                         </div>
@@ -1003,7 +997,7 @@ if ($sch_setting->guardian_phone) {
                                                         <div class="form-group">
                                                             <label for="exampleInputEmail1">
     <?php echo $this->lang->line('local_identification_number'); ?>
-                                                            </label>
+                                                            </label><?php if($sch_setting->local_identification_req){ ?><small class="req"> *</small><?php }?>
                                                             <input id="samagra_id" name="samagra_id" placeholder="" type="text" class="form-control"  value="<?php echo set_value('samagra_id'); ?>" />
                                                             <span class="text-danger"><?php echo form_error('samagra_id'); ?></span>
                                                         </div>
@@ -1011,7 +1005,7 @@ if ($sch_setting->guardian_phone) {
 <?php }if ($sch_setting->rte) {
     ?>
                                                     <div class="col-md-4">
-                                                        <label><?php echo $this->lang->line('rte'); ?></label>
+                                                        <label><?php echo $this->lang->line('rte'); ?></label><?php if($sch_setting->rte_req){ ?><small class="req"> *</small><?php }?>
                                                         <div class="radio" style="margin-top: 2px;">
                                                             <label><input class="radio-inline" type="radio" name="rte" value="Yes"  <?php
                                             echo set_value('rte') == "yes" ? "checked" : "";
@@ -1025,7 +1019,7 @@ if ($sch_setting->guardian_phone) {
                                             <?php }if ($sch_setting->previous_school_details) {?>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="exampleInputEmail1"><?php echo $this->lang->line('previous_school_details'); ?></label>
+                                                            <label for="exampleInputEmail1"><?php echo $this->lang->line('previous_school_details'); ?></label><?php if($sch_setting->previous_school_req){ ?><small class="req"> *</small><?php }?>
                                                             <textarea class="form-control" rows="3" placeholder="" name="previous_school"></textarea>
                                                             <span class="text-danger"><?php echo form_error('previous_school'); ?></span>
                                                         </div>
@@ -1036,7 +1030,7 @@ if ($sch_setting->guardian_phone) {
                                         <?php if ($sch_setting->last_class) {?>
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('last_class'); ?></label>
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('last_class'); ?></label><?php if($sch_setting->last_class_req){ ?><small class="req"> *</small><?php }?>
                                                     <input id="last_class" name="last_class" placeholder="" type="text" class="form-control"  value="<?php echo set_value('last_class'); ?>" />
                                                     <span class="text-danger"><?php echo form_error('last_class'); ?></span>
                                                 </div>
@@ -1047,7 +1041,7 @@ if ($sch_setting->guardian_phone) {
                                             <div class="col-md-2">
                                                
                                            
-                                                    <label>Previous School Medium</label><br>
+                                                    <label>Previous School Medium</label><?php if($sch_setting->previous_medium_req){ ?><small class="req"> *</small><?php }?><br>
 
                                                     <div class="form-check ">
                                                         <input class="form-check-input" type="radio" name="previous_school_medium" id="previous_hindi_medium" value="Hindi" 
@@ -1071,7 +1065,7 @@ if ($sch_setting->guardian_phone) {
                                           <?php if ($sch_setting->student_note) {?>
                                                     <div class="col-md-7">
                                                         <div class="form-group">
-                                                            <label for="exampleInputEmail1"><?php echo $this->lang->line('note'); ?></label>
+                                                            <label for="exampleInputEmail1"><?php echo $this->lang->line('note'); ?></label><?php if($sch_setting->note_req){ ?><small class="req"> *</small><?php }?>
                                                             <textarea class="form-control" rows="3" placeholder="" name="note"></textarea>
                                                             <span class="text-danger"><?php echo form_error('note'); ?></span>
                                                         </div>

@@ -495,9 +495,9 @@ class Student extends Admin_Controller
             $this->form_validation->set_rules('lastname',$this->lang->line('last_name'), 'trim|required|xss_clean');
         }
 
-        if ($this->sch_setting_detail->mobile_number_req) {
-            $this->form_validation->set_rules('mobileno',$this->lang->line('mobileno'), 'trim|required|xss_clean');
-        }
+        // if ($this->sch_setting_detail->mobile_number_req) {
+        //     $this->form_validation->set_rules('mobileno',$this->lang->line('mobileno'), 'trim|required|xss_clean');
+        // }
         if ($this->sch_setting_detail->email_req) {
             $this->form_validation->set_rules('email',$this->lang->line('email'), 'trim|required|xss_clean');
         }
@@ -572,9 +572,6 @@ class Student extends Admin_Controller
         if ($this->sch_setting_detail->father_photo_req) {
             $this->form_validation->set_rules('father_pic',$this->lang->line('father_pic'), 'trim|required|xss_clean');
         }
-        if ($this->sch_setting_detail->father_photo_req) {
-            $this->form_validation->set_rules('father_pic',$this->lang->line('father_pic'), 'callback_handle_upload[father_pic]');
-        }
         if ($this->sch_setting_detail->mather_name_req) {
             $this->form_validation->set_rules('mother_name',$this->lang->line('mother_name'), 'trim|required|xss_clean');
         }
@@ -590,15 +587,15 @@ class Student extends Admin_Controller
         if ($this->sch_setting_detail->is_guardian_mather_father_req) {
             $this->form_validation->set_rules('guardian_is',$this->lang->line('if_guardian_is'), 'trim|required|xss_clean');
         }
-        if ($this->sch_setting_detail->gurdian_name_req) {
-            $this->form_validation->set_rules('guardian_name',$this->lang->line('guardian_name'), 'trim|required|xss_clean');
-        }
+        // if ($this->sch_setting_detail->gurdian_name_req) {
+        //     $this->form_validation->set_rules('guardian_name',$this->lang->line('guardian_name'), 'trim|required|xss_clean');
+        // }
         if ($this->sch_setting_detail->gurdian_religion_req) {
             $this->form_validation->set_rules('guardian_relation',$this->lang->line('guardian_relation'), 'trim|required|xss_clean');
         }
-        if ($this->sch_setting_detail->gurdian_phone_req) {
-            $this->form_validation->set_rules('guardian_phone',$this->lang->line('guardian_phone'), 'trim|required|xss_clean');
-        }
+        // if ($this->sch_setting_detail->gurdian_phone_req) {
+        //     $this->form_validation->set_rules('guardian_phone',$this->lang->line('guardian_phone'), 'trim|required|xss_clean');
+        // }
         if ($this->sch_setting_detail->gurdian_occupation_req) {
             $this->form_validation->set_rules('guardian_occupation',$this->lang->line('guardian_occupation'), 'trim|required|xss_clean');
         }
@@ -608,10 +605,6 @@ class Student extends Admin_Controller
         if ($this->sch_setting_detail->gurdian_photo_req) {
             $this->form_validation->set_rules('guardian_pic',$this->lang->line('guardian_photo'), 'required|callback_handle_upload[guardian_pic]');
         }
-        if ($this->sch_setting_detail->gurdian_address_req) {
-            $this->form_validation->set_rules('guardian_address',$this->lang->line('guardian_address'), 'trim|required|xss_clean');
-        }
-   
         if ($this->sch_setting_detail->gurdian_address_req) {
             $this->form_validation->set_rules('guardian_address',$this->lang->line('guardian_address'), 'trim|required|xss_clean');
         }
@@ -647,6 +640,9 @@ class Student extends Admin_Controller
         }
         if ($this->sch_setting_detail->note_req) {
             $this->form_validation->set_rules('note',$this->lang->line('note'), 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->previous_medium_req) {
+            $this->form_validation->set_rules('previous_school_medium','Previous School Medium', 'trim|required|xss_clean');
         }
         if ($this->sch_setting_detail->upload_documents_req) {
 
@@ -1649,6 +1645,11 @@ class Student extends Admin_Controller
         if ($this->sch_setting_detail->roll_number_req) {
             $this->form_validation->set_rules('roll_no', $this->lang->line('roll_no'), 'trim|required|xss_clean');
         }
+
+               // start here for valiation of new fields
+        if ($this->sch_setting_detail->roll_number_req) {
+            $this->form_validation->set_rules('roll_no', $this->lang->line('roll_no'), 'trim|required|xss_clean');
+        }
         if ($this->sch_setting_detail->enrollment_no_req) {
             $this->form_validation->set_rules('enrollment_no', $this->lang->line('enrollment_no'), 'trim|required|xss_clean');
         }
@@ -1662,9 +1663,9 @@ class Student extends Admin_Controller
             $this->form_validation->set_rules('lastname',$this->lang->line('last_name'), 'trim|required|xss_clean');
         }
 
-        if ($this->sch_setting_detail->mobile_number_req) {
-            $this->form_validation->set_rules('mobileno',$this->lang->line('mobileno'), 'trim|required|xss_clean');
-        }
+        // if ($this->sch_setting_detail->mobile_number_req) {
+        //     $this->form_validation->set_rules('mobileno',$this->lang->line('mobileno'), 'trim|required|xss_clean');
+        // }
         if ($this->sch_setting_detail->email_req) {
             $this->form_validation->set_rules('email',$this->lang->line('email'), 'trim|required|xss_clean');
         }
@@ -1739,9 +1740,6 @@ class Student extends Admin_Controller
         if ($this->sch_setting_detail->father_photo_req) {
             $this->form_validation->set_rules('father_pic',$this->lang->line('father_pic'), 'trim|required|xss_clean');
         }
-        if ($this->sch_setting_detail->father_photo_req) {
-            $this->form_validation->set_rules('father_pic',$this->lang->line('father_pic'), 'callback_handle_upload[father_pic]');
-        }
         if ($this->sch_setting_detail->mather_name_req) {
             $this->form_validation->set_rules('mother_name',$this->lang->line('mother_name'), 'trim|required|xss_clean');
         }
@@ -1757,15 +1755,15 @@ class Student extends Admin_Controller
         if ($this->sch_setting_detail->is_guardian_mather_father_req) {
             $this->form_validation->set_rules('guardian_is',$this->lang->line('if_guardian_is'), 'trim|required|xss_clean');
         }
-        if ($this->sch_setting_detail->gurdian_name_req) {
-            $this->form_validation->set_rules('guardian_name',$this->lang->line('guardian_name'), 'trim|required|xss_clean');
-        }
+        // if ($this->sch_setting_detail->gurdian_name_req) {
+        //     $this->form_validation->set_rules('guardian_name',$this->lang->line('guardian_name'), 'trim|required|xss_clean');
+        // }
         if ($this->sch_setting_detail->gurdian_religion_req) {
             $this->form_validation->set_rules('guardian_relation',$this->lang->line('guardian_relation'), 'trim|required|xss_clean');
         }
-        if ($this->sch_setting_detail->gurdian_phone_req) {
-            $this->form_validation->set_rules('guardian_phone',$this->lang->line('guardian_phone'), 'trim|required|xss_clean');
-        }
+        // if ($this->sch_setting_detail->gurdian_phone_req) {
+        //     $this->form_validation->set_rules('guardian_phone',$this->lang->line('guardian_phone'), 'trim|required|xss_clean');
+        // }
         if ($this->sch_setting_detail->gurdian_occupation_req) {
             $this->form_validation->set_rules('guardian_occupation',$this->lang->line('guardian_occupation'), 'trim|required|xss_clean');
         }
@@ -1775,10 +1773,6 @@ class Student extends Admin_Controller
         if ($this->sch_setting_detail->gurdian_photo_req) {
             $this->form_validation->set_rules('guardian_pic',$this->lang->line('guardian_photo'), 'required|callback_handle_upload[guardian_pic]');
         }
-        if ($this->sch_setting_detail->gurdian_address_req) {
-            $this->form_validation->set_rules('guardian_address',$this->lang->line('guardian_address'), 'trim|required|xss_clean');
-        }
-   
         if ($this->sch_setting_detail->gurdian_address_req) {
             $this->form_validation->set_rules('guardian_address',$this->lang->line('guardian_address'), 'trim|required|xss_clean');
         }
@@ -1815,13 +1809,15 @@ class Student extends Admin_Controller
         if ($this->sch_setting_detail->note_req) {
             $this->form_validation->set_rules('note',$this->lang->line('note'), 'trim|required|xss_clean');
         }
+        if ($this->sch_setting_detail->previous_medium_req) {
+            $this->form_validation->set_rules('previous_school_medium','Previous School Medium', 'trim|required|xss_clean');
+        }
         if ($this->sch_setting_detail->upload_documents_req) {
 
             $this->form_validation->set_rules('first_title',$this->lang->line('title'), 'trim|required|xss_clean');
             $this->form_validation->set_rules('first_doc',$this->lang->line('documents'), 'required');
 
         }
-		
 		
 		
         if (!$this->sch_setting_detail->adm_auto_insert) {
