@@ -167,7 +167,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                    <td class="text-rtl-right" width="100%">Subjects Opted</td>
+                                    <td class="text-rtl-right" width="100%">Subjects Options</td>
                                         <td>
                                             <div class="material-switch pull-right">
                                                 <input id="subject_option" name="subject_option" type="checkbox" data-role="subject_option" class="chk" data-rowid="1" value="checked" <?php if ($result->subject_option == "1") {

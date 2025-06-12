@@ -522,6 +522,24 @@ $currency_symbol = $admin_session['currency_symbol'];
                                             <?php
                                             }
                                             ?>   
+                                           <?php  if ($sch_setting->subject_option) {
+                                                ?>
+                                                <tr>
+                                                    <td><?php echo $this->lang->line('subjects'); ?></td>
+                                                    <td><?php echo $student['subject_names']; ?></td>
+                                                </tr>
+                                            <?php
+                                            }
+                                            ?>   
+                                           <?php  if ($sch_setting->school_medium) {
+                                                ?>
+                                                <tr>
+                                                    <td><?php echo $this->lang->line('school_medium'); ?></td>
+                                                    <td><?php echo $student['school_medium']; ?></td>
+                                                </tr>
+                                            <?php
+                                            }
+                                            ?>   
 
                                             <?php if ($sch_setting->admission_date) {
                                             ?>
@@ -693,12 +711,12 @@ $currency_symbol = $admin_session['currency_symbol'];
                                                     <td><?php echo $this->lang->line('mother_name'); ?></td>
                                                     <td><?php echo $student['mother_name']; ?></td>
                                                     <td rowspan="3"><img class="profile-user-img img-responsive img-rounded" src="<?php
-                                                                                                                                    if (!empty($student["mother_pic"])) {
-                                                                                                                                        echo $this->media_storage->getImageURL($student["mother_pic"]);
-                                                                                                                                    } else {
-                                                                                                                                        echo $this->media_storage->getImageURL("uploads/student_images/no_image.png");
-                                                                                                                                    }
-                                                                                                                                    ?>"></td>
+                                                    if (!empty($student["mother_pic"])) {
+                                                        echo $this->media_storage->getImageURL($student["mother_pic"]);
+                                                    } else {
+                                                        echo $this->media_storage->getImageURL("uploads/student_images/no_image.png");
+                                                    }
+                                                    ?>"></td>
                                                 </tr>
                                             <?php }
                                             if ($sch_setting->mother_phone) { ?>
@@ -882,18 +900,38 @@ $currency_symbol = $admin_session['currency_symbol'];
                                                     <td><?php echo $student['previous_school']; ?></td>
                                                 </tr>
                                             <?php }
+                                            if ($sch_setting->previous_school_details) { ?>
+                                                <tr>
+                                                    <td>Previous School Medium</td>
+                                                    <td><?php echo $student['previous_school_medium']; ?></td>
+                                                </tr>
+                                            <?php }
+                                            if ($sch_setting->last_class) { ?>
+                                                <tr>
+                                                    <td><?php echo $this->lang->line('last_class'); ?></td>
+                                                    <td><?php echo $student['last_class']; ?></td>
+                                                </tr>
+                                            <?php }
                                             if ($sch_setting->national_identification_no) { ?>
                                                 <tr>
                                                     <td><?php echo $this->lang->line('national_identification_number'); ?></td>
                                                     <td class="col-md-5"><?php echo $student['adhar_no']; ?></td>
                                                 </tr>
                                             <?php }
+
                                             if ($sch_setting->local_identification_no) { ?>
                                                 <tr>
                                                     <td><?php echo $this->lang->line('local_identification_number'); ?></td>
                                                     <td><?php echo $student['samagra_id']; ?></td>
                                                 </tr>
                                             <?php }
+                                            if ($sch_setting->national_identification_no_aadhaar_no) { ?>
+                                                <tr>
+                                                    <td><?php echo $this->lang->line('national_identification_no_aadhaar_no'); ?></td>
+                                                    <td><?php echo $student['adhar_no']; ?></td>
+                                                </tr>
+                                            <?php }
+
                                             if ($sch_setting->bank_account_no) { ?>
                                                 <tr>
                                                     <td><?php echo $this->lang->line('bank_account_number'); ?></td>

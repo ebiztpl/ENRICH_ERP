@@ -449,13 +449,19 @@ class Student extends Admin_Controller
             )
         );
 
-
         $this->form_validation->set_rules(
             'mobileno', $this->lang->line('mobile_no'), array(
-                'xss_clean','required','regex_match[/^[0-9]{10}$/]',
-                array('check_student_mobile_exists', array($this->student_model, 'check_student_mobile_no_exists')),
+                'xss_clean','required','regex_match[/^[0-9]{10}$/]'
             )
         );
+
+        // for mobile unique validation saurbh date(12/6/25)
+        // $this->form_validation->set_rules(
+        //     'mobileno', $this->lang->line('mobile_no'), array(
+        //         'xss_clean','required','regex_match[/^[0-9]{10}$/]',
+        //         array('check_student_mobile_exists', array($this->student_model, 'check_student_mobile_no_exists')),
+        //     )
+        // );
         $this->form_validation->set_rules(
             'roll_no', $this->lang->line('roll_number'), array(
                 'xss_clean',
@@ -732,8 +738,8 @@ class Student extends Admin_Controller
                 'hostel_room_id'    => $hostel_room_id,
                 'note'              => $this->input->post('note'),
                 'is_active'         => 'yes',
-                'class'             => $this->input->post('class'),
-                'section'           => $this->input->post('section'),
+                // 'class'             => $this->input->post('class'),
+                // 'section'           => $this->input->post('section'),
                 'SSSMID'            => $this->input->post('SSSMID'),
                 'pen_no'            => $this->input->post('pen_no'),
                 'family_mid_no'     => $this->input->post('family_mid_no'),
@@ -1623,12 +1629,20 @@ class Student extends Admin_Controller
             )
         );
 
+       //   for unique mobile number validation
         $this->form_validation->set_rules(
             'mobileno', $this->lang->line('mobile_no'), array(
-                'xss_clean','required','regex_match[/^[0-9]{10}$/]',
-                array('check_student_mobile_exists', array($this->student_model, 'check_student_mobile_no_exists')),
+                'xss_clean','required','regex_match[/^[0-9]{10}$/]'
             )
         );
+
+        // for unique mobile number validation date(12/6/2025)
+        // $this->form_validation->set_rules(
+        //     'mobileno', $this->lang->line('mobile_no'), array(
+        //         'xss_clean','required','regex_match[/^[0-9]{10}$/]',
+        //         array('check_student_mobile_exists', array($this->student_model, 'check_student_mobile_no_exists')),
+        //     )
+        // );
 
 		    $this->form_validation->set_rules(
             'roll_no', $this->lang->line('roll_number'), array(
@@ -2302,6 +2316,7 @@ class Student extends Admin_Controller
 
     public function search()
     {
+        
         if (!$this->rbac->hasPrivilege('student', 'can_view')) {
             access_denied();
         }
@@ -2314,8 +2329,10 @@ class Student extends Admin_Controller
         $data['fields']          = $this->customfield_model->get_custom_fields('students', 1);
         $class                   = $this->class_model->get();
         $data['classlist']       = $class;
-    $genderList            = $this->customlib->getGender();
+        $genderList            = $this->customlib->getGender();
         $data['genderList']    = $genderList;
+        $subjectgroupList         = $this->subjectgroup_model->getByID();
+        $data['subjectgroupList'] = $subjectgroupList;
            $houses               = $this->student_model->gethouselist();
         $data['houses']       = $houses;
 
@@ -2833,6 +2850,8 @@ class Student extends Admin_Controller
         $class           = $this->input->post('class_id');
         $section         = $this->input->post('section_id');
         $search_text     = $this->input->post('search_text');
+         $school_medium      = $this->input->post('school_medium');
+         
         $search_type     = $this->input->post('srch_type');
         $classlist       = $this->class_model->get();
         $classlist       = $classlist;
@@ -2848,9 +2867,9 @@ class Student extends Admin_Controller
         if ($search_type == "search_filter") {
 
             $category_id = $this->input->post('category_id');
-           $gender      = $this->input->post('gender');
-               $house  = $this->input->post('house');
-
+            $gender      = $this->input->post('gender');
+            $house  = $this->input->post('house');
+            $school_medium      = $this->input->post('school_medium');
 
 
 
@@ -2861,7 +2880,7 @@ class Student extends Admin_Controller
                $checkkdel5  = $this->input->post('checkkdel5');
 
 
-            $resultlist = $this->student_model->searchdtByClassSection($class, $section,$category_id,$gender,$house,$checkkdel1,$checkkdel2,$checkkdel3,$checkkdel4,$checkkdel5 );
+            $resultlist = $this->student_model->searchdtByClassSection($class,$school_medium,$section,$category_id,$gender,$house,$checkkdel1,$checkkdel2,$checkkdel3,$checkkdel4,$checkkdel5 );
         } elseif ($search_type == "search_full") {
 
             $resultlist = $this->student_model->searchFullText($search_text, $carray);
@@ -2968,7 +2987,10 @@ class Student extends Admin_Controller
         $srch_type   = $this->input->post('search_type');
         $search_text = $this->input->post('search_text');
         $category_id = $this->input->post('category_id');
+        $subject_group_id = $this->input->post('subject_group_id');
         $gender      = $this->input->post('gender');
+        $school_medium      = $this->input->post('school_medium');
+       
          $house  = $this->input->post('house');
 
 
@@ -2984,7 +3006,7 @@ class Student extends Admin_Controller
             if ($this->form_validation->run() == true) {
 
               
-                $params = array('srch_type' => $srch_type, 'class_id' => $class_id, 'section_id' => $section_id , 'category_id' => $category_id , 'gender' => $gender , 'house' => $house , 'checkkdel1' => $checkkdel1, 'checkkdel2' => $checkkdel2, 'checkkdel3' => $checkkdel3, 'checkkdel4' => $checkkdel4, 'checkkdel5' => $checkkdel5 );
+                $params = array('srch_type' => $srch_type,'subject_group_id' => $subject_group_id,'school_medium'=>$school_medium ,'class_id' => $class_id, 'section_id' => $section_id , 'category_id' => $category_id , 'gender' => $gender , 'house' => $house , 'checkkdel1' => $checkkdel1, 'checkkdel2' => $checkkdel2, 'checkkdel3' => $checkkdel3, 'checkkdel4' => $checkkdel4, 'checkkdel5' => $checkkdel5 );
                 $array  = array('status' => 1, 'error' => '', 'params' => $params);
                 echo json_encode($array);
 
