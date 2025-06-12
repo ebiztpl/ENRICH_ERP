@@ -6,7 +6,35 @@
         <h1>
             <i class="fa fa-mortar-board"></i> <?php echo $this->lang->line('academics'); ?>     </h1>
     </section>
+<style>
+    .scrollbox {
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+    background: #f9f9f9;
+}
+    #sortable tr {
+  cursor: move;
+}
+.text-container {
+  max-height: 120px;
+  overflow: hidden;
+  position: relative;
+}
 
+.text-container.expanded {
+  max-height: none;
+}
+
+.read-toggle {
+  color: #424241;
+  cursor: pointer;
+  font-size: 12px;
+  display: block;
+  margin-top: 5px;
+}
+</style>
     <!-- Main content -->
     <section class="content">
         <div class="row">
@@ -43,17 +71,17 @@
                                     <label for="exampleInputEmail1"><?php echo $this->lang->line('sections'); ?></label><small class="req"> *</small>
 
 
-                                    <?php
-                                    foreach ($vehiclelist as $vehicle) {
-                                        ?>
+                                   <div style="max-height: 300px; overflow-y: auto; border: 0px solid #ddd; padding: 6px;">
+                                    <?php foreach ($vehiclelist as $vehicle): ?>
                                         <div class="checkbox">
                                             <label>
-                                                <input type="checkbox" name="sections[]" value="<?php echo $vehicle['id'] ?>" <?php echo set_checkbox('sections[]', $vehicle['id']); ?> ><?php echo $vehicle['section'] ?>
+                                                <input type="checkbox" name="sections[]" value="<?php echo $vehicle['id'] ?>" <?php echo set_checkbox('sections[]', $vehicle['id']); ?>>
+                                                <?php echo $vehicle['section'] ?>
                                             </label>
                                         </div>
-                                        <?php
-                                    }
-                                    ?>
+                                    <?php endforeach; ?>
+                                </div>
+
 
                                     <span class="text-danger"><?php echo form_error('sections[]'); ?></span>
                                 </div>
@@ -98,32 +126,30 @@
                                         <th class="text-right noExport"><?php echo $this->lang->line('action'); ?></th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="sortable">
                                     <?php
                                     foreach ($vehroutelist as $vehroute) {
                                         ?>
-                                        <tr>
+                                     <tr id="row_<?php echo $vehroute->id; ?>">
                                             <td class="mailbox-name">
                                                 <?php echo $vehroute->class; ?>
 
                                             </td>
 
 
-                                            <td>
-                                                <?php
-                                                $vehicles = $vehroute->vehicles;
-                                                if (!empty($vehicles)) {
-
-
-                                                    foreach ($vehicles as $key => $value) {
-
-
-                                                        echo "<div>" . $value->section . "</div>";
+                                           <td>
+                                                <div class="text-container">
+                                                    <?php
+                                                    $vehicles = $vehroute->vehicles;
+                                                    if (!empty($vehicles)) {
+                                                        foreach ($vehicles as $value) {
+                                                            echo "<div>" . $value->section . "</div>";
+                                                        }
                                                     }
-                                                }
-                                                ?>
+                                                    ?>
+                                                </div>
+                                                </td>
 
-                                            </td>
                                             <td class="mailbox-date pull-right">
                                                 <?php
                                                 if ($this->rbac->hasPrivilege('class', 'can_edit')) {
@@ -167,4 +193,50 @@
         </div>   <!-- /.row -->
     </section><!-- /.content -->
 </div><!-- /.content-wrapper -->
+<script>
 
+$(document).ready(function () {
+   $('#sortable').sortable({
+        items: 'tr',
+        cursor: 'move',
+        update: function (event, ui) {
+            var sortedIDs = $(this).sortable("toArray");
+      
+                  $.ajax({
+                    type: "POST",
+                    url: "<?php echo base_url('classes/set_orders'); ?>",
+                    data: {sortedIDs: sortedIDs},
+                    success: function (response) {
+                        if (response.status == 'success') {
+                          return;
+                        } else if(response.status == 'fail') {
+                            alert(response.message);
+                        }
+                    },
+                    error: function () {
+                        alert("An error occurred while updating the order.");
+                    }
+                  })
+                   
+        }
+    });
+
+
+});
+
+
+$(document).ready(function () {
+  $('.text-container').each(function () {
+    if ($(this).prop('scrollHeight') > 120) {
+        $(this).after('<span class="read-toggle">Read more</span>');
+    }
+  });
+
+  $(document).on('click', '.read-toggle', function () {
+    const container = $(this).prev('.text-container');
+    container.toggleClass('expanded');
+    $(this).text(container.hasClass('expanded') ? 'Read less' : 'Read more');
+  });
+});
+
+</script>

@@ -153,15 +153,15 @@ if ($student['gender'] == $key) {
                                             </div>
                                     
 
-                                        <?php if ($sch_setting->student_email) {?>
+                                       
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('email'); ?></label><?php if($sch_setting->email_req){ ?><small class="req"> *</small> <?php }?>
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('email'); ?></label><small class="req"> *</small> 
                                                     <input id="email" name="email" placeholder="" type="text" class="form-control"  value="<?php echo set_value('email' ,$student['email']); ?>" />
                                                     <span class="text-danger"><?php echo form_error('email'); ?></span>
                                                 </div>
                                             </div>
-                                        <?php }?>
+                                     
 
                                                        <div class="col-md-3">
                                             <div class="form-group">
@@ -291,7 +291,9 @@ if ($student['dob'] != '0000-00-00' && $student['dob'] != '') {
                                             </div>
                                         <?php } ?> 
 
-
+ <?php
+                                          if ($sch_setting->is_student_house) {
+                                                ?>
                                           <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1"><?php echo $this->lang->line('house') ?></label><?php if($sch_setting->is_student_house_req){ ?><small class="req"> *</small> <?php }?>
@@ -310,7 +312,9 @@ if ($student['dob'] != '0000-00-00' && $student['dob'] != '') {
                                                     <span class="text-danger"><?php echo form_error('house'); ?></span>
                                                 </div>
                                             </div>
-                                            
+                                             <?php
+                                        }
+                                        ?>  
                                     <?php if ($sch_setting->is_student_house) {
                                             ?>
                                         <?php if ($sch_setting->student_photo) {?>
@@ -1072,7 +1076,7 @@ if ($student['guardian_is'] == "other") {
                                         <?php }?>
                                         </div>
                                     <div class="row">
-                                                    <?php if ($sch_setting->national_identification_no) {?>
+              <?php if ($sch_setting->national_identification_no_aadhaar_no) {?>
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">

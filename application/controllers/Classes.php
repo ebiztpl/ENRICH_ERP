@@ -151,4 +151,27 @@ class Classes extends Admin_Controller
         $this->load->view('class/_section_list', $data);
     }
 
+   public function set_orders()
+{
+    if (!$this->rbac->hasPrivilege('class', 'can_edit')) {
+        access_denied();
+    }
+
+    if (isset($_POST['sortedIDs'])) {
+        $sortable = $this->input->post('sortedIDs');  
+        $sortable = str_replace('row_', '', $sortable); 
+
+        foreach ($sortable as $key => $value) {
+            $this->db->where('id', $value);
+            $this->db->update('classes', ['sortable' => $key ]);
+        }
+
+        echo json_encode(['status' => 'success', 'message' => 'Order updated successfully']);
+        return;
+    }
+
+    echo json_encode(['status' => 'fail', 'message' => 'Invalid request']);
+}
+
+
 }

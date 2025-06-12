@@ -59,6 +59,7 @@ $this->load->view('layout/theme');
         <script src="<?php echo base_url(); ?>backend/js/sstoast.js"></script>
         <script src="<?php echo base_url(); ?>backend/js/export_lib.js"></script>
         
+        <script src="<?php echo base_url(); ?>backend/plugins/dotdot/readmore.min.js"></script>
         <!-- fullCalendar -->
         <link rel="stylesheet" href="<?php echo base_url() ?>backend/fullcalendar/dist/fullcalendar.min.css">
         <link rel="stylesheet" href="<?php echo base_url() ?>backend/fullcalendar/dist/fullcalendar.print.min.css" media="print">
