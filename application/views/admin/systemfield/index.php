@@ -488,27 +488,27 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td class="text-rtl-right" width="100%"><?php echo $this->lang->line('mobile_number'); ?></td>
+                                     <tr>
+                                        <td class="text-rtl-right" width="100%"><?php echo $this->lang->line('fees_discount'); ?></td>
                                         <td>
                                             <div class="material-switch pull-right">
-                                                <input id="mobile_no" name="mobile_no" type="checkbox" data-role="mobile_no" class="chk" data-rowid="1" value="checked" <?php if ($result->mobile_no == "1") {
+                                                <input id="fees_discount" name="fees_discount" type="checkbox" data-role="fees_discount" class="chk" data-rowid="1" value="checked" <?php if ($result->fees_discount == "1") {
     echo "checked='checked'";
 }
 ?> />
-                                                <label for="mobile_no" class="label-success"></label>
+                                                <label for="fees_discount" class="label-success"></label>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="material-switch pull-right">
-                                                <input id="mobile_number_req" name="mobile_number_req" type="checkbox" data-role="mobile_number_req" class="chk" data-rowid="1" value="checked" <?php if ($result->mobile_number_req == "1") {
+                                                <input id="fees_discount_req" name="fees_discount_req" type="checkbox" data-role="fees_discount_req" class="chk" data-rowid="1" value="checked" <?php if ($result->fees_discount_req == "1") {
     echo "checked='checked'";
 }
 ?> />
-                                                <label for="mobile_number_req" class="label-success"></label>
+                                                <label for="fees_discount_req" class="label-success"></label>
                                             </div>
                                         </td>
-                                    </tr>
+                                    </tr> 
                                     <tr>
                                         <td class="text-rtl-right" width="100%"><?php echo $this->lang->line('email'); ?></td>
                                         <td>
@@ -845,7 +845,7 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <!-- <tr>
                                         <td class="text-rtl-right" width="100%"><?php echo $this->lang->line('guardian_name'); ?></td>
                                         <td>
                                             <div class="material-switch pull-right">
@@ -865,8 +865,8 @@
                                                 <label for="gurdian_name_req" class="label-success"></label>
                                             </div>
                                         </td>
-                                    </tr>
-                                    <tr>
+                                    </tr> -->
+                                    <!-- <tr>
                                         <td class="text-rtl-right" width="100%"><?php echo $this->lang->line('guardian_phone'); ?></td>
                                         <td>
                                             <div class="material-switch pull-right">
@@ -886,7 +886,7 @@
                                                 <label for="gurdian_phone_req" class="label-success"></label>
                                             </div>
                                         </td>
-                                    </tr>
+                                    </tr> -->
                                      <tr>
                                         <td class="text-rtl-right" width="100%"><?php echo $this->lang->line('guardian_relation'); ?></td>
                                         <td>

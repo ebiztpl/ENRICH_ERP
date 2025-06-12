@@ -167,6 +167,8 @@ class Setting_model extends MY_Model {
         sch_settings.application_no_req,
         sch_settings.previous_medium_req,
         sch_settings.previous_medium,
+        sch_settings.fees_discount_req,
+        sch_settings.fees_discount,
         sch_settings.application_no,
         sch_settings.sssmid_req,
         sch_settings.pen_number_req,

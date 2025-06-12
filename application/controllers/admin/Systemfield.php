@@ -83,6 +83,20 @@ class Systemfield extends Admin_Controller
                 $data['previous_medium'] = 0;
             }
         } 
+        else if ($role == 'fees_discount') {
+            if ($status == "yes") {
+                $data['fees_discount'] = 1;
+            } else {
+                $data['fees_discount'] = 0;
+            }
+        } 
+        else if ($role == 'fees_discount_req') {
+            if ($status == "yes") {
+                $data['fees_discount_req'] = 1;
+            } else {
+                $data['fees_discount_req'] = 0;
+            }
+        } 
         else if ($role == 'previous_medium_req') {
             if ($status == "yes") {
                 $data['previous_medium_req'] = 1;
