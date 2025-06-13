@@ -51,7 +51,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
 
                                                     <div class="form-check radio-inline">
                                                         <input class="form-check-input" type="radio" name="school_medium" id="hindi_medium" value="Hindi" 
-                                                            <?php echo set_radio('school_medium', 'Hindi', true); ?>>
+                                                            <?php echo set_radio('school_medium', 'Hindi'); ?>>
                                                         <label class="form-check-label" for="hindi_medium"><?php echo $this->lang->line('hindi_medium'); ?></label>
                                                     </div>
 
@@ -166,7 +166,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                             </div>
                                         <?php }?>
 
-                                        <?php if ($sch_setting->student_email) {?>
+                                       
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1"><?php echo $this->lang->line('email'); ?></label><?php if($sch_setting->email_req){ ?><small class="req"> *</small> <?php }?>
@@ -174,7 +174,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                                     <span class="text-danger"><?php echo form_error('email'); ?></span>
                                                 </div>
                                             </div>
-                                        <?php }?>
+                                      
 
                                         <div class="col-md-3">
                                             <div class="form-group">
@@ -1008,10 +1008,10 @@ echo set_value('guardian_is') == "other" ? "checked" : "";
                                                         <label><?php echo $this->lang->line('rte'); ?></label><?php if($sch_setting->rte_req){ ?><small class="req"> *</small><?php }?>
                                                         <div class="radio" style="margin-top: 2px;">
                                                             <label><input class="radio-inline" type="radio" name="rte" value="Yes"  <?php
-                                            echo set_value('rte') == "yes" ? "checked" : "";
+                                            echo set_value('rte') == "Yes" ? "checked" : "";
                                                 ?>  ><?php echo $this->lang->line('yes'); ?></label>
                                                             <label><input class="radio-inline" checked="checked" type="radio" name="rte" value="No" <?php
-                                            echo set_value('rte') == "no" ? "checked" : "";
+                                            echo set_value('rte') == "No" ? "checked" : "";
                                                 ?>  ><?php echo $this->lang->line('no'); ?></label>
                                                         </div>
                                                         <span class="text-danger"><?php echo form_error('rte'); ?></span>
@@ -1045,7 +1045,7 @@ echo set_value('guardian_is') == "other" ? "checked" : "";
 
                                                     <div class="form-check ">
                                                         <input class="form-check-input" type="radio" name="previous_school_medium" id="previous_hindi_medium" value="Hindi" 
-                                                            <?php echo set_radio('previous_medium_english', 'Hindi', true); ?>>
+                                                            <?php echo set_radio('previous_medium_english', 'Hindi'); ?>>
                                                         <label class="form-check-label" for="previous_hindi_medium"><?php echo $this->lang->line('hindi_medium'); ?></label>
                                                     </div>
 

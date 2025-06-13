@@ -450,7 +450,7 @@ class Student extends Admin_Controller
         );
 
         $this->form_validation->set_rules(
-            'mobileno', $this->lang->line('mobile_no'), array(
+            'mobileno', $this->lang->line('mobile_number'), array(
                 'xss_clean','required','regex_match[/^[0-9]{10}$/]'
             )
         );
@@ -2850,8 +2850,8 @@ class Student extends Admin_Controller
         $class           = $this->input->post('class_id');
         $section         = $this->input->post('section_id');
         $search_text     = $this->input->post('search_text');
-         $school_medium      = $this->input->post('school_medium');
-         
+        $school_medium      = $this->input->post('school_medium');
+        $subject_group_id = $this->input->post('subject_group_id');
         $search_type     = $this->input->post('srch_type');
         $classlist       = $this->class_model->get();
         $classlist       = $classlist;
@@ -2879,8 +2879,8 @@ class Student extends Admin_Controller
                $checkkdel4  = $this->input->post('checkkdel4');
                $checkkdel5  = $this->input->post('checkkdel5');
 
-
-            $resultlist = $this->student_model->searchdtByClassSection($class,$school_medium,$section,$category_id,$gender,$house,$checkkdel1,$checkkdel2,$checkkdel3,$checkkdel4,$checkkdel5 );
+             // add two filter subject group and school medium
+            $resultlist = $this->student_model->searchdtByClassSection($class,$subject_group_id,$school_medium,$section,$category_id,$gender,$house,$checkkdel1,$checkkdel2,$checkkdel3,$checkkdel4,$checkkdel5 );
         } elseif ($search_type == "search_full") {
 
             $resultlist = $this->student_model->searchFullText($search_text, $carray);

@@ -509,7 +509,7 @@
                                             </div>
                                         </td>
                                     </tr> 
-                                    <tr>
+                                    <!-- <tr>
                                         <td class="text-rtl-right" width="100%"><?php echo $this->lang->line('email'); ?></td>
                                         <td>
                                             <div class="material-switch pull-right">
@@ -529,7 +529,7 @@
                                                 <label for="email_req" class="label-success"></label>
                                             </div>
                                         </td>
-                                    </tr>
+                                    </tr> -->
                                     <tr>
                                         <td class="text-rtl-right" width="100%"><?php echo $this->lang->line('admission_date'); ?></td>
                                         <td>

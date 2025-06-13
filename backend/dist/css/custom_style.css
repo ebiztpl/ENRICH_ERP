@@ -7,3 +7,11 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+
+
+.dataTables_processing i.fa-spinner {
+  font-size: 40px !important;
+  color: #000000 !important;
+  
+}

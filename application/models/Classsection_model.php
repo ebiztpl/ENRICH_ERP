@@ -134,7 +134,7 @@ class Classsection_model extends MY_Model
         if ($id != null) {
             $this->db->where('classes.id', $id);
         } else {
-            $this->db->order_by('classes.id', 'DESC');
+            $this->db->order_by('classes.sortable', 'AESC');
         }
 
         $query = $this->db->get();
@@ -147,6 +147,7 @@ class Classsection_model extends MY_Model
                     $vec_route     = new stdClass();
                     $vec_route->id = $vehicle_value['id'];
                     $vec_route->route_id = $vehicle_value['class'];
+                    $vec_route->sortable = $vehicle_value['sortable'];
                     $vec_route->vehicles = $this->getVechileByRoute($vehicle_value['id']);
                     $array[]             = $vec_route;
                 }
