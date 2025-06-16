@@ -135,7 +135,7 @@ class Studentfee extends Admin_Controller
         $sch_setting = $this->sch_setting_detail;
         $students    = json_decode($students);
       
-
+ 
       
 
         $dt_data     = array();
@@ -268,7 +268,7 @@ if (!empty($transport_fees)) {
   $dayta =  $total_balance_amount;
 // Custom Code by hritk
 if(($dayta > 0) && ($dayta != 0) && ($dayta == $total_amount)){
-    $row[] = "<a href=" . site_url('studentfee/addfee/' . $ab) . "  class='btn btn-info btn-xs'>" .  $this->lang->line('collect_fees') . "</a>";
+    $row[] = "<a href=" . site_url('studentfee/addfee/' . $ab) . "  class='btn btn-info btn-xs'>" .  $this->lang->line('unpaid') . "</a>";
 
 }else{
     
@@ -285,7 +285,7 @@ if(($dayta > 0) && ($dayta != 0) && ($dayta == $total_amount)){
       
 } else {
      
-        $row[] =    "<a href=" . site_url('studentfee/addfee/' . $ab) . "  class='btn btn-danger btn-xs'>Unapplied</span>";
+        $row[] =    "<a href=" . site_url('admin/feemaster/assign/' . $studentt->fee_session_group_id) . "  class='btn btn-danger btn-xs'>Unapplied</span>";
       
 }
 
@@ -585,7 +585,7 @@ if(($dayta > 0) && ($dayta != 0) && ($dayta == $total_amount)){
 
     public function addfee($id)
     {
-
+   
         if (!$this->rbac->hasPrivilege('collect_fees', 'can_view')) {
             access_denied();
         }
@@ -938,7 +938,7 @@ $vocuher =  $check->invoice_id.'/'.$check->sub_invoice_id;
     }
 
     public function printFeesByGroup()
-    {
+    {  
         $fee_category        = $this->input->post('fee_category');
         $trans_fee_id        = $this->input->post('trans_fee_id');
         $setting_result      = $this->setting_model->get();
@@ -956,7 +956,7 @@ $vocuher =  $check->invoice_id.'/'.$check->sub_invoice_id;
             $data['feeList']       = $this->studentfeemaster_model->getDueFeeByFeeSessionGroupFeetype($fee_session_group_id, $fee_master_id, $fee_groups_feetype_id);
             $page                  = $this->load->view('print/printFeesByGroup', $data, true);
         }
-
+        // echo $this->lang->line('class');  echo $feeList->class . " (" . $feeList->section . ")"; 
         echo json_encode(array('status' => 1, 'page' => $page));
     }
 
@@ -1317,7 +1317,9 @@ $vocuher =  $check->invoice_id.'/'.$check->sub_invoice_id;
                     'payment_mode'    => $this->input->post('payment_mode_fee'),
                     'received_by'     => $staff_record['id'],
                     'recipt_number'   => $this->input->post('recipt_number'),
-                    'recipt_image_path' => $recipt_image_path
+                    'recipt_image_path' => $recipt_image_path,
+                    'fee_submitBy' =>  $this->input->post('fee_submitBy') ?? 0,
+                    'other_name'=>$this->input->post('other_name') ?? ''
                 );
 
                 $collected_array[] = array(

@@ -174,10 +174,8 @@
                         <div class="box-tools pull-right" style="position: absolute;right: 76px;"> 
 
 
-<div style="display:ruby-text"> <span style="margin-left: 20%;font-size:25px"><b>Total Fee Master</b> :<span style="color:green" class=""><?= count($feemasterList) ?> </span></span> </div>
-
-
- </div><!-- /.box-tools -->
+            <div style="display:ruby-text"> <span style="margin-left: 20%;font-size:25px"><b>Total Fee Master</b> :<span style="color:green" class=""><?= count($feemasterList) ?> </span></span> </div>
+                </div><!-- /.box-tools -->
                     </div><!-- /.box-header -->
                     <div class="box-body">
                         <div class="download_label"><?php echo $this->lang->line('fees_master_list') . " : " . $this->setting_model->getCurrentSessionName(); ?></div>
@@ -208,7 +206,7 @@
 
                                             $query = "SELECT DISTINCT `student_fees_master`.`id` FROM `student_fees_master_head` JOIN `student_fees_master` ON `student_fees_master`.`id` = `student_fees_master_head`.`fee_master_id` WHERE `student_fees_master`.`fee_session_group_id` =".$this->db->escape($feegroup->id);
                                           
-                                            $query                = $this->db->query($query);
+                                            $query  = $this->db->query($query);
                                     
 
 

@@ -162,9 +162,9 @@ ul.fees-list.fees-list-in-box {
 
         <div class="col-lg-12">
             <div class="form-group row">
-                <label for="inputPassword3" class="col-sm-3 control-label">Receipt no</label>
+                <label for="inputPassword3" class="col-sm-3 control-label">Reference No</label>
                 <div class="col-sm-9">
-                <input type="text" autofocus="" class="form-control " id="receipt_no" name="receipt_no"  value="">
+                <input type="text" autofocus="" placeholder="Cheque No./Transaction ID/ DD No./Receipt No." class="form-control " id="receipt_no" name="receipt_no"  value="">
                     <span id="receipt_no" class="text text-danger"></span>
                 </div>
             </div>    
@@ -207,6 +207,40 @@ ul.fees-list.fees-list-in-box {
             </div>
          </div>
         </div>
+              <!-- is_student  -->
+         <div class="col-lg-12">
+          <div class="form-group row">  
+            <label for="inputPassword3" class="col-sm-3 control-label"> <?php echo $this->lang->line('payment_mode'); ?></label>
+            <div class="col-sm-9">
+        
+                <label class="radio-inline">
+                    <input type="radio" class="fee_submitBy" name="fee_submitBy" value="parent"/>
+                   Parent
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" class="fee_submitBy" name="fee_submitBy" value="student"/>
+                   Student
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" class="fee_submitBy" id="is_other" name="fee_submitBy" value="other"/>
+                   Other
+                </label>
+           
+                <span class="text-danger" id="payment_mode_error"></span>
+            </div>
+            <span id="form_collection_payment_mode_fee_error" class="text text-danger"></span>
+          </div>  
+        </div>
+
+        <div class="col-lg-12" id="otherInput" style="display: none;">
+            <div class="form-group row">
+                <label for="inputPassword3" class="col-sm-3 control-label">Other Name</label>
+                <div class="col-sm-9">
+                <input type="text" autofocus="" class="form-control" name="other_name" id="other_name"/>
+                </div>
+            </div>    
+        </div>
+
 
 <ul class="fees-list fees-list-in-box">
 
@@ -603,6 +637,15 @@ $('.payment_mode_fee').change(function(){
 
     }
 
+});
+
+$(".fee_submitBy").on('change',function(){
+    let value = $(this).val();
+    if(value === "other"){
+      document.getElementById("otherInput").style.display ='block';
+    }else {
+         document.getElementById("otherInput").style.display ='none';
+    }
 });
 
 

@@ -17,7 +17,7 @@ class Subject_model extends MY_Model {
                  $query = $this->db->get();
                 return $query->row_array(); 
         }else{
-$subject_condition = 0;
+        $subject_condition = 0;
         $userdata = $this->customlib->getUserData();
 
         $role_id = $userdata["role_id"];

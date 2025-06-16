@@ -39,6 +39,7 @@ class Feetype extends Admin_Controller
             $data = array(
                 'type'        => $this->input->post('name'),
                 'code'        => $this->input->post('code'),
+                'is_donation' => $this->input->post('donation'),
                 'description' => $this->input->post('description'),
             );
             $this->feetype_model->add($data);
