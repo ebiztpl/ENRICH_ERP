@@ -405,6 +405,8 @@ class Student extends Admin_Controller
         $city                 = $this->class_model->getcity();
         $data['citylist']     = $city;
 
+        $data['subject_grouplist'] = $this->db->select('*')->from('subject_groups')->get()->result_array();
+
         $data['vehroutelist'] = $vehroute_result;
         $custom_fields        = $this->customfield_model->getByBelong('students');
        $subject_result        = $this->subject_model->get();
@@ -714,6 +716,7 @@ class Student extends Admin_Controller
             $data_insert = array(
                 'firstname'         => $this->input->post('firstname'),
 				'application_no'    => $this->input->post('application_no'),
+				'subject_group'    => $this->input->post('subgrouparray'),
                 'rte'               => $this->input->post('rte'),
                 'state'             => $this->input->post('state'),
                 'previous_school_medium' => $this->input->post('previous_school_medium'),
@@ -1583,6 +1586,9 @@ class Student extends Admin_Controller
         $data['citylist']     = $city;
 
 
+         $data['subject_grouplist'] = $this->db->select('*')->from('subject_groups')->get()->result_array();
+
+
         $houses                     = $this->student_model->gethouselist();
         $data['houses']             = $houses;
         $data["bloodgroup"]         = $this->blood_group;
@@ -1903,7 +1909,8 @@ class Student extends Admin_Controller
             $data = array(
                 'id'                => $id,
                 'firstname'         => $this->input->post('firstname'),
-				'application_no'         => $this->input->post('application_no'),
+				'application_no'    => $this->input->post('application_no'),
+                'subject_group'    =>  $this->input->post('subgrouparray') ?? '',
                 'rte'               => $this->input->post('rte'),
                 'previous_school_medium' => $this->input->post('previous_school_medium'),
                 'state'             => $this->input->post('state'),
@@ -3463,6 +3470,27 @@ class Student extends Admin_Controller
         $this->load->view('layout/footer', $data);
     }
 
+
+
+   public function getSubjectsByGroup() {
+    $subject_group_id = $this->input->post('subject_group_id');
+
+    if ($subject_group_id) {
+        $this->db->select('subjects.id as subjectId, subjects.name as subjectName');
+        $this->db->from('subject_group_subjects');
+        $this->db->join('subjects', 'subjects.id = subject_group_subjects.subject_id', 'left');
+        $this->db->where('subject_group_subjects.subject_group_id', $subject_group_id);
+        
+        $subjects = $this->db->get()->result_array();
+
+        if (!empty($subjects)) {
+            echo json_encode(['status' => 'success', 'data' => $subjects]);
+            return;
+        }
+    }
+
+    echo json_encode(['status' => 'fail', 'message' => 'Subjects not found!']);
+}
 
 
 }

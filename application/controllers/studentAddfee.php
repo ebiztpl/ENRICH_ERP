@@ -1862,7 +1862,7 @@ $(document).on('click', '.ritik_inorder_button', function () {
                 array_to_collect_fees.push(item);
             });
 
-        $.ajax({
+$.ajax({
                 type: 'POST',
                 url: base_url + "studentfee/getordercollectfee",
                 data: {'data': JSON.stringify(array_to_collect_fees)},

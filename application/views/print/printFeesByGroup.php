@@ -1,4 +1,5 @@
 <?php $currency_symbol = $this->customlib->getSchoolCurrencyFormat();?>
+<?php $false = null?>
 <style type="text/css">
     .page-break	{ display: block; page-break-before: always; }
     @media print {
@@ -232,12 +233,15 @@ if(in_array('0', $print_copy)){
                             <div class="col-xs-6 text-left">
                                 <br/>
                                 <address>
-                                    <strong><?php
-                                   echo $this->customlib->getFullName($feeList->firstname,$feeList->middlename,$feeList->lastname,$sch_setting->middlename,$sch_setting->lastname);
-                                      ?></strong><?php echo " (".$feeList->admission_no.")"; ?> <br>
+                                     
+                                    <!-- <?php echo $this->customlib->getFullName($feeList->firstname,$feeList->middlename,$feeList->lastname,$sch_setting->middlename,$sch_setting->lastname);
+                                      ?></strong><?php echo " (".$feeList->admission_no.")"; ?> <br> 
+                                       -->
 
                                     <?php echo $this->lang->line('father_name'); ?>: <?php echo $feeList->father_name; ?><br>
-                                    <?php echo $this->lang->line('class'); ?>: <?php echo $feeList->class . " (" . $feeList->section . ")"; ?>
+                                  
+                                    <!-- class -->
+                                 
                                 </address>
                             </div>
                             <div class="col-xs-6 text-right">
@@ -489,11 +493,11 @@ if(in_array('0', $print_copy)){
                                 <div class="col-xs-6">
                                     <br/>
                                     <address>
-                                        <strong><?php
-                                   echo $this->customlib->getFullName($feeList->firstname,$feeList->middlename,$feeList->lastname,$sch_setting->middlename,$sch_setting->lastname);
-                                      ?></strong><?php echo " (".$feeList->admission_no.")"; ?><br>
+                                   
+                                   
                                         <?php echo $this->lang->line('father_name'); ?>: <?php echo $feeList->father_name; ?><br>
-                                        <?php echo $this->lang->line('class'); ?>: <?php echo $feeList->class . " (" . $feeList->section . ")"; ?>
+                                   
+                                      
                                     </address>
                                 </div>
                                 <div class="col-xs-6 text-right">
@@ -738,11 +742,9 @@ if ($feeList->fine_amount != "") {
                                 <div class="col-xs-6">
                                     <br/>
                                     <address>
-                                        <strong><?php
-                                   echo $this->customlib->getFullName($feeList->firstname,$feeList->middlename,$feeList->lastname,$sch_setting->middlename,$sch_setting->lastname);
-                                      ?></strong><?php echo " (".$feeList->admission_no.")"; ?><br>
+                                       
                                         <?php echo $this->lang->line('father_name'); ?>: <?php echo $feeList->father_name; ?><br>
-                                        <?php echo $this->lang->line('class'); ?>: <?php echo $feeList->class . " (" . $feeList->section . ")"; ?>
+                                       
                                     </address>
                                 </div>
                                 <div class="col-xs-6 text-right">

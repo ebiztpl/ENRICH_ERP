@@ -9,12 +9,14 @@
                 ?>
                 <div class="col-md-4">
                     <!-- Horizontal Form -->
+                      <form id="form1" action="<?php echo base_url() ?>admin/feetype"  id="employeeform" name="employeeform" method="post" accept-charset="utf-8">
+                        
                     <div class="box box-primary">
                         <div class="box-header with-border">
                             <h3 class="box-title"><?php echo $this->lang->line('add_fees_type'); ?></h3>
+                               <input class="form-check-input pull-right" type="checkbox" name="donation" id="donation" value="1"/>                       
                         </div><!-- /.box-header -->
-                        <form id="form1" action="<?php echo base_url() ?>admin/feetype"  id="employeeform" name="employeeform" method="post" accept-charset="utf-8">
-                            <div class="box-body">
+                           <div class="box-body">
                                 <?php if ($this->session->flashdata('msg')) { ?>
                                     <?php 
                                         echo $this->session->flashdata('msg'); 
