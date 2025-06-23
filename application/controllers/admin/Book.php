@@ -128,10 +128,10 @@ class Book extends Admin_Controller
 
 
         
-if($this->input->post('writeoff') == 1){
-    $this->form_validation->set_rules('writeoffyear', 'Write Off Year', 'trim|required|numeric|xss_clean');
+        if($this->input->post('writeoff') == 1){
+            $this->form_validation->set_rules('writeoffyear', 'Write Off Year', 'trim|required|numeric|xss_clean');
 
-}
+        }
 
 
 
@@ -174,7 +174,8 @@ if($this->input->post('writeoff') == 1){
                 'subject'     => $this->input->post('subject')??0,
                 // 'rack_no'     => $this->input->post('rack_no'),
                 'publish'     => $this->input->post('publisher')??0,
-                'author'      => $this->input->post('author')??0,
+                'author'      => $this->input->post('author') ?? 0,
+                'supplier_option'      => $this->input->post('supplier_option') ,
                 'qty'         => $this->input->post('qty')??0,
                 'publishing_year'     => $this->input->post('publishing_year'),
                 'department'      => $this->input->post('department')??0,
@@ -183,6 +184,9 @@ if($this->input->post('writeoff') == 1){
                 'description' => $this->input->post('description'),
                 'book_category' => $this->input->post('book_category'),
                 'book_edition'         => $this->input->post('book_edition'),
+
+                'book_type'         => $this->input->post('book_type'),
+                
                 'book_format' =>$this->input->post('book_format'),
                 'book_language' => $this->input->post('book_language')??0,
                 'generation' => $this->input->post('generation'),
@@ -196,6 +200,11 @@ if($this->input->post('writeoff') == 1){
                 $data['postdate'] = date('Y-m-d', $this->customlib->datetostrtotime($this->input->post('postdate')));
             } else {
                 $data['postdate'] = null;
+            }
+            if (isset($_POST['billdate']) && $_POST['billdate'] != '') {
+                $data['billdate'] = date('Y-m-d', $this->customlib->datetostrtotime($this->input->post('billdate')));
+            } else {
+                $data['billdate'] = null;
             }
              $lastid =   $this->book_model->addbooks($data);
 
@@ -234,10 +243,6 @@ $bookcopysucess++;
                     }
                     
                  }
-
-
-         
-
                  $this->db->insert_batch('books_list', $boookArray);
 
              }
@@ -316,6 +321,7 @@ $bookcopysucess++;
                 'publishing_year'     => $this->input->post('publishing_year'),
                 'department'      => $this->input->post('department'),
                 'pages_count'         => $this->input->post('pages_count'),
+                'supplier_option'      => $this->input->post('supplier_option') ,
                 'perunitcost' => $perunitcost,
                 'description' => $this->input->post('description'),
                 'book_category' => $this->input->post('book_category'),
@@ -333,6 +339,11 @@ $bookcopysucess++;
                 $data['postdate'] = null;
             }
 
+             if (isset($_POST['billdate']) && $_POST['billdate'] != '') {
+                $data['billdate'] = date('Y-m-d', $this->customlib->datetostrtotime($this->input->post('billdate')));
+            } else {
+                $data['billdate'] = null;
+            }
             $this->book_model->addbooks($data);
 
 
@@ -1683,6 +1694,7 @@ $c = "<option value=''>Select</option>";
 $d = "<option value=''>Select</option>";
 $e = "<option value=''>Select</option>";
 $x = "<option value=''>Select</option>";
+$f = "<option value=''>Select</option>";
  foreach($dropdowndata as $drop){
     if($drop->type == 1){  
         $a .= '<option value="'.$drop->id.'">'.$drop->name.'</option>';
@@ -1702,6 +1714,10 @@ $x = "<option value=''>Select</option>";
                 if($drop->type == 4){  
                     $d .= '<option value="'.$drop->id.'">'.$drop->name.'</option>';
                    } }
+               foreach($dropdowndata as $drop){
+                if($drop->type == 6){  
+                    $f .= '<option value="'.$drop->id.'">'.$drop->name.'</option>';
+                   } }
            
                    foreach($dropdowndata as $drop){
                     if($drop->type == 5){  
@@ -1709,7 +1725,7 @@ $x = "<option value=''>Select</option>";
                        } }
 
 
-                       $x = $a.'~'.$b.'~'.$c.'~'.$d.'~'.$e;
+                       $x = $a.'~'.$b.'~'.$c.'~'.$d.'~'.$e.'~'.$f;
 
                        echo $x;
                   

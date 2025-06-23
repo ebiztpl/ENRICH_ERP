@@ -97,7 +97,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                             <tr>
                                                 <td><?=$count?></td>
                                                 <td><?=$drop->name?></td>
-<td style="display:ruby-text"><a style="cursor:pointer" class="btn btn-warning btn-xs edi_t" id="<?=$drop->name?>"  data-id="<?=$drop->id?>"><i class="fa fa-pencil"></i></a><a style="cursor:pointer" class="btn btn-danger btn-xs del"  data-id="<?=$drop->id?>"><i class="fa fa-trash"></i></a></td>
+    <td style="display:ruby-text"><a style="cursor:pointer" class="btn btn-warning btn-xs edi_t" id="<?=$drop->name?>"  data-id="<?=$drop->id?>"><i class="fa fa-pencil"></i></a><a style="cursor:pointer" class="btn btn-danger btn-xs del"  data-id="<?=$drop->id?>"><i class="fa fa-trash"></i></a></td>
 
                                             </tr>
                                             <?php } } $count1 = $count  ?>
@@ -162,21 +162,18 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                             <div style="">
                             <table style="width:100%" class="table table-striped table-bordered table-hover" data-export-title="Book Dropdown List">
                                 <thead>
-                                    <tr>
-
-                                    <th class="text-left">Publisher <a class="btn btn-xs btn-success add_modal_data" data-id="1">+</a><span class="autofill" id="pub"><span></th>
-                                  
-                                    
-                                        <th class="text-left">Author <a class="btn btn-xs btn-success add_modal_data" data-id="2">+</a><span class="autofill" id="auth"><span></th>
-                                     
-                                        
-                                   </tr>
+                                    <tr>                     
+                                        <th class="text-left">Publisher <a class="btn btn-xs btn-success add_modal_data" data-id="1">+</a><span class="autofill" id="pub"><span></th>
+                                        <th class="text-left">Author <a class="btn btn-xs btn-success add_modal_data" data-id="2">+</a><span class="autofill" id="auth"><span></th>       
+                                        <th class="text-left">Book Type<a class="btn btn-xs btn-success add_modal_data" data-id="6">+</a><span class="autofill" id="auth"><span></th>       
+                                 
+                                    </tr>
                                    
                                     
                                 </thead>
                                
                                 <tbody>
-                                <tr>
+                                     <tr>
 
                                         <td  class="text-center" style="width:20%"> 
                                         <table style="width:100%;height:254px !important;overflow-y: scroll; display:block;" class="table table-striped table-bordered table-hover example table-fixed-header dataTable no-footer" data-export-title="Book Dropdown List">
@@ -196,7 +193,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                             <tr>
                                                 <td><?=$count?></td>
                                                 <td><?=$drop->name?></td>
-<td style="display:ruby-text"><a style="cursor:pointer" class="btn btn-warning btn-xs edi_t" id="<?=$drop->name?>"  data-id="<?=$drop->id?>"><i class="fa fa-pencil"></i></a><a style="cursor:pointer" class="btn btn-danger btn-xs del"  data-id="<?=$drop->id?>"><i class="fa fa-trash"></i></a></td>
+                                            <td style="display:ruby-text"><a style="cursor:pointer" class="btn btn-warning btn-xs edi_t" id="<?=$drop->name?>"  data-id="<?=$drop->id?>"><i class="fa fa-pencil"></i></a><a style="cursor:pointer" class="btn btn-danger btn-xs del"  data-id="<?=$drop->id?>"><i class="fa fa-trash"></i></a></td>
 
                                             </tr>
                                             <?php } }  $count4 = $count?>
@@ -223,7 +220,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                             <tr>
                                                 <td><?=$count?></td>
                                                 <td><?=$drop->name?></td>
-<td style="display:ruby-text"><a style="cursor:pointer" class="btn btn-warning btn-xs edi_t" id="<?=$drop->name?>"  data-id="<?=$drop->id?>"><i class="fa fa-pencil"></i></a><a style="cursor:pointer" class="btn btn-danger btn-xs del"  data-id="<?=$drop->id?>"><i class="fa fa-trash"></i></a></td>
+                                            <td style="display:ruby-text"><a style="cursor:pointer" class="btn btn-warning btn-xs edi_t" id="<?=$drop->name?>"  data-id="<?=$drop->id?>"><i class="fa fa-pencil"></i></a><a style="cursor:pointer" class="btn btn-danger btn-xs del"  data-id="<?=$drop->id?>"><i class="fa fa-trash"></i></a></td>
 
                                             </tr>
                                             <?php } }  $count5 = $count?>
@@ -233,7 +230,30 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                         </td>
 
                                         <td  class="text-center" style="width:20%">
+<table style="width:100%;height:254px !important;overflow-y: scroll; display:block;" class="table table-striped table-bordered table-hover example table-fixed-header dataTable no-footer" data-export-title="Book Dropdown List">
+                                     
+                                        <thead>
+                                        
 
+                                         <tr>
+                                         <th width='5%' >Sr</th>
+                                         <th class="text-center">name</th>
+                                         <th class="text-center"  width='5%'></th>
+                                         </tr>
+                                         </thead>
+                                         <tbody>
+                                         <?php $count=0; foreach($dropdowndata as $drop){
+                                      if($drop->type == 6){ $count++ ?>
+                                            <tr>
+                                                <td><?=$count?></td>
+                                                <td><?=$drop->name?></td>
+                                            <td style="display:ruby-text"><a style="cursor:pointer" class="btn btn-warning btn-xs edi_t" id="<?=$drop->name?>"  data-id="<?=$drop->id?>"><i class="fa fa-pencil"></i></a><a style="cursor:pointer" class="btn btn-danger btn-xs del"  data-id="<?=$drop->id?>"><i class="fa fa-trash"></i></a></td>
+
+                                            </tr>
+                                            <?php } }  $count5 = $count?>
+
+                                         </tbody>
+                                         </table>
                                          </td>
 
                                         </tr>
@@ -332,13 +352,16 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
         }else if ($hidden == 3){
             $info = 'Subject';
 
-}else if ($hidden == 4){
-            $info = 'Language';
+        }else if ($hidden == 4){
+                    $info = 'Language';
 
-}else{
-             $info = 'Department';
+        }else if ($hidden == 6){
+                    $info = 'Book Type';
 
-}
+        }else{
+                    $info = 'Department';
+
+        }
 
 $('.additional_details').text($info);
 $('#typeadd').val($hidden);

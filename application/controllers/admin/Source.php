@@ -166,6 +166,11 @@ class Source extends Admin_Controller
         $role = $this->customlib->getStaffRole();
         $barcnh_i = $this->config->item('branch_id');
         // $role  = json_decode($role)->name;
+
+        // echo $role;
+        // echo "<pre>";
+        // echo $barcnh_i;
+        // die;
       
         $id = json_decode($role)->id;
 

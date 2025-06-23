@@ -108,7 +108,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
 
                                  <?php   if ($this->rbac->hasPrivilege('books', 'can_delete')) { ?>
                                         <th>#</th>
-                                        <?php    }?>
+                                        <?php }?>
                                         
                                      
                                         <th><?php echo $this->lang->line('book_title'); ?></th>

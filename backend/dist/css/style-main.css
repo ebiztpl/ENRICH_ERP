@@ -5337,3 +5337,17 @@ button.search.btn {
     .d-xs-none{display: none;}
 }
 .shadow-sm{box-shadow:0 .5rem 1rem rgba(0,0,0,.15);}
+
+div.dataTables_wrapper div.dataTables_processing {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    margin-top: -26px;
+    text-align: center;
+    padding: 1em 0;
+    z-index: 9999999 !important;
+    background-color: #00000061 !important;
+}
+

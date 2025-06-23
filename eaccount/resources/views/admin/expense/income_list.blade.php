@@ -1,6 +1,6 @@
 @extends('layouts.app')
 <?php
-$moduleName = 'Expense List';
+$moduleName = 'Income List';
 $createItemName = __('root.common.create') . $moduleName;
 
 $breadcrumbMainName = $moduleName;
@@ -56,98 +56,8 @@ $trash_show = config('role_manage.Language.TrashShow');
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                            
-
                             <div>
-                                <form class="search" action="{{ route('bill_recieved_listt') }}"
-                                    method="post">
-                                    {{ csrf_field() }}
-                                    <div class="row"> 
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 field_area">
-                                    <input autofocus type="text" value="{{$billnoo}}"  name="billno" class="form-control input-sm "
-                                        placeholder="Bill No." />
-</div>
-
-
-
-<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 field_area">
-                                    <input autofocus type="text" name="voucherno" value="{{$vouchernoo}}" class="form-control input-sm "
-                                        placeholder="Voucher No." />
-</div>
-<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 ">
-<div class="input-group nk-int-st" style="border: 1px solid #ccc !important;">
-				<span class="input-group-addon" style="padding-right:25px;"><i class="glyphicon glyphicon-calendar fa fa-calendar fa-lg" style="border: 1px solid #ccc !important;"></i>&nbsp;</span>
-				<input type="text" name="from" id="txtFromDate" class="form-control" value="" placeholder="Select Date" autocomplete="off" style="font-size:15px;" >
-			</div>
-                </div>
-
-
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                            <div class="form-group form-float">
-                                                <div class="form-line">
-                                                <select data-live-search="true" class="form-control show-tick"
-                                                        name="submitted_by" id="submitted_by">
-                                                        <option value="">Submitted By</option>
-                                                        @foreach ($expense_create as $ledg)
-                                                            <option @if ($ledg->id == $a) selected @endif
-                                                                value="{{ $ledg->id }}">{{ $ledg->name }} {{ $ledg->surname }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    <label class="form-label">Submitted By</label>
-                                                </div>
-                                            </div>
-                                      
-                                        </div>
-
-
-
-                                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                            <div class="form-group form-float">
-                                                <div class="form-line">
-                                                <select data-live-search="true" class="form-control show-tick"
-                                                        name="expense_approve" id="expense_approve">
-                                                        <option value="">Approved By</option>
-                                                        @foreach ($expense_approve as $ledg)
-                                                            <option @if ($ledg->id == $b) selected @endif
-                                                                value="{{ $ledg->id }}">{{ $ledg->name }} {{ $ledg->surname }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    <label class="form-label">Approved By</label>
-                                                </div>
-                                            </div>
-                                      
-                                        </div>
-
-
-
-                                        
-                                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                            <div class="form-group form-float">
-                                                <div class="form-line">
-                                                <select data-live-search="true" class="form-control show-tick"
-                                                        name="paid_by" id="paid_by">
-                                                        <option value="">Paid By</option>
-             
-                                                    
-                                                        @foreach($expense_paidd as $exp)
-                                                            <option @if( $exp->id == $c) selected @endif
-                                                                value="{{ $exp->id }}">{{ $exp->name }} {{ $exp->surname }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    <label class="form-label">Paid By</label>
-                                                </div>
-                                            </div>
-                                      
-                                        </div>
-
-
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 ">
-                                  <button type="submit" class="btn btn-sm btn-primary">Search</button>
-</div>
-
-</div>
-                                        
-                                </form>
+                           
                             </div>
                         </div>
                         <form class="actionForm" action="{{ route($ParentRouteName . '.active.action') }}" method="get">
@@ -167,10 +77,8 @@ $trash_show = config('role_manage.Language.TrashShow');
                                     <table class="table table-hover table-bordered table-sm">
                                         <thead>
                                             <tr>
-                                                <th class="checkbox_custom_style text-center">
-                                                    Sr
-                                                </th>
-                                                      <th>Action</th>
+                                                <th>Sr</th>
+                                                <th>Action</th>
                                                 <th>Head</th>
                                                <th>Sub head</th>
                                                <th>Ledger</th>
@@ -187,14 +95,14 @@ $trash_show = config('role_manage.Language.TrashShow');
                                                <th>Voucher No.</th>
                                               
         
-                                               <th>Submitted Details</th>
+                                               <th style="width: 151px;display: block;">Submitted Details</th>
                                                <!-- <th>Submitted Date</th> -->
-                                               <th>Approved Details</th>
+                                               <th >Approved Details</th>
                                                <!-- <th>Approved Date</th> -->
                                                <th>Details</th>
                                                <th>Upload</th>
                                                <th>Created At</th>
-                                         
+                                           
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -203,48 +111,49 @@ $trash_show = config('role_manage.Language.TrashShow');
 
 
                                             @php
-                                                $pamt =\DB::table('bill_received_payment')->where('exp_id',$item->id)->sum('amount');
+$pamt =\DB::table('bill_received_payment')->where('exp_id',$item->id)->sum('amount');
 
 
-                                                $fep = intval($item->total) - intval($pamt);
+$fep = intval($item->total) - intval($pamt);
 
-                                                if(in_array($item->id, $array)){
-
-
-                                                }else{ 
-                                                $array[] = $item->id;
+if(in_array($item->id, $array)){
 
 
+}else{ 
+$array[] = $item->id;
 
-                                                @endphp    
+
+
+ @endphp    
 
 
 
 
                                                 <tr>
-                                                <th class="checkbox_custom_style text-center" >
-                                                   <span> {{$i}} </span>
-                                                   
-                                                   
-                                                </th>
-                                                <td class="">
-                                                    <a class="btn btn-xs btn-info waves-effect" href="{{ route($ParentRouteName . '.editexpense', ['id' => $item->id]) }}" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="material-icons">mode_edit</i></a>
-                                                    <a class="btn btn-xs btn-danger waves-effect" href="{{ route($ParentRouteName . '.deleteexpense', ['id' => $item->id]) }}" data-toggle="tooltip" data-placement="top" title="" data-original-title="Trash"> <i class="material-icons">delete</i></a>
-                                                    <span>
-                                                    @if($fep == $item->total)
-                                                     <a style="margin-left:5px;" href="javscript:void(0)" class="btn btn-xs btn-success pay_modal" id="{{$item->id}}" data-id="{{$fep}}">Pay</a>
-                                                    @elseif(($fep < $item->total) && ($fep != 0))
-                                                    <a style="margin-left:5px;" href="javscript:void(0)" class="btn btn-xs btn-warning pay_modal" id="{{$item->id}}" data-id="{{$fep}}">Partial</a>
-                                                    <a style="margin-left:5px;" href="javscript:void(0)" class="btn btn-xs btn-primary view_modal" id="{{$item->id}}" data-id="{{$fep}}">View</a>
-                                                     @else
-                                                     <a style="margin-left:5px;" href="javscript:void(0)" class="btn btn-xs btn-primary view_modal" id="{{$item->id}}" data-id="{{$fep}}">Paid</a>
-    
-                                                    @endif
-    </span>
-        
-                                                 
 
-                                               </td>
+
+                                                <th class="checkbox_custom_style text-center">
+                                                    
+                                                    <span> {{$i}} </span>
+                                                    
+                                                    </th>
+                                                    
+                                                    <td class="">
+                                                        <span>
+                                                        @if($fep == $item->total)
+                                                         <a style="margin-left:5px;" href="javscript:void(0)" class="btn btn-xs btn-success pay_modal" id="{{$item->id}}" data-id="{{$fep}}">Pay</a>
+                                                        @elseif(($fep < $item->total) && ($fep != 0))
+                                                        <a style="margin-left:5px;" href="javscript:void(0)" class="btn btn-xs btn-warning pay_modal" id="{{$item->id}}" data-id="{{$fep}}">Partial</a>
+                                                        <a style="margin-left:5px;" href="javscript:void(0)" class="btn btn-xs btn-primary view_modal" id="{{$item->id}}" data-id="{{$fep}}">View</a>
+                                                         @else
+                                                         <a style="margin-left:5px;" href="javscript:void(0)" class="btn btn-xs btn-primary view_modal" id="{{$item->id}}" data-id="{{$fep}}">Paid</a>
+     
+                                                        @endif
+     </span>
+                                                        <a class="btn btn-xs btn-info waves-effect" href="{{ route('income.edit',['id' => $item->id]) }}" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="material-icons">mode_edit</i></a>
+                                                        <a class="btn btn-xs btn-danger waves-effect" href="{{ route('income.delete', ['id' => $item->id]) }}" data-toggle="tooltip" data-placement="top" title="" data-original-title="Trash"> <i class="material-icons">delete</i></a>
+                                               </td>             
+
 @php
 $head =\DB::table('income_expense_groups')->where('id',$item->head)->value('name');
  @endphp      
@@ -345,17 +254,15 @@ $ledger =\DB::table('income_expense_heads')->where('id',$item->ledger)->value('n
                                                <td>{{ date("d-m-Y", strtotime($item->created_at))}}</td>
                                                
                                               
-                                             
+                                              
                                                 </tr>    <?php  $i++;  ?>
                                                 @php } @endphp
                                             
                                             @endforeach
                                             <thead>
                                              <tr>
-                                                <th class="checkbox_custom_style text-center">
-                                                    Sr
-                                                </th>
-                                                  <th>Action</th>
+                                               <th>Sr</th>
+                                                <th>Action</th>
                                                 <th>Head</th>
                                                <th>Sub head</th>
                                                <th>Ledger</th>
@@ -372,14 +279,14 @@ $ledger =\DB::table('income_expense_heads')->where('id',$item->ledger)->value('n
                                                <th>Voucher No.</th>
                                               
         
-                                               <th>Submitted Details</th>
+                                               <th >Submitted Details</th>
                                                <!-- <th>Submitted Date</th> -->
-                                               <th>Approved Details</th>
+                                               <th style="width: 151px;display: block;">Approved Details</th>
                                                <!-- <th>Approved Date</th> -->
                                                <th>Details</th>
                                                <th>Upload</th>
                                                <th>Created At</th>
-                                             
+                                               
                                             </tr>
                                             </thead>
                                         </tbody>

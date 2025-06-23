@@ -125,7 +125,35 @@ if (set_value('book_category') == $bookcategory->id) {
                                 <input id="isbn_no" name="isbn_no" placeholder="" type="text" class="form-control"  value="<?php echo set_value('isbn_no'); ?>" />
                                 <span class="text-danger"><?php echo form_error('isbn_no'); ?></span>
                             </div>
+                            
+                            <div class="form-group col-md-3">
+                                <label for="exampleInputEmail1">Bill Date</label>
+                                <input id="billdate" name="billdate"  placeholder="" type="text" class="form-control date"  value="<?php echo set_value('billdate'); ?>" />
+                                <span class="text-danger"><?php echo form_error('billdate'); ?></span>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="exampleInputEmail1">Supplier option</label>
+                                <input id="supplier_option" name="supplier_option" placeholder="" type="text" class="form-control"  value="<?php echo set_value('supplier_option'); ?>" />
+                                <span class="text-danger"><?php echo form_error('supplier_option'); ?></span>
+                            </div>
                        
+                            <div class="form-group col-md-3">
+                                <label for="exampleInputEmail1">Book Type<a class="btn btn-xs btn-success add_modal_data" data-id="6">+</a></label>
+                                <select id="book_type" name="book_type" class="form-control" required>
+                                <option value=""><?php echo $this->lang->line('select'); ?></option>
+                                    <?php foreach($dropdowndata as $drop){
+                                      if($drop->type == 6){  ?>
+                                    <option value="<?=$drop->id?>" <?php
+                                if (set_value('book_type') == $drop->id) {
+                                            echo "selected = selected";
+                                        } 
+                                        ?> ><?=$drop->name?></option>
+
+                                        <?php } }?>
+                                </select>  
+                                <span class="text-danger"><?php echo form_error('book_type'); ?></span>
+                            </div>
+
                             <div class="form-group col-md-3">
                                 <label for="exampleInputEmail1"><?php echo $this->lang->line('publisher'); ?> <a class="btn btn-xs btn-success add_modal_data" data-id="1">+</a></label>
                                 <select id="publisher" name="publisher" class="form-control" required>
@@ -133,10 +161,10 @@ if (set_value('book_category') == $bookcategory->id) {
                                     <?php foreach($dropdowndata as $drop){
                                       if($drop->type == 1){  ?>
                                     <option value="<?=$drop->id?>" <?php
-if (set_value('publisher') == $drop->id) {
-            echo "selected = selected";
-        } 
-        ?> ><?=$drop->name?></option>
+                                if (set_value('publisher') == $drop->id) {
+                                            echo "selected = selected";
+                                        } 
+                                        ?> ><?=$drop->name?></option>
 
                                         <?php } }?>
                                 </select>  
@@ -271,19 +299,13 @@ if (set_value('department') == $drop->id) {
                                 <span class="text-danger"><?php echo form_error('pages_count'); ?></span>
                             </div>
 
-
-
-
-
-
                             <div class="form-group col-md-3">
                                 <label for="exampleInputEmail1"><?php echo $this->lang->line('post_date'); ?></label>
                                 <input id="postdate" name="postdate"  placeholder="" type="text" class="form-control date"  value="<?php echo set_value('postdate', date($this->customlib->getSchoolDateFormat())); ?>" />
                                 <span class="text-danger"><?php echo form_error('postdate'); ?></span>
                             </div>
-
-
-<div class="form-group col-md-12">
+                           
+                            <div class="form-group col-md-12">
    
     <div class="col-sm-12 ">
     <label for="exampleInputEmail1">Enter Tags</label>
@@ -676,7 +698,12 @@ if (confirm('Are you sure, you want to delete this')) {
 }else if ($hidden == 4){
             $info = 'Language';
 
-}else{
+}
+else if ($hidden == 6){
+            $info = 'Book Type';
+
+}
+else{
              $info = 'Department';
 
 }
@@ -690,7 +717,7 @@ $('#typeadd').val($hidden);
 <script>
         $(document).on('click', '#subitdrop', function () {
 
-            $jahgfjhdsg = $('.jahgfjhdsg').val();
+     $jahgfjhdsg = $('.jahgfjhdsg').val();
     if($jahgfjhdsg.replace(/^\s+|\s+$/g, "").length != 0){
         
     }else{
@@ -701,7 +728,7 @@ $('#typeadd').val($hidden);
 
 
 
-            var $select = $('select').select2();
+var $select = $('select').select2();
 //console.log($select);
 $select.each(function(i,item){
   //console.log(item);
@@ -724,7 +751,12 @@ $select.each(function(i,item){
 }else if ($hidden == 4){
     $('#book_language').empty();
 
-}else{
+}else if ($hidden == 6){
+           $('#book_type').empty();
+
+}
+
+else{
     $('#department').empty();
 }
             $.ajax({
@@ -743,7 +775,12 @@ $select.each(function(i,item){
             $('#subject').append(arr[2]);
 }else if ($hidden == 4){
     $('#book_language').append(arr[3]);
-}else{
+}else if ($hidden == 6){
+           $('#book_type').append(arr[4]);
+
+}
+
+else{
     $('#department').append(arr[4]);
 }
 $('#add_modal_data').modal('hide');
@@ -772,6 +809,9 @@ $('#add_modal_data').modal('hide');
             $('#subject').empty();
 }else if ($hidden == 4){
     $('#book_language').empty();
+}else if ($hidden == 6){
+           $('#book_type').empty();
+
 }else{
     $('#department').empty();
 
@@ -783,6 +823,7 @@ $('#add_modal_data').modal('hide');
                 success: function (response)
                 {           
                     var arr = response.split('~');
+                    console.log(arr)
                  $hidden =   $('#typeadd').val();
                  if($hidden == 1){
                     $('#publisher').append(arr[0]);
@@ -792,7 +833,11 @@ $('#add_modal_data').modal('hide');
             $('#subject').append(arr[2]);
 }else if ($hidden == 4){
     $('#book_language').append(arr[3]);
-}else{
+}else if ($hidden == 6){
+ $('#book_type').append(arr[5]);
+}
+
+else{
     $('#department').append(arr[4]);
 }            
 $('#add_modal_data').modal('hide');

@@ -1775,7 +1775,7 @@ $lang['enrollment_no'] = "Enrollment Number";	// field added
 $lang['class_school'] = "Class";	// field added
 $lang['section_name_school'] = "Section";	// field added
 $lang['SSSMID'] = "SSSMID";	// field added
-$lang['pen_no'] = "PEN Number";	// field added
+$lang['pen_no'] = "PAN Number";	// field added
 $lang['apar_id'] = "Apar ID";	// field added
 $lang['family_mid_no'] = "Family Mid Number";	// field added
 

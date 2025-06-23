@@ -429,6 +429,10 @@ class Setting_model extends MY_Model {
         $image = $this->db->select('header_image')->from('print_headerfooter')->where('print_type', 'student_receipt')->get()->row_array();
         return $image['header_image'];
     }
+    public function get_shikshasamitiheader() {
+        $image = $this->db->select('header_image')->from('print_headerfooter')->where('print_type', 'shiksha_samiti')->get()->row_array();
+        return $image['header_image'];
+    }
 
     public function unlink_receiptheader() {
         $image = $this->db->select('header_image')->from('print_headerfooter')->where('print_type', 'student_receipt')->get()->row_array();

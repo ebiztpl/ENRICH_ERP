@@ -436,8 +436,7 @@ class Report extends Admin_Controller
         $this->session->set_userdata('sub_menu', 'Reports/library');
         $this->session->set_userdata('subsub_menu', 'Reports/library/book_issue_report');
         $data['searchlist'] = $this->customlib->get_searchtype();
-        $data['members']    = array('' => $this->lang->line('all'), 'student' => $this->lang->line('student'), 'teacher' => $this->lang->line('teacher'), 'guest' => $this->lang->line('guest'));
-      
+       
         $this->db->select()->from('book_category');
         $this->db->order_by('book_category.id', 'desc');
         $query = $this->db->get();
@@ -472,6 +471,30 @@ class Report extends Admin_Controller
       
         $this->load->view('layout/header', $data);
         $this->load->view('reports/bookduereport', $data);
+        $this->load->view('layout/footer', $data);
+    }
+
+public function totalAccessionReport()
+    {
+        $this->session->set_userdata('top_menu', 'Reports');
+        $this->session->set_userdata('sub_menu', 'Reports/library');
+        $this->session->set_userdata('subsub_menu', 'Reports/library/totalAccessionReport');
+        $data['searchlist']  = $this->customlib->get_searchtype();
+        $data['sch_setting'] = $this->sch_setting_detail;
+        $data['members']     = array('' => $this->lang->line('all'), 'student' => $this->lang->line('student'), 'teacher' => $this->lang->line('teacher'), 'guest' => $this->lang->line('guest'));
+      
+
+
+
+
+        $this->db->select()->from('book_category');
+        $this->db->order_by('book_category.id', 'desc');
+        $query = $this->db->get();
+        $book_category = $query->result();
+        $data['book_category']  =$book_category;
+      
+        $this->load->view('layout/header', $data);
+        $this->load->view('reports/totalAccessionReport', $data);
         $this->load->view('layout/footer', $data);
     }
 
@@ -1701,6 +1724,35 @@ class Report extends Admin_Controller
         $array  = array('status' => 1, 'error' => '', 'params' => $params);
         echo json_encode($array);
     }
+    
+public function getAccessionReportparameter()
+{
+   
+    $book_category = $this->input->post('book_category');
+    $search_type   = $this->input->post('search_type');
+    $date_from     = $this->input->post('date_from');
+    $date_to       = $this->input->post('date_to');
+
+   
+    $this->form_validation->set_rules('book_category', 'Book Category', 'required|trim|xss_clean');
+    if ($this->form_validation->run() == FALSE) {
+        $error = array(
+            'book_category' => form_error('book_category'),
+        );
+
+        echo json_encode(array('status' => 0, 'error' => $error));
+        return;
+    }
+    $params = array(
+        'book_category' => $book_category,
+        'search_type'   => $search_type,
+        'date_from'     => $date_from,
+        'date_to'       => $date_to
+    );
+
+    echo json_encode(array('status' => 1, 'error' => '', 'params' => $params));
+}
+
 
     /* function to get book issue report by using datatable */
     public function dtbookissuereportlist()
@@ -1831,6 +1883,62 @@ class Report extends Admin_Controller
             "recordsTotal"    => $b,
             "recordsFiltered" => $c,
             "data"            => $dt_data,
+        );
+        echo json_encode($json_data);
+    }
+    /* function to get book issue report by using datatable */
+    public function getAccessionreportlist()
+    {
+        $superadmin_visible = $this->customlib->superadmin_visible();
+        $getStaffRole       = $this->customlib->getStaffRole();
+        $staffrole          = json_decode($getStaffRole);
+        $book_category = $this->input->post('book_category');
+        $search_type = $this->input->post('search_type');
+        $member_type = $this->input->post('date_type');
+        $date_from   = $this->input->post('date_from');
+        $date_to     = $this->input->post('date_to');
+
+        $data['searchlist'] = $this->customlib->get_searchtype();
+        if (isset($_POST['search_type']) && $_POST['search_type'] != '') {
+            $dates               = $this->customlib->get_betweendate($_POST['search_type']);
+            $data['search_type'] = $_POST['search_type'];
+        } else {
+            $dates               = $this->customlib->get_betweendate('this_year');
+            $data['search_type'] = '';
+        }
+        if (isset($_POST['book_category']) && $_POST['book_category'] != '') {
+            $data['book_category'] = $_POST['book_category'];
+        } else {
+            $data['book_category'] = '';
+        }
+
+        $data['members'] = array('' => $this->lang->line('all'), 'student' => $this->lang->line('student'), 'teacher' => $this->lang->line('teacher'), 'guest' => $this->lang->line('guest'));
+        
+        $start_date      = date('Y-m-d', strtotime($dates['from_date']));
+        $end_date        = date('Y-m-d', strtotime($dates['to_date']));
+        $data['label']   = date($this->customlib->getSchoolDateFormat(), strtotime($start_date)) . " " . $this->lang->line('to') . " " . date($this->customlib->getSchoolDateFormat(), strtotime($end_date));
+
+        $result = $this->bookissue_model->studentAccession_report($start_date,$end_date,$book_category);
+        $sch_setting = $this->sch_setting_detail;
+        $resultlist = json_decode($result);
+        $dt_data    = array();
+
+
+      $a =  intval($resultlist->draw);
+      $b =  intval($resultlist->recordsTotal);
+      $c =  intval($resultlist->recordsFiltered);
+
+           
+
+        //  echo "<pre>";
+        //  print_r($resultlist->data);die;
+         
+
+        $json_data = array(
+            "draw"            => $a,
+            "recordsTotal"    => $b,
+            "recordsFiltered" => $c,
+            "data"            => $result,
         );
         echo json_encode($json_data);
     }
@@ -2919,13 +3027,6 @@ $val1 = $valcount -$val;
             }
       
         }
-
-
-
-
-
-
-
 
 
         $result = $memberList;

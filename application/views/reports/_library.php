@@ -36,10 +36,13 @@
                                 Book Write Off Report
 
                             </a></li>
+                          
 
                         <?php
-                    }
-                    ?>
+                    }?>
+                      <li class="col-lg-4 col-md-4 col-sm-6 <?php echo set_SubSubmenu('Reports/library/totalAccessionReport'); ?>"><a href="<?php echo base_url(); ?>report/totalAccessionReport"><i class="fa fa-file-text-o"></i>
+                                Total Accession Number Report
+                    </a></li>
 
                 </ul>
             </div>

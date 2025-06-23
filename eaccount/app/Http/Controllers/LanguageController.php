@@ -6,6 +6,7 @@ use App\Language;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
@@ -112,7 +113,7 @@ class LanguageController extends Controller
          'head' =>'required',
          'sub_head'=> 'required',
          'amount'	=>'required',
-         'new_column' => 'required',
+        //  'new_column' => 'required',
          'submitted_by'=>  'required',
          'submitted_date'=> 'required',
          'expense_approve'=> 'required',
@@ -132,7 +133,7 @@ class LanguageController extends Controller
      $date3 = new \DateTime($request->approved_date);
      $approved_date = $date3->format('Y-m-d'); // 31-07-2012 '2008-11-11'
 
- $data =  array( 'head' =>$request->head,
+    $data =  array( 'head' =>$request->head,
        'sub_head'=>   $request->sub_head,
        'bill_amount'	=>    $request->amount,
       'type'=>2, // 2 mean its direct bill recived
@@ -148,10 +149,10 @@ class LanguageController extends Controller
 
 
  );
- $inserted_id = \DB::table('expense')->insertGetId($data);
+     $inserted_id = \DB::table('expense')->insertGetId($data);
 
 
- if ($request->hasFile('upload')) {
+    if ($request->hasFile('upload')) {
   
      $upload = $request->upload;
      $temporaryName = time() . $upload->getClientOriginalName();
@@ -171,6 +172,330 @@ class LanguageController extends Controller
    
     
  }
+ // income store
+ public function income_store(Request $request)
+ {
+
+     \Artisan::call('cache:clear');
+     $activ = Session::get('branch_array');
+     $branch_id =$activ->id;
+    
+
+     $request->validate([
+         'head' =>'required',
+         'sub_head'=> 'required',
+         'amount'	=>'required',
+        //  'new_column' => 'required',
+         'submitted_by'=>  'required',
+         'submitted_date'=> 'required',
+         'expense_approve'=> 'required',
+         'approved_date'=>  'required',
+     ]);
+
+
+     if ($request->hasFile('upload')) {
+         $request->validate([
+         'upload' => 'image',
+     ]);
+     }
+
+     $date2 = new \DateTime($request->submitted_date);
+     $submitted_date = $date2->format('Y-m-d'); // 31-07-2012 '2008-11-11'
+
+     $date3 = new \DateTime($request->approved_date);
+     $approved_date = $date3->format('Y-m-d'); // 31-07-2012 '2008-11-11'
+
+ $data = array( 'head' =>$request->head,
+        'sub_head'=>   $request->sub_head,
+        'bill_amount'	=>    $request->amount,
+        'ledger'	=>    $request->ledger,
+        'new_column' => $request->new_column ,
+        'voucher_no'=> $request->voucher_no,
+        'details'=> $request->description,
+        'submitted_by'=>  $request->submitted_by,
+        'submitted_date'=> $submitted_date,
+        'approved_by'=> $request->expense_approve,
+        'approved_date'=> $approved_date,
+        'branch_id'=> $branch_id,
+        'created_by' => auth()->user()->email,
+ );
+ $inserted_id = \DB::table('income')->insertGetId($data);
+
+
+ if ($request->hasFile('upload')) {
+  
+     $upload = $request->upload;
+     $temporaryName = time() . $upload->getClientOriginalName();
+     $upload->move("upload/expense", $temporaryName);
+     $img = 'upload/expense/' . $temporaryName;
+     \DB::table('income')->where('id',$inserted_id)->update(array( 'upload'=> $img));
+ }
+    
+  
+  
+ Session::flash('success', "Income Created Successfully");
+  
+ return redirect()->back();
+   
+    
+ }
+ // income update
+public function income_edit_save(Request $request, $id)
+{
+    \Artisan::call('cache:clear');
+
+    $activ = Session::get('branch_array');
+    $branch_id = $activ->id;
+
+    // Validate inputs
+    $request->validate([
+        'head' => 'required',
+        'sub_head' => 'required',
+        'amount' => 'required',
+        'submitted_by' => 'required',
+        'submitted_date' => 'required|date',
+        'expense_approve' => 'required',
+        'approved_date' => 'required|date',
+        'upload' => 'nullable|image' // only validate if exists
+    ]);
+
+    $submitted_date = date('Y-m-d', strtotime($request->submitted_date));
+    $approved_date = date('Y-m-d', strtotime($request->approved_date));
+
+    $data = [
+        'head' => $request->head,
+        'sub_head' => $request->sub_head,
+        'bill_amount' => $request->amount,
+        'ledger' => $request->ledger,
+        'new_column' => $request->new_column,
+        'voucher_no' => $request->voucher_no,
+        'details' => $request->description,
+        'submitted_by' => $request->submitted_by,
+        'submitted_date' => $submitted_date,
+        'approved_by' => $request->expense_approve,
+        'approved_date' => $approved_date,
+        'branch_id' => $branch_id,
+        'created_by' => auth()->user()->email,
+    ];
+
+    \DB::table('income')->where('id', $id)->update($data);
+
+    // Handle upload
+    if ($request->hasFile('upload')) {
+        $upload = $request->file('upload');
+        $filename = time() . '_' . preg_replace('/[^a-zA-Z0-9._-]/', '', $upload->getClientOriginalName());
+        $upload->move(public_path('upload/expense'), $filename);
+        $filepath = 'upload/expense/' . $filename;
+
+        \DB::table('income')->where('id', $id)->update([
+            'upload' => $filepath
+        ]);
+    }
+
+    Session::flash('success', "Income Updated Successfully");
+  return redirect()->back();
+
+}
+
+
+
+public function income_list(Request $request)
+   {  
+        Artisan::call('cache:clear');
+
+            $data = [];
+            $activ = Session::get('branch_array');
+            $branch_id =$activ->id;
+
+            $date=  $request->from;
+            $billno=  trim($request->billno);
+            $voucherno=  trim($request->voucherno);
+            $a=  trim($request->submitted_by);
+            $b=  trim($request->expense_approve);
+            $c=  trim($request->paid_by);
+
+
+         
+
+        
+            $bankcashbranches =\DB::table('bank_cash_branches')->where('branch_id',$branch_id)->pluck('bank_cash')->toArray();
+
+            $bankcash =\DB::table('bank_cashes')->whereIn('id',$bankcashbranches)->get();
+
+
+
+            if($branch_id == 2){
+                $expense_create =\DB::connection('second_db')->table('staff')->where('expense_create',1)->get();
+                $expense_approve =\DB::connection('second_db')->table('staff')->where('expense_approve',1)->get();
+
+                $expense_paid =\DB::connection('second_db')->table('staff')->where('expense_paid',1)->get();        
+                }elseif($branch_id == 3){
+                    $expense_create =\DB::connection('third_db')->table('staff')->where('expense_create',1)->get();
+                    $expense_approve =\DB::connection('third_db')->table('staff')->where('expense_approve',1)->get();
+
+                    $expense_paid =\DB::connection('third_db')->table('staff')->where('expense_paid',1)->get();
+                }elseif($branch_id == 4){
+                    $expense_approve =\DB::connection('fourth_db')->table('staff')->where('expense_approve',1)->get();
+
+                    $expense_create =\DB::connection('fourth_db')->table('staff')->where('expense_create',1)->get();
+
+                    $expense_paid =\DB::connection('fourth_db')->table('staff')->where('expense_paid',1)->get();
+                }elseif($branch_id == 11){
+                    $expense_create =\DB::connection('fifth_db')->table('staff')->where('expense_create',1)->get();
+                    $expense_approve =\DB::connection('fifth_db')->table('staff')->where('expense_approve',1)->get();
+
+                    $expense_paid =\DB::connection('fifth_db')->table('staff')->where('expense_paid',1)->get();
+                }elseif($branch_id == 12){
+                    $expense_approve =\DB::connection('sixth_db')->table('staff')->where('expense_approve',1)->get();
+
+                    $expense_create =\DB::connection('sixth_db')->table('staff')->where('expense_create',1)->get();
+
+                    $expense_paid =\DB::connection('sixth_db')->table('staff')->where('expense_paid',1)->get();
+                }else{
+                    $expense_paid = array();
+                    $expense_create = array();
+                    $expense_approve = array();
+                }
+
+
+                if($date){
+                    $datenew=explode(' and ',$date);
+                    $from = date('Y-m-d 00:00:00', strtotime($datenew[0]));
+                       $to = date('Y-m-d 23:59:59', strtotime($datenew[1]));
+                }
+          
+
+              $query =
+              \DB::table('income')->select('income.*')->leftJoin('bill_received_payment', 'income.id', '=', 'bill_received_payment.exp_id');
+              if($date  == true){
+              $query->whereDate('income.created_at', '>=',$from)->whereDate('expense.created_at', '<=',$to);
+              }
+              if($billno != ''){
+                $query->where('income.bill_no',$billno);
+              }
+              if($voucherno != ''){
+                $query->where('income.voucher_no',$voucherno);
+              }
+              if($branch_id != 1){
+                $query->where('income.branch_id',$branch_id);
+              }
+              if($a  != ''){
+                $query->where('income.submitted_by',$a);
+              }
+              if($b  != ''){
+                $query->where('income.approved_by',$b);
+              }
+              if($c  != ''){
+                $query->where('bill_received_payment.paid_by',$c);
+              }
+              
+            $items =  $query->orderBy('income.created_at', 'desc')->paginate(60)->onEachSide(1);
+
+
+
+
+                $data['a'] = $a;
+                $data['b'] = $b;
+                $data['c'] = $c;
+
+
+                $data['vouchernoo'] = $voucherno;
+                $data['billnoo'] = $billno;
+                $data['datee'] = $date;
+                
+            return view( 'admin.expense'. '.income_list', $data)->with('items', $items)->with('bankcash', $bankcash)->with('expense_paidd',$expense_paid)
+            ->with('expense_create',$expense_create)->with('expense_approve',$expense_approve);
+    
+     
+ }
+
+ public function income_edit(Request $request,$id){
+        \Artisan::call('cache:clear');
+        
+        $data = [];
+        $data = [];
+    
+
+
+        $data['head'] = \DB::table('income_expense_groups')
+    ->join('income_expense_types', 'income_expense_groups.income_expense_type', '=', 'income_expense_types.id')
+    ->select(
+        'income_expense_types.deleted_at as deleteAt',
+        'income_expense_types.created_at as CreateAt',
+        'income_expense_groups.name as name',
+        'income_expense_groups.id as id'
+    )
+    ->where('income_expense_groups.income_expense_type',5)
+    ->whereNull('income_expense_groups.deleted_at')
+    ->orderBy('income_expense_types.created_at', 'desc')
+    ->get();
+        $activ = Session::get('branch_array');
+        $branch_id =$activ->id;
+        $checkaray = \DB::table('ledger_branch')->where('branch_id',$branch_id)->pluck('ledger_id')->toArray();
+
+
+
+         if($branch_id != 1){
+            $ledger = \DB::table('income_expense_heads')->where('type',1)->whereIn('id',$checkaray)->where('deleted_at',Null)->orderBy('created_at', 'desc')->get();
+
+         }else{
+            $ledger = \DB::table('income_expense_heads')->where('type',1)->where('deleted_at',Null)->orderBy('created_at', 'desc')->get();
+
+         }
+
+        if($branch_id == 2){
+        $expense_paid =\DB::connection('second_db')->table('staff')->where('expense_create',1)->get();
+        $expense_approve =\DB::connection('second_db')->table('staff')->where('expense_approve',1)->get();
+
+        }elseif($branch_id == 3){
+            $expense_paid =\DB::connection('third_db')->table('staff')->where('expense_create',1)->get();
+            $expense_approve =\DB::connection('third_db')->table('staff')->where('expense_approve',1)->get();
+        }elseif($branch_id == 4){
+            $expense_paid =\DB::connection('fourth_db')->table('staff')->where('expense_create',1)->get();
+            $expense_approve =\DB::connection('fourth_db')->table('staff')->where('expense_approve',1)->get();
+        }elseif($branch_id == 11){
+            $expense_paid =\DB::connection('fifth_db')->table('staff')->where('expense_create',1)->get();
+            $expense_approve =\DB::connection('fifth_db')->table('staff')->where('expense_approve',1)->get();
+        }elseif($branch_id == 12){
+            $expense_paid =\DB::connection('sixth_db')->table('staff')->where('expense_create',1)->get();
+            $expense_approve =\DB::connection('sixth_db')->table('staff')->where('expense_approve',1)->get();
+        }else{
+            $expense_paid = array();
+            $expense_approve =array();
+      
+        }
+
+        $item =\DB::table('income')->where('id',$id)->first();
+
+        return view( 'admin.expense'. '.edit_income', $data)->with('item', $item)->with('ledger', $ledger)
+        ->with('expense_paid', $expense_paid)->with('expense_approve', $expense_approve);
+
+
+ }
+
+public function income_delete($id)
+{
+    
+    $income = DB::table('income')->where('id', $id)->first();
+
+    if (!$income) {
+        Session::flash('error', 'Income record not found.');
+        return redirect()->back();
+    }
+
+    // Delete uploaded file if it exists
+    if (!empty($income->upload) && file_exists(public_path($income->upload))) {
+        @unlink(public_path($income->upload));
+    }
+
+    // Delete from database
+    DB::table('income')->where('id', $id)->delete();
+
+    Session::flash('success', 'Income deleted successfully.');
+    return redirect()->back();
+}
+
+
 
      public function direct_bill_recieved(Request $request)
     {
@@ -696,6 +1021,72 @@ class LanguageController extends Controller
        
         return view( 'admin.expense'. '.index', $data)->with('ledger', $ledger)
         ->with('expense_paid', $expense_paid)->with('expense_approve', $expense_approve);
+
+    }
+
+
+    public function income(Request $request)
+    {
+        \Artisan::call('cache:clear');
+        $data = [];
+    
+
+
+                $data['head'] = \DB::table('income_expense_groups')
+                ->join('income_expense_types', 'income_expense_groups.income_expense_type', '=', 'income_expense_types.id')
+                ->select(
+                    'income_expense_types.deleted_at as deleteAt',
+                    'income_expense_types.created_at as CreateAt',
+                    'income_expense_groups.name as name',
+                    'income_expense_groups.id as id'
+                )
+                ->where('income_expense_groups.income_expense_type',5)
+                ->whereNull('income_expense_groups.deleted_at')
+                ->orderBy('income_expense_types.created_at', 'desc')
+                ->get();
+
+
+
+                    $activ = Session::get('branch_array');
+                    $branch_id =$activ->id;
+                    $checkaray = \DB::table('ledger_branch')->where('branch_id',$branch_id)->pluck('ledger_id')->toArray();
+
+
+
+                    if($branch_id != 1){
+                        $ledger = \DB::table('income_expense_heads')->where('type',1)->whereIn('id',$checkaray)->where('deleted_at',Null)->orderBy('created_at', 'desc')->get();
+
+                    }else{
+                        $ledger = \DB::table('income_expense_heads')->where('type',1)->where('deleted_at',Null)->orderBy('created_at', 'desc')->get();
+
+                    }
+
+                    if($branch_id == 2){
+                    $expense_paid =\DB::connection('second_db')->table('staff')->where('expense_create',1)->get();
+                    $expense_approve =\DB::connection('second_db')->table('staff')->where('expense_approve',1)->get();
+
+                    }elseif($branch_id == 3){
+                        $expense_paid =\DB::connection('third_db')->table('staff')->where('expense_create',1)->get();
+                        $expense_approve =\DB::connection('third_db')->table('staff')->where('expense_approve',1)->get();
+                    }elseif($branch_id == 4){
+                        $expense_paid =\DB::connection('fourth_db')->table('staff')->where('expense_create',1)->get();
+                        $expense_approve =\DB::connection('fourth_db')->table('staff')->where('expense_approve',1)->get();
+                    }elseif($branch_id == 11){
+                        $expense_paid =\DB::connection('fifth_db')->table('staff')->where('expense_create',1)->get();
+                        $expense_approve =\DB::connection('fifth_db')->table('staff')->where('expense_approve',1)->get();
+                    }elseif($branch_id == 12){
+                        $expense_paid =\DB::connection('sixth_db')->table('staff')->where('expense_create',1)->get();
+                        $expense_approve =\DB::connection('sixth_db')->table('staff')->where('expense_approve',1)->get();
+                    }else{
+                        $expense_paid = array();
+                        $expense_approve =array();
+                
+                    }
+
+
+                
+                    return view( 'admin.expense'. '.income', $data)->with('ledger', $ledger)
+                    ->with('expense_paid', $expense_paid)->with('expense_approve', $expense_approve);
 
     }
 

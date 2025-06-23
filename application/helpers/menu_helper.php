@@ -41,7 +41,13 @@ if (!function_exists('active_link')) {
         if ($session_sub_menu == $sub_menu_name) {
             return 'active';
         }
+        $CI->session->unset_userdata('myrpoert');
         return "";
+    }
+    function Submenu($sub_menu_name)
+    {       $CI   = get_instance();
+            $CI->session->set_userdata('myrpoert');
+            return 'active';
     }
 
 }

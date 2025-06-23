@@ -1035,6 +1035,40 @@ Route::group(['middleware' => 'auth'], function () {
         'as' => 'cr_voucher.active.search'
     ]);
 
+// income
+       Route::get('/income', [
+        'uses' => 'LanguageController@income',
+        'as' => 'income'
+    ])->middleware('language.module_show');
+
+    Route::post('/income_store', [
+        'uses' => 'LanguageController@income_store',
+        'as' => 'income_store'
+    ])->middleware('language.module_show');
+
+    Route::get('/income/edit/{id}', [
+        'uses' => 'LanguageController@income_edit',
+        'as' => 'income.edit'
+    ])->middleware('language.module_show');
+
+    Route::post('/income/edit/save/{id}', [
+        'uses' => 'LanguageController@income_edit_save',
+        'as' => 'income.save.edit'
+    ])->middleware('language.module_show');
+
+    Route::get('/income/list', [
+        'uses' => 'LanguageController@income_list',
+        'as' => 'income.list'
+    ])->middleware('language.module_show');
+    
+    Route::get('/income/delete', [
+        'uses' => 'LanguageController@income_delete',
+        'as' => 'income.delete'
+    ])->middleware('language.module_show');
+
+
+
+
     Route::get('/cr-voucher/trashed/search', [
         'uses' => 'CrVoucherController@trashedSearch',
         'as' => 'cr_voucher.trashed.search'
