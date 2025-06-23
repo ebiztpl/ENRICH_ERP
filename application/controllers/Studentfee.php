@@ -55,8 +55,7 @@ class Studentfee extends Admin_Controller
             $this->form_validation->set_rules('class_id', $this->lang->line('class'), 'required|trim|xss_clean');
         } elseif ($search_type == "keyword_search") {
             $this->form_validation->set_rules('search_text', $this->lang->line('keyword'), 'required|trim|xss_clean');
-            $data = array('search_text' => 'dummy');
-            $this->form_validation->set_data($data);
+          
         }
         if ($this->form_validation->run() == false) {
             $error = array();
@@ -134,8 +133,7 @@ class Studentfee extends Admin_Controller
         }
         $sch_setting = $this->sch_setting_detail;
         $students    = json_decode($students);
-      
- 
+
       
 
         $dt_data     = array();
@@ -981,9 +979,11 @@ $vocuher =  $check->invoice_id.'/'.$check->sub_invoice_id;
                 $feeList->fee_category = $fee_category;
             }
 
+           
             $fees_array[] = $feeList;
         }
-
+    
+        
         $data['feearray'] = $fees_array;
         $this->load->view('print/printFeesByGroupArray', $data);
     }
@@ -2042,6 +2042,12 @@ echo $a;
 }
 
 
+public function set_enter_amount()
+{
+    $amount = $this->input->post('amount');
+    $this->session->set_userdata('enter_amount', $amount);
+    echo "Da";
+}
 
 
 }

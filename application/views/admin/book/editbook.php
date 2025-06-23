@@ -114,6 +114,41 @@ if ($editbook['book_category'] == $bookcategory->id) {
                                 <input id="isbn_no" name="isbn_no" placeholder="" type="text" class="form-control"  value="<?php echo set_value('isbn_no',$editbook['isbn_no']); ?>" />
                                 <span class="text-danger"><?php echo form_error('isbn_no'); ?></span>
                             </div>
+
+                             <div class="form-group col-md-3">
+                                <label for="exampleInputEmail1">Bill Date</label>
+                                <input id="billdate" name="billdate"  placeholder="" type="text" class="form-control date"  value="<?php echo set_value('billdate',$editbook['billdate']); ?>" />
+                                <span class="text-danger"><?php echo form_error('billdate'); ?></span>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="exampleInputEmail1">Supplier option</label>
+                                <input id="supplier_option" name="supplier_option" placeholder="" type="text" class="form-control"  value="<?php echo set_value('supplier_option',$editbook['supplier_option']); ?>" />
+                                <span class="text-danger"><?php echo form_error('supplier_option'); ?></span>
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label for="exampleInputEmail1">Book Type</label>
+                                <select id="book_type" name="book_type" class="form-control" required>
+                                <option value=""><?php echo $this->lang->line('select'); ?></option>
+                                    <?php foreach($dropdowndata as $drop){
+                                      if($drop->type == 6){  ?>
+                                    <option value="<?=$drop->id?>" 
+                                    <?php
+if ($editbook['publish'] == $drop->id) {
+            echo "selected = selected";
+        } 
+        ?>
+                                    
+                                    ><?=$drop->name?></option>
+
+                                        <?php } }?>
+                                </select>  
+                                <span class="text-danger"><?php echo form_error('book_type'); ?></span>
+                            </div>
+
+
+
+
                        
                             <div class="form-group col-md-3">
                                 <label for="exampleInputEmail1"><?php echo $this->lang->line('publisher'); ?> </label>

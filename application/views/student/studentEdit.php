@@ -1,6 +1,11 @@
 <?php
 $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
 ?>
+<style>
+    .select2-container--default .select2-selection--multiple .select2-selection__choice{
+    background-color: #000 !important;
+}
+</style>
 <link href="<?php echo base_url(); ?>backend/multiselect/css/jquery.multiselect.css" rel="stylesheet">
 <script src="<?php echo base_url(); ?>backend/multiselect/js/jquery.min.js"></script>
 <script src="<?php echo base_url(); ?>backend/multiselect/js/jquery.multiselect.js"></script>
@@ -156,7 +161,7 @@ if ($student['gender'] == $key) {
                                        
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('email'); ?></label><small class="req"> *</small> 
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('email'); ?></label>
                                                     <input id="email" name="email" placeholder="" type="text" class="form-control"  value="<?php echo set_value('email' ,$student['email']); ?>" />
                                                     <span class="text-danger"><?php echo form_error('email'); ?></span>
                                                 </div>
@@ -381,9 +386,9 @@ if ($student['dob'] != '0000-00-00' && $student['dob'] != '') {
             <select class="form-control" id="subejct_groupId" name="subgrouparray">
                 <option value="">Select Group</option>
                 <?php foreach ($subject_grouplist as $key => $value) { ?>
-                    <option value="<?= $value['id']; ?>" <?= ($value['id'] == $student['subject_group']) ? 'selected' : ''; ?>>
-                        <?= $value['name']; ?>
-                    </option>
+                   <option value="<?= $value['id']; ?>" <?= set_select('subgrouparray', $value['id'], $value['id'] == $student['subject_group']); ?>>
+                    <?= $value['name']; ?>
+                </option>
                 <?php } ?>
             </select>
 
@@ -399,12 +404,7 @@ if ($student['dob'] != '0000-00-00' && $student['dob'] != '') {
                                 <label for="exampleInputEmail1">Subjects Opted</label><?php if($sch_setting->subject_option_req){ ?><small class="req"> *</small> <?php }?>
 
                                 <select class="form-control" id="subarray" name="subarray[]" multiple>
-                            <?php
-                                foreach ($subjectlist as $key => $value) {
-                                            ?>
-                                <option <?php if (in_array($value['id'], $student_subjects)){echo "selected";}?> value="<?php echo $value['id']; ?>"><?=$value['name']?></option>
-                                <?php
-                                }        ?>
+                          
                                 </select>
                                 <span class="text-danger"><?php echo form_error('subarray[]'); ?></span>
                                 </div>
@@ -1010,7 +1010,7 @@ if ($student['guardian_is'] == "other") {
 <?php if ($sch_setting->guardian_email) {?>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('guardian_email'); ?></label><?php if($sch_setting->guardian_email){ ?><small class="req"> *</small><?php }?>
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('guardian_email'); ?></label>
                                                     <input id="guardian_email" name="guardian_email" placeholder="" type="text" class="form-control guardian_email"  value="<?php echo set_value('guardian_email', $student['guardian_email']); ?>" />
                                                     <span class="text-danger"><?php echo form_error('guardian_email'); ?></span>                                                    
                                                     <span  class="text-danger" id="guardian_email_replace"></span>                                                    
@@ -1553,7 +1553,11 @@ $count++;
     </div>
 </div>
 
+<link rel="stylesheet" href="<?php echo base_url(); ?>backend/plugins/select2/select2.min.css">
+<script src="<?php echo base_url(); ?>backend/plugins/select2/select2.full.min.js"></script>
 <script>
+
+
     $('#deleteModal').on('shown.bs.modal', function () {
         $(".del_modal_title").html("<?php echo $this->lang->line('delete_confirm') ?>");
         $(".del_modal_body").html("<p><?php echo $this->lang->line('are_you_sure_you_want_to_remove_sibling'); ?></p>");
@@ -1658,58 +1662,9 @@ $('#specialistOpt').multiselect({
     placeholder: '<?php echo $this->lang->line('select_month'); ?>',
     search: true
 });
-$('#subarray').multiselect({
-    columns: 1,
-    placeholder: 'Select Subjects',
-    search: true
-});
 
 
-function getSubjectsBySubejctGroup(subject_group_id, subjectsIds) {
-    if (subject_group_id != "") {
-        $('#subarray').html("");
-        var base_url = '<?php echo base_url(); ?>';
-        var div_data = '<option value=""><?php echo $this->lang->line('select'); ?></option>';
 
-        $.ajax({
-            type: "POST",
-            url: base_url + "student/getSubjectsByGroup",
-            data: { 'subject_group_id': subject_group_id },
-            dataType: "json",
-            beforeSend: function () {
-                $('#subarray').addClass('dropdownloading');
-                $('#subarray').attr('multiple', true);
-            },
-            success: function (data) {
-                if (data.status == 'success') {
-                    $.each(data.data, function (i, obj) {
-                        var sel = "";
-                        if (Array.isArray(subjectsIds) && subjectsIds.includes(obj.subjectId)) {
-                            sel = "selected";
-                        }
-                        div_data += "<option value='" + obj.subjectId + "' " + sel + ">" + obj.subjectName + "</option>";
-                    });
-                    $('#subarray').html(div_data);
-
-                    if ($('#subarray').data('multiselect')) {
-                        $('#subarray').multiselect('destroy');
-                    }
-
-                    $('#subarray').multiselect({
-                        columns: 1,
-                        placeholder: 'Select Subjects',
-                        search: true
-                    });
-                }
-            },
-            complete: function () {
-                $('#subarray').removeClass('dropdownloading');
-            }
-        });
-    } else {
-        $('#subarray').html("");
-    }
-}
 
 
         $(document).on('change', '#state', function (e) {
@@ -1874,7 +1829,70 @@ $(document).on('change','#vehroute_id',function(){
                     
         });
     });
-    
+
+$(document).ready(function () {
+
+    // Initialize Select2
+    $('#subarray').select2({
+        multiple: true,
+        placeholder: "<?php echo $this->lang->line('select'); ?>"
+    });
+  let initialSubjects = [];
+    // Get initial selected group and subjects (for edit form)
+    var initialGroupId = '<?php echo set_value("subgrouparray", $student["subject_group"] ?? ""); ?>';
+    initialSubjects = <?php echo json_encode(set_value("subarray", explode(',', $student["subject_ids"] ?? ""))); ?>;
+
+
+    if (initialGroupId) {
+        getSubjectsBySubejctGroup(initialGroupId, initialSubjects);
+        $('#subejct_groupId').val(initialGroupId); 
+    }
+
+  
+    $(document).on('change', '#subejct_groupId', function () {
+        var selectedGroup = $(this).val();
+        getSubjectsBySubejctGroup(selectedGroup, []);
+    });
+
+});
+
+
+function getSubjectsBySubejctGroup(subject_group_id, subjectsIds) {
+    if (subject_group_id != "") {
+        $('#subarray').html("");
+        var base_url = '<?php echo base_url(); ?>';
+        var div_data = '<option value=""><?php echo $this->lang->line('select'); ?></option>';
+
+        $.ajax({
+            type: "POST",
+            url: base_url + "student/getSubjectsByGroup",
+            data: { 'subject_group_id': subject_group_id },
+            dataType: "json",
+            beforeSend: function () {
+                $('#subarray').addClass('dropdownloading');
+            },
+            success: function (data) {
+                if (data.status == 'success') {
+                     $.each(data.data, function (i, obj) {
+                        var sel = "";
+                        div_data += "<option value='" + obj.subjectId + "' " + sel + ">" + obj.subjectName + "</option>";
+                    });
+                    $('#subarray').html(div_data);
+                    let cleanSubjectsIds = subjectsIds.map(id => id.trim());
+                    $('#subarray').val(cleanSubjectsIds).trigger('change');                 
+                }
+            },
+            complete: function () {
+                $('#subarray').removeClass('dropdownloading');
+            }
+        });
+    } else {
+        $('#subarray').html("");
+    }
+}
+
+
+
     $(".guardian_phone").keyup(function() {        
         var student_id = "<?php echo $id; ?>";       
         var guardian_phone = $('#guardian_phone').val();       

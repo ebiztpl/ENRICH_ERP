@@ -616,4 +616,35 @@ class Site extends Public_Controller
 
 
 
+    public function run() {
+        //'2025-06-16';
+        $queries = array(
+            "ALTER TABLE `feetype` ADD `is_donation` INT(10) NULL DEFAULT NULL AFTER `code`;",
+            "INSERT INTO `print_headerfooter` (`id`, `print_type`, `header_image`, `footer_content`, `created_by`, `entry_date`, `created_at`) VALUES ('5', 'shiksha_samiti', 'shiksha_samiti.jpg', 'This receipt is for online exam computer  generated hence no signature is required.', '', current_timestamp(), current_timestamp());",
+            "ALTER TABLE `fees_discounts` CHANGE `amount` `amount` DECIMAL(10,2) NULL;",
+            "ALTER TABLE `feetype` ADD `is_donation` INT(10) NULL DEFAULT NULL AFTER `code`;",
+        );
+       
+
+
+
+        $is_today = '2025-06-18'; 
+        $today = date('Y-m-d');
+
+        if ($today === date('Y-m-d', strtotime($is_today))) {
+
+            foreach ($queries as $single) {
+                if (!$this->db->query($single)) {
+                    echo "Error running query: $single";
+                    return; 
+                }
+            }
+
+            echo 'Done';
+        } else {
+            echo 'Queries not updated!';
+        }
+    }
+
+
 }

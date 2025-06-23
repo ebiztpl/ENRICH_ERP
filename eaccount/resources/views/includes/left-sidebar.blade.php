@@ -664,6 +664,7 @@ $branchid =$activ->id; ?>
                 {{-- start Expenses --}}
 
 
+                
                 <li >
                     <a class="menu-toggle " href="javascript:void(0);">
                         <i class="fas fa-coins"></i>
@@ -672,20 +673,37 @@ $branchid =$activ->id; ?>
                     <ul class="ml-menu">
                         <li>
                             <a
-                                href="{{ route('bill_recieved') }}">Bill Received Create</a>
+                                href="{{ route('bill_recieved') }}">Create Bill</a>
                         </li>
                            <li>
                             <a
                                 href="{{ route('direct_bill') }}">Direct Bill Received</a>
                         </li>
+                          
                         <li>
                             <a
-                                href="{{ route('bill_recieved_list') }}">Bill Received List</a>
+                                href="{{ route('bill_recieved_list') }}">Bill List</a>
                         </li>
                        
                     </ul>
                 </li>
-
+                
+                <li >
+                    <a class="menu-toggle " href="javascript:void(0);">
+                        <i class="fas fa-coins"></i>
+                        <span>Income</span>
+                    </a>
+                    <ul class="ml-menu">
+                         <li>
+                            <a
+                                href="{{ route('income') }}">Create Income</a>
+                        </li>
+                           <li>
+                            <a
+                                href="{{ route('income.list') }}">Income List</a>
+                        </li>
+                    </ul>
+                </li>
                 {{-- End Expenses --}}
 
 

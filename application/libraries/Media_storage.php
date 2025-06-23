@@ -100,6 +100,16 @@ public function fileupload1($media_name, $upload_path = "")
         return null;
 
     }
+    public function get_newImageURL($file_name)
+    {
+        if (!IsNullOrEmptyString($file_name)) {
+
+            $download_file_name = $this->_CI->customlib->getBaseUrl() . $file_name;
+            return $download_file_name;
+        }
+        return null;
+
+    }
 
     public function filedelete($file_name, $path = "")
     {

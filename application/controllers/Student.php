@@ -90,6 +90,9 @@ class Student extends Admin_Controller
         $data['memid'] = $memid;
        
         $issued_books         = $this->bookissue_model->getMemberBooks($memid);
+
+        
+
         $data['issued_books'] = $issued_books;
 
 
@@ -595,6 +598,7 @@ class Student extends Admin_Controller
         if ($this->sch_setting_detail->is_guardian_mather_father_req) {
             $this->form_validation->set_rules('guardian_is',$this->lang->line('if_guardian_is'), 'trim|required|xss_clean');
         }
+
         // if ($this->sch_setting_detail->gurdian_name_req) {
         //     $this->form_validation->set_rules('guardian_name',$this->lang->line('guardian_name'), 'trim|required|xss_clean');
         // }

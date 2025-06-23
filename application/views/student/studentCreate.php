@@ -4,6 +4,11 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
 <link href="<?php echo base_url(); ?>backend/multiselect/css/jquery.multiselect.css" rel="stylesheet">
 <script src="<?php echo base_url(); ?>backend/multiselect/js/jquery.min.js"></script>
 <script src="<?php echo base_url(); ?>backend/multiselect/js/jquery.multiselect.js"></script>
+<style>
+    .select2-container--default .select2-selection--multiple .select2-selection__choice{
+    background-color: #000 !important;
+}
+</style>
 
 
 
@@ -169,7 +174,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                        
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('email'); ?></label><?php if($sch_setting->email_req){ ?><small class="req"> *</small> <?php }?>
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('email'); ?></label>
                                                     <input id="email" name="email" placeholder="" type="text" class="form-control"  value="<?php echo set_value('email'); ?>" />
                                                     <span class="text-danger"><?php echo form_error('email'); ?></span>
                                                 </div>
@@ -363,7 +368,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                             </div>
                                         </div>
 
-
+            
 
                                         <!-- cutom subject group array for Saurbh -->
                                          <?php if ($sch_setting->subject_option) {?> 
@@ -908,7 +913,7 @@ echo set_value('guardian_is') == "other" ? "checked" : "";
                                     <?php if ($sch_setting->guardian_email) {?>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('guardian_email'); ?></label><?php if($sch_setting->guardian_email){ ?><small class="req"> *</small><?php }?>
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('guardian_email'); ?></label>
                                                     <input id="guardian_email" name="guardian_email" placeholder="" type="text" class="form-control"  value="<?php echo set_value('guardian_email'); ?>" />
                                                     <span class="text-danger"><?php echo form_error('guardian_email'); ?></span>
                                                 </div>
@@ -1247,13 +1252,29 @@ $count++;
             getSectionByClass(class_id, 0);
         });
 
-        
+       $(document).on('change', '#subejct_groupId', function () {
+        var subejct_groupId = $(this).val();
+        getSubjectsBySubejctGroup(subejct_groupId, []);
+    });
 
-        $(document).on('change', '#subejct_groupId', function (e) {
-            $('#subarray').html("");
+    
+    <?php if (set_value('subgrouparray')): ?>
+        var initialGroupId = $('#subejct_groupId').val();
+        var initialSubjects = <?php echo json_encode(set_value('subarray', [])); ?>;
+        getSubjectsBySubejctGroup(initialGroupId, initialSubjects);
+    <?php endif; ?>   
+
+  $('#subarray').select2({
+        multiple: true,
+        placeholder: "<?php echo $this->lang->line('select'); ?>"
+    });
+
+
+
+    $(document).on('change', '#subejct_groupId', function (e) {
             var subejct_groupId = $(this).val();
             getSubjectsBySubejctGroup(subejct_groupId, 0);
-        });
+    });
 
         $(".color").colorpicker();
 
@@ -1269,7 +1290,7 @@ $count++;
 function getSubjectsBySubejctGroup(subject_group_id, subjectsIds) {
     if (subject_group_id != "") {
         $('#subarray').html("");
-        var base_url = '<?php echo base_url() ?>';
+        var base_url = '<?php echo base_url(); ?>';
         var div_data = '<option value=""><?php echo $this->lang->line('select'); ?></option>';
 
         $.ajax({
@@ -1279,45 +1300,28 @@ function getSubjectsBySubejctGroup(subject_group_id, subjectsIds) {
             dataType: "json",
             beforeSend: function () {
                 $('#subarray').addClass('dropdownloading');
-                $('#subarray').prop('multiple','multiple');
             },
             success: function (data) {
                 if (data.status == 'success') {
                     $.each(data.data, function (i, obj) {
                         var sel = "";
-                        if(subjectsIds){
-                            if (subjectsIds.includes(obj.subjectId)) {
+                        if (Array.isArray(subjectsIds) && subjectsIds.includes(obj.subjectId)) {
                             sel = "selected";
-                            }
                         }
                         div_data += "<option value='" + obj.subjectId + "' " + sel + ">" + obj.subjectName + "</option>";
                     });
                     $('#subarray').html(div_data);
-
-                   
-                    if ($('#subarray').data('multiselect')) {
-                        $('#subarray').multiselect('destroy');
-                    }
-
-                   
-                    $('#subarray').multiselect({
-                        columns: 1,
-                        placeholder: 'Select Subjects',
-                        search: true
-                    });
+                    $('#subarray').trigger('change');
                 }
             },
             complete: function () {
                 $('#subarray').removeClass('dropdownloading');
             }
         });
-    }else {
-    
-          $('#subarray').html("");
+    } else {
+        $('#subarray').html("");
     }
-
 }
-
         function getSectionByClass(class_id, section_id) {
 
             if (class_id != "") {

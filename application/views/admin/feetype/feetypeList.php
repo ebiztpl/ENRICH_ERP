@@ -14,7 +14,15 @@
                     <div class="box box-primary">
                         <div class="box-header with-border">
                             <h3 class="box-title"><?php echo $this->lang->line('add_fees_type'); ?></h3>
-                               <input class="form-check-input pull-right" type="checkbox" name="donation" id="donation" value="1"/>                       
+
+                            <div class="form-group pull-right">
+                                    <label for="exampleInputEmail1">Donation</label>
+                                    <input class="form-check-input " type="checkbox" name="donation" id="donation" value="1"/>
+                                   
+                                </div>
+
+                           
+                                                      
                         </div><!-- /.box-header -->
                            <div class="box-body">
                                 <?php if ($this->session->flashdata('msg')) { ?>

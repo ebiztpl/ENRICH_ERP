@@ -1,5 +1,4 @@
 <?php $currency_symbol = $this->customlib->getSchoolCurrencyFormat();?>
-<?php $false = null?>
 <style type="text/css">
     .page-break	{ display: block; page-break-before: always; }
     @media print {
@@ -206,7 +205,8 @@
     </head>
     <body>       
         <?php 
-$print_copy=explode(',', $settinglist[0]['is_duplicate_fees_invoice']);
+ $print_copy=explode(',', $settinglist[0]['is_duplicate_fees_invoice']);
+
          ?>
         <div class="container"> 
             <?php 
@@ -217,9 +217,15 @@ if(in_array('0', $print_copy)){
                     <div class="invoice">
                         <div class="row header ">
                             <div class="col-sm-12">                               
-
-                                <img src="<?php echo $this->media_storage->getImageURL('/uploads/print_headerfooter/student_receipt/'.$this->setting_model->get_receiptheader()); ?>" style="height: 100px;width: 100%;">
+                            
+                             <?php if($feeList->donation == 1){?>
+                                                             
+                                    <img src="<?php echo base_url().'/uploads/print_headerfooter/student_receipt/'.$this->setting_model->get_shikshasamitiheader(); ?>" style="height: 100px;width: 100%;">   
                                 
+                                 <?php } else {?>  
+                                    <img src="<?php echo $this->media_storage->getImageURL('/uploads/print_headerfooter/student_receipt/'.$this->setting_model->get_receiptheader()); ?>" style="height: 100px;width: 100%;">
+                              <?php }?>  
+                            
                             </div>
                         </div> 
                      
@@ -233,15 +239,17 @@ if(in_array('0', $print_copy)){
                             <div class="col-xs-6 text-left">
                                 <br/>
                                 <address>
-                                     
-                                    <!-- <?php echo $this->customlib->getFullName($feeList->firstname,$feeList->middlename,$feeList->lastname,$sch_setting->middlename,$sch_setting->lastname);
-                                      ?></strong><?php echo " (".$feeList->admission_no.")"; ?> <br> 
-                                       -->
-
+                                    <?php if($feeList->donation != 1){?> 
+                                    <strong><?php
+                                   echo $this->customlib->getFullName($feeList->firstname,$feeList->middlename,$feeList->lastname,$sch_setting->middlename,$sch_setting->lastname);
+                                      ?></strong><?php echo " (".$feeList->admission_no.")"; ?> <br>
+                                    <?php }?>
+                                   
                                     <?php echo $this->lang->line('father_name'); ?>: <?php echo $feeList->father_name; ?><br>
-                                  
-                                    <!-- class -->
-                                 
+                              
+                                    <?php if($feeList->donation != 1){?>
+                                    <?php echo $this->lang->line('class'); ?>: <?php echo $feeList->class . " (" . $feeList->section . ")"; ?>
+                                 <?php }?>
                                 </address>
                             </div>
                             <div class="col-xs-6 text-right">
@@ -475,11 +483,14 @@ if(in_array('0', $print_copy)){
                         <div class="invoice">
                             <div class="row header ">
                                 <div class="col-sm-12">
-                                    <?php ?>
+                                  
+                            <?php if($feeList->donation == 1){?>
+                                     <img src="<?php echo base_url().'/uploads/print_headerfooter/student_receipt/'.$this->setting_model->get_shikshasamitiheader(); ?>" style="height: 100px;width: 100%;">   
 
-                                    <img  src="<?php echo $this->media_storage->getImageURL('/uploads/print_headerfooter/student_receipt/'.$this->setting_model->get_receiptheader()); ?>" style="height: 100px;width: 100%;">
-                                    <?php
-                                    ?>
+                                 <?php } else {?>  
+                                    <img src="<?php echo $this->media_storage->getImageURL('/uploads/print_headerfooter/student_receipt/'.$this->setting_model->get_receiptheader()); ?>" style="height: 100px;width: 100%;">
+                            <?php }?> 
+
                                 </div>
                             </div>
                            
@@ -493,11 +504,20 @@ if(in_array('0', $print_copy)){
                                 <div class="col-xs-6">
                                     <br/>
                                     <address>
+                                  
+                                   <?php if($feeList->donation != 1){?> 
+                                    <strong><?php
+                                   echo $this->customlib->getFullName($feeList->firstname,$feeList->middlename,$feeList->lastname,$sch_setting->middlename,$sch_setting->lastname);
+                                      ?></strong><?php echo " (".$feeList->admission_no.")"; ?> <br>
+                                    <?php }?>
                                    
-                                   
-                                        <?php echo $this->lang->line('father_name'); ?>: <?php echo $feeList->father_name; ?><br>
-                                   
-                                      
+                                    <?php echo $this->lang->line('father_name'); ?>: <?php echo $feeList->father_name; ?><br>
+                              
+                                    <?php if($feeList->donation != 1){?>
+                                    <?php echo $this->lang->line('class'); ?>: <?php echo $feeList->class . " (" . $feeList->section . ")"; ?>
+                                 <?php }?>
+
+
                                     </address>
                                 </div>
                                 <div class="col-xs-6 text-right">
@@ -742,9 +762,11 @@ if ($feeList->fine_amount != "") {
                                 <div class="col-xs-6">
                                     <br/>
                                     <address>
-                                       
+                                        <strong><?php
+                                   echo $this->customlib->getFullName($feeList->firstname,$feeList->middlename,$feeList->lastname,$sch_setting->middlename,$sch_setting->lastname);
+                                      ?></strong><?php echo " (".$feeList->admission_no.")"; ?><br>
                                         <?php echo $this->lang->line('father_name'); ?>: <?php echo $feeList->father_name; ?><br>
-                                       
+                                        <?php echo $this->lang->line('class'); ?>: <?php echo $feeList->class . " (" . $feeList->section . ")"; ?>
                                     </address>
                                 </div>
                                 <div class="col-xs-6 text-right">

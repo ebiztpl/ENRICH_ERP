@@ -580,7 +580,7 @@
     echo "checked='checked'";
 }
 ?> />
-                                                <label for="is_student_house" class="label-success"></label>
+                                       <label for="is_student_house" class="label-success"></label>
                                             </div>
                                         </td>
                                         <td>

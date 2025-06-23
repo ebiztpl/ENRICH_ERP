@@ -1,6 +1,5 @@
 
 
-
 <?php
 $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
 ?>
@@ -109,7 +108,10 @@ ul.fees-list.fees-list-in-box {
             <div class="form-group">
                             <label for="inputPassword3" class="col-sm-3 control-label">Amount ()<small class="req"> *</small></label>
                             <div class="col-sm-6">
-                                <input type="number" autofocus="" class="form-control ritik_inorder" id="amount" value="0">
+                                <input type="number" autofocus="" class="form-control ritik_inorder" id="amount" value="<?php 
+$entered_amount = $this->session->userdata('enter_amount');
+echo $entered_amount ? $entered_amount : 0;
+?>">
                                 <span class="text-danger amount_error" id="amount_error"></span>
                             </div>
                             <div class="col-sm-3">
@@ -599,8 +601,16 @@ if($fine_amount_status){
  ?>
  <script>
 $(document).ready(function() {
-    $('.ritik_inorder').val(<?php echo  $total_amount3; ?>);
-     $('.filestyle').dropify();
+   $('.filestyle').dropify();
+});
+$(".ritik_inorder").keyup(function(){
+    let value = $(this).val();
+    $.ajax({
+        url: "<?php echo base_url('studentfee/set_enter_amount'); ?>",
+        type: "POST",
+        data: { amount: value }
+    });
+   
 });
 
 

@@ -12,11 +12,19 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                 <div class="col-md-4">
                     <!-- Horizontal Form -->
                     <div class="box box-primary">
-                        <div class="box-header with-border">
-                            <h3 class="box-title"><?php echo $this->lang->line('edit_fees_type'); ?></h3>
-                        </div><!-- /.box-header -->
                         <!-- form start -->
                         <form action="<?php echo site_url("admin/feetype/edit/" . $id) ?>"  id="employeeform" name="employeeform" method="post" accept-charset="utf-8">
+                        <div class="box-header with-border">
+                            <h3 class="box-title"><?php echo $this->lang->line('edit_fees_type'); ?></h3>
+                        
+                        <div class="form-group pull-right">
+                                    <label for="exampleInputEmail1">Donation</label>
+                                     <input class="form-check-input" type="checkbox" name="donation" id="donation" value="1"
+        <?php echo set_checkbox('donation', '1', (isset($feetype) && $feetype['is_donation'] == 1)); ?> />
+                                   
+                                </div>
+                        
+                        </div><!-- /.box-header -->
                             <div class="box-body">
                                 <?php if ($this->session->flashdata('msg')) { ?>
                                     <?php 

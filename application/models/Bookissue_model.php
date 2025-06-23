@@ -267,6 +267,42 @@ class Bookissue_model extends MY_Model
         return $this->datatables->generate('json');
     }
 
+ public function studentAccession_report($start_date, $end_date, $book_category)
+{
+    $condition = [];
+
+    if (!empty($start_date) && !empty($end_date)) {
+        $condition[] = "DATE_FORMAT(books.created_at, '%Y-%m-%d') BETWEEN '" . $start_date . "' AND '" . $end_date . "'";
+    }
+
+    if (!empty($book_category)) {
+        $condition[] = "books.book_category = '" . $book_category . "'";
+    }
+
+    $where_clause = '';
+    if (!empty($condition)) {
+        $where_clause = 'WHERE ' . implode(' AND ', $condition);
+    }
+
+    $sql = "SELECT 
+                books_list.bookcode AS accession_no,
+                books.book_title,
+                book_category.book_category AS books_category_name,
+                library_dropdown_data.name AS author_name
+            FROM books_list
+            LEFT JOIN books ON books.id = books_list.book_id
+            LEFT JOIN book_category ON book_category.id = books.book_category
+            LEFT JOIN library_dropdown_data ON books.author = library_dropdown_data.id
+            $where_clause";
+
+    $this->datatables->query($sql)
+        ->orderable('books_list.bookcode, books.book_title')
+        ->searchable('books.book_title, books_list.bookcode')
+        ->query_where_enable(true);
+
+    return $this->datatables->generate('json');
+}
+
     public function bookduereport($start_date, $end_date)
     {
         $condition = " and date_format(book_issues.duereturn_date,'%Y-%m-%d') between '" . $start_date . "' and '" . $end_date . "'";

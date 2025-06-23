@@ -1045,7 +1045,7 @@ echo $currency_symbol . amountFormat(($total_balance_amount - $alot_fee_discount
     },
 
                 success: function (response) {
-
+                   
                     Popup(response.page);
                      $this.button('reset');
                 },
@@ -1140,7 +1140,8 @@ echo $currency_symbol . amountFormat(($total_balance_amount - $alot_fee_discount
     var base_url = '<?php echo base_url() ?>';
 
     function Popup(data, winload = false)
-    {
+    {  
+      
         var frameDoc=window.open('', 'Print-Window');
         frameDoc.document.open();
         //Create a new HTML document.
@@ -1777,6 +1778,7 @@ $.ajax({
         </script>
 <script>
 $(document).on('click', '.Collectinorder', function () {
+    
             var $this = $(this);
             var array_to_collect_fees = [];
 
@@ -1838,6 +1840,7 @@ $(document).on('click', '.Collectinorder', function () {
 
 $(document).on('click', '.ritik_inorder_button', function () {
             $newamoynt =   $('.ritik_inorder').val();
+           
             
             $newdate =   $('.ritik_inorder_date').val();
             var $this = $('.Collectinorder');
@@ -1871,7 +1874,7 @@ $(document).on('click', '.ritik_inorder_button', function () {
                     $this.button('loading');
                 },
                 success: function (data) {
-
+                  
                     $("#listCollectionModal .modal-body").html(data.view);
                     $("#listCollectionModal").modal('show');
                     $this.button('reset');
