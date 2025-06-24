@@ -596,10 +596,10 @@ class Student_model extends MY_Model
     }
 
     public function getDatatableByFullTextSearch($searchterm)
-    {
+    {//`student_fees_master.fee_session_group_id as fee_session_group_id`,
         $userdata   = $this->customlib->getUserData();
         $class_section_array = $this->customlib->get_myClassSection();
-        $this->datatables->select('`classes`.`id` as `class_id`,`student_fees_master.fee_session_group_id as fee_session_group_id`, `students`.`id`,
+        $this->datatables->select('`classes`.`id` as `class_id`, `students`.`id`,
         `student_session`.`id` as `student_session_id`,`classes`.`class`,sections.id as `section_id`,
         sections.section,students.id,students.admission_no, students.roll_no,students.admission_date,
         students.firstname,students.middlename,students.lastname,students.image, 
@@ -607,8 +607,7 @@ class Student_model extends MY_Model
         students.religion,students.dob ,students.current_address,students.permanent_address,IFNULL(students.category_id, 0) as `category_id`,IFNULL(categories.category, "") as `category`,students.adhar_no,students.samagra_id,students.bank_account_no,students.bank_name,students.ifsc_code ,students.father_name,students.guardian_name, students.guardian_relation,students.guardian_phone,students.guardian_address,students.is_active ,students.created_at ,students.updated_at,students.gender,students.rte,student_session.session_id');
         $this->datatables->join('student_session', 'student_session.student_id = students.id');
         $this->datatables->join('classes', 'student_session.class_id = classes.id');
-        $this->datatables->join('student_fees_master','student_session.id  = student_fees_master.student_session_id','left');
-
+     
         $this->datatables->join('sections', 'sections.id = student_session.section_id');
         $this->datatables->join('categories', 'students.category_id = categories.id', 'left');
         $this->datatables->join('school_houses', 'students.school_house_id = school_houses.id', 'left');
@@ -2035,11 +2034,11 @@ class Student_model extends MY_Model
             $this->datatables->where('students.category_id',' ');
         }
 
-        $this->datatables->select('classes.id AS `class_id`,students.subject_group, students.school_medium,student_session.id as student_session_id,students.id,classes.class,sections.id AS `section_id`,sections.section,students.id,students.admission_no,students.school_medium,students.application_no, students.roll_no,students.admission_date,students.firstname,students.middlename,  students.lastname,students.image,students.mobileno,students.email ,students.state,students.city, students.pincode,students.religion,DATE(students.dob) as dob,students.current_address,students.permanent_address,IFNULL(students.category_id, 0) as `category_id`,IFNULL(categories.category, "") as `category`,students.adhar_no,students.samagra_id,students.bank_account_no,students.bank_name,students.ifsc_code , students.guardian_name, students.guardian_relation,students.guardian_phone,students.guardian_address,students.is_active,students.created_at ,students.updated_at,students.father_name,students.app_key,students.parent_app_key,students.rte,students.gender,students.is_dropout' . $field_variable);       
+        $this->datatables->select('classes.id AS `class_id`,students.school_medium,student_session.id as student_session_id,students.id,classes.class,sections.id AS `section_id`,sections.section,students.id,students.admission_no,students.school_medium,students.application_no, students.roll_no,students.admission_date,students.firstname,students.middlename,  students.lastname,students.image,students.mobileno,students.email ,students.state,students.city, students.pincode,students.religion,DATE(students.dob) as dob,students.current_address,students.permanent_address,IFNULL(students.category_id, 0) as `category_id`,IFNULL(categories.category, "") as `category`,students.adhar_no,students.samagra_id,students.bank_account_no,students.bank_name,students.ifsc_code , students.guardian_name, students.guardian_relation,students.guardian_phone,students.guardian_address,students.is_active,students.created_at ,students.updated_at,students.father_name,students.app_key,students.parent_app_key,students.rte,students.gender,students.is_dropout' . $field_variable);       
         $this->datatables->searchable('students.admission_no,students.subject_group,students.school_medium,students.firstname,classes.class,students.father_name,students.dob,students.gender,categories.category,students.mobileno' . $field_variable);
         $this->datatables->join('student_session', 'student_session.student_id = students.id');
         $this->datatables->join('classes', 'student_session.class_id = classes.id');
-        // $this->datatables->join('subject_groups', 'subject_groups.id = students.subject_group');
+        //  $this->datatables->join('subject_groups', 'subject_groups.id = students.subject_group');
         $this->datatables->join('sections', 'sections.id = student_session.section_id');
         $this->datatables->join('categories', 'students.category_id = categories.id', 'left');
             

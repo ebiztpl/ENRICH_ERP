@@ -67,8 +67,6 @@ class Feesessiongroup_model extends MY_Model
          if ($display_system !== NULL) {
                $this->db->where('fee_groups.is_system', $display_system);
         }
-
-     
         if ($id != null) {
             $this->db->where('fee_session_groups.id', $id);
         }

@@ -701,9 +701,9 @@ class Student extends Admin_Controller
 
             $class_id              = $this->input->post('class_id');
             $section_id            = $this->input->post('section_id');
-            $fees_discount         = $this->input->post('fees_discount');
+            $fees_discount         = $this->input->post('fees_discount') ?? 0;
             $route_pickup_point_id = $this->input->post('route_pickup_point_id');
-            $vehroute_id           = $this->input->post('vehroute_id');
+            $vehroute_id           = $this->input->post('vehroute_id') ?? 0;
             if (empty($vehroute_id)) {
                 $vehroute_id = null;
             }

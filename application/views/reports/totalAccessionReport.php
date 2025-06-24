@@ -85,12 +85,12 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                 <div class="box removeboxmius">
                     <div class="box-header ptbnull"></div>
                     <div class="box-header with-border">
-                        <h3 class="box-title"><i class="fa fa-search"></i> <?php echo $this->lang->line('select_criteria'); ?></h3>
-
-                        <span id="newlyaappw" style="font-size: 20px;
+                        <!-- <h3 class="box-title"><i class="fa fa-search"></i> </h3> -->
+   <!-- <span id="newlyaappw" style="font-size: 20px;
     background-color: #72727226;
     padding: 5px;
-    border-radius: 6%;"></span>
+    border-radius: 6%;"></span> -->
+                     
                     </div>
                     <form role="form" action="<?php echo site_url('report/getAccessionReportparameter') ?>" method="post" class="" id="reportform" >
                         <div class="box-body row"  >
@@ -123,21 +123,45 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                 <select autofocus="" id="book_category" name="book_category" class="form-control" >
                                         <option value=""><?php echo $this->lang->line('select'); ?></option>
                                         <?php
-foreach ($book_category as $bookcategory) {
-        ?>
-                                         <option value="<?php echo $bookcategory->id ?>"<?php
-if ((isset($book_category)) && ($book_category == $bookcategory->id)) {
-            echo "selected = selected";
-        } 
-        ?>  ><?php echo $bookcategory->book_category ?></option>
-                                            <?php
-}
-    ?>
+                                        foreach ($book_category as $bookcategory) {
+                                                ?>
+                                                                                <option value="<?php echo $bookcategory->id ?>"<?php
+                                        if ((isset($book_category)) && ($book_category == $bookcategory->id)) {
+                                                    echo "selected = selected";
+                                                } 
+                                                ?>  ><?php echo $bookcategory->book_category ?></option>
+                                                                                    <?php
+                                        }
+                                            ?>
                                     </select>
 
 
                                 <span class="text-danger" id="book_category_error" ><?php echo form_error('book_category'); ?></span>
                             </div>
+                            <div class="form-group col-md-4">
+                                <label for="exampleInputEmail1">Book Supplier</label>
+                                  <input autofocus=""  id="book_suppler" name="book_suppler" placeholder="" type="text" class="form-control"  value="" /> 
+                            </div>
+                    <div class="row">
+                            <div class="form-group col-md-4">
+                                <label for="exampleInputEmail1">Book Type</label>
+                                <select autofocus="" id="book_type" name="book_type" class="form-control" >
+                                        <option value=""><?php echo $this->lang->line('select'); ?></option>
+                                        <?php
+                                        foreach ($book_type as $bookcategory) {
+                                                ?>
+                                                                                <option value="<?php echo $bookcategory->id ?>"<?php
+                                        if ((isset($book_type)) && ($book_type == $bookcategory->id)) {
+                                                    echo "selected = selected";
+                                                } 
+                                                ?>  ><?php echo $bookcategory->name ?></option>
+                                                                                    <?php
+                                        }
+                                            ?>
+                                    </select>
+                                <span class="text-danger" id="book_type" ><?php echo form_error('book_type'); ?></span>
+                            </div>
+                        </div>
                             <div class="form-group">
                                 <div class="col-sm-12">
                                     <button type="submit" name="search" value="search_filter" class="btn btn-primary btn-sm checkbox-toggle pull-right"><i class="fa fa-search"></i> <?php echo $this->lang->line('search'); ?></button>
@@ -148,7 +172,7 @@ if ((isset($book_category)) && ($book_category == $bookcategory->id)) {
                     <div class="">
                         <div class="box-header ptbnull"></div>   
                         <div class="box-header ptbnull">
-                            <h3 class="box-title titlefix"><i class="fa fa-money"></i> <?php echo $this->lang->line('book_issue_report'); ?></h3>
+                            <h3 class="box-title titlefix"><i class="fa fa-money"></i>Book Accession Report</h3>
                         </div>
                         <div class="box-body table-responsive">
                             <div class="download_label"><?php echo $this->lang->line('book_issue_report').' '.$this->customlib->get_postmessage();
@@ -157,8 +181,10 @@ if ((isset($book_category)) && ($book_category == $bookcategory->id)) {
                                             $this->customlib->get_postmessage(); ?>">
                                 <thead>
                                     <tr>
+                                        <th >id</th>
                                         <th>Accession No</th>
                                         <th><?php echo $this->lang->line('book_title'); ?></th>
+                                        <th>Bill Date</th>
                                         <th><?php echo $this->lang->line('book_category'); ?></th>
                                         <th>Author Name</th>
                                         
@@ -211,6 +237,7 @@ $(document).on('submit','#reportform',function(e){
               beforeSend: function () {
                 $('[id^=error]').html("");
                     $this.button('loading');
+                    $('#book_category_error').empty();
                },
               success: function(response) { // your success handler
                 
@@ -240,7 +267,7 @@ $(document).on('submit','#reportform',function(e){
             $cou =  $('.dataTables_info').html();  
      
             var arr = $cou.split('of');
-             $('#newlyaappw').html('Total Books: '+arr[1]); 
+             $('#newlyaappw').html('Total Books: '+arr[1].trim()); 
         }, 1000);
       
             

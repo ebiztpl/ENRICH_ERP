@@ -92,6 +92,7 @@ class CI_Router {
 	 * @var	string
 	 */
 	public $default_controller;
+	public $uri;
 
 	/**
 	 * Translate URI dashes

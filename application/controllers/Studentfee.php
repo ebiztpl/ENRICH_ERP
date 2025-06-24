@@ -133,12 +133,12 @@ class Studentfee extends Admin_Controller
         }
         $sch_setting = $this->sch_setting_detail;
         $students    = json_decode($students);
-
-      
+ 
 
         $dt_data     = array();
         if (!empty($students->data)) {
             foreach ($students->data as $student_key => $studentt) {
+               
                 $row         = array();
                 $row[]       = $studentt->class;
                 $row[]       = $studentt->section;
@@ -153,14 +153,19 @@ class Studentfee extends Admin_Controller
 
 
            $ab =     $studentt->student_session_id; 
-//Custom Code by hritk
-$student               = $this->student_model->getByStudentSession($studentt->id);
-$data['sch_setting']   = $this->sch_setting_detail;
-$data['title']         = 'Student Detail';
-$student               = $this->student_model->getByStudentSession($studentt->id);
-$route_pickup_point_id = $student['route_pickup_point_id']??'';
-$student_session_id    = $student['student_session_id']??'';
-$transport_fees = [];
+            //Custom Code by hritk
+            $student               = $this->student_model->getByStudentSession($studentt->id);
+            $data['sch_setting']   = $this->sch_setting_detail;
+            $data['title']         = 'Student Detail';
+            $class                 = $this->class_model->get();
+            $student               = $this->student_model->getByStudentSession($studentt->id);
+            $route_pickup_point_id = $student['route_pickup_point_id']??'';
+            $student_session_id    = $student['student_session_id']??'';
+            $transport_fees = [];
+
+
+
+
 
 $module = $this->module_model->getPermissionByModulename('transport');
 if ($module['is_active']) {
@@ -174,7 +179,7 @@ $student_due_fee       = $this->studentfeemaster_model->getStudentFees($studentt
 // print_r($student_due_fee);die;
 
 
-$student_discount_fee  = $this->feediscount_model->getStudentFeesDiscount($studentt->id);
+$student_discount_fee           = $this->feediscount_model->getStudentFeesDiscount($studentt->id);
 $data['transport_fees']         = $transport_fees;
 $data['student_discount_fee']   = $student_discount_fee;
 $data['student_due_fee']        = $student_due_fee;
@@ -282,8 +287,27 @@ if(($dayta > 0) && ($dayta != 0) && ($dayta == $total_amount)){
         
       
 } else {
+    
      
-        $row[] =    "<a href=" . site_url('admin/feemaster/assign/' . $studentt->fee_session_group_id) . "  class='btn btn-danger btn-xs'>Unapplied</span>";
+    
+//        $query = $this->db->get('fee_groups');
+//        $result_fees = $query->result_array();
+//        $fee_group_id = null; // initialize
+
+// foreach ($result_fees as $key => $row) {
+//     $newArray = json_decode($row['courses'] ?? '["0"]', true); // decode as array
+//     if (is_array($newArray) && array_search($studentt->class_id, $newArray) !== false) {
+//         $fee_group_id = $row['id'];
+//         break; // stop the loop once found
+//     }
+// }
+
+
+    
+
+
+
+        $row[] =    "<a href=" . site_url('admin/feemaster/assign/' ) . "  class='btn btn-danger btn-xs'>Unapplied</span>";
       
 }
 
@@ -292,6 +316,7 @@ if(($dayta > 0) && ($dayta != 0) && ($dayta == $total_amount)){
                 $dt_data[] = $row;
             }
         }
+
         $json_data = array(
             "draw"            => intval($students->draw),
             "recordsTotal"    => intval($students->recordsTotal),

@@ -490,8 +490,16 @@ public function totalAccessionReport()
         $this->db->select()->from('book_category');
         $this->db->order_by('book_category.id', 'desc');
         $query = $this->db->get();
+        
         $book_category = $query->result();
         $data['book_category']  =$book_category;
+
+        $this->db->select()->from('library_dropdown_data');
+        $this->db->where('type', '6');
+        $this->db->order_by('id', 'desc');
+        $query = $this->db->get();
+        $book_suppler = $query->result();
+        $data['book_type']  =$book_suppler;
       
         $this->load->view('layout/header', $data);
         $this->load->view('reports/totalAccessionReport', $data);
@@ -1730,6 +1738,8 @@ public function getAccessionReportparameter()
    
     $book_category = $this->input->post('book_category');
     $search_type   = $this->input->post('search_type');
+    $book_suppler   = $this->input->post('book_suppler');
+    $book_type   = $this->input->post('book_type');
     $date_from     = $this->input->post('date_from');
     $date_to       = $this->input->post('date_to');
 
@@ -1747,7 +1757,9 @@ public function getAccessionReportparameter()
         'book_category' => $book_category,
         'search_type'   => $search_type,
         'date_from'     => $date_from,
-        'date_to'       => $date_to
+        'date_to'       => $date_to,
+        'book_suppler'  => $book_suppler,
+        'book_type'     => $book_type
     );
 
     echo json_encode(array('status' => 1, 'error' => '', 'params' => $params));
@@ -1811,11 +1823,11 @@ public function getAccessionReportparameter()
                     $query = $this->db->get();
                     $book_categoryy = $query->row();
                     
-    if($book_categoryy){
-        $pq     = $book_categoryy->book_category;
-    }else{
-        $pq    = 'NA';
-    }
+            if($book_categoryy){
+                $pq     = $book_categoryy->book_category;
+            }else{
+                $pq    = 'NA';
+            }
 
 
                 $row   = array();
@@ -1895,6 +1907,8 @@ public function getAccessionReportparameter()
         $book_category = $this->input->post('book_category');
         $search_type = $this->input->post('search_type');
         $member_type = $this->input->post('date_type');
+        $book_suppler   = $this->input->post('book_suppler');
+        $book_type   = $this->input->post('book_type');
         $date_from   = $this->input->post('date_from');
         $date_to     = $this->input->post('date_to');
 
@@ -1918,7 +1932,7 @@ public function getAccessionReportparameter()
         $end_date        = date('Y-m-d', strtotime($dates['to_date']));
         $data['label']   = date($this->customlib->getSchoolDateFormat(), strtotime($start_date)) . " " . $this->lang->line('to') . " " . date($this->customlib->getSchoolDateFormat(), strtotime($end_date));
 
-        $result = $this->bookissue_model->studentAccession_report($start_date,$end_date,$book_category);
+        $result = $this->bookissue_model->studentAccession_report($start_date,$end_date,$book_category,$book_suppler,$book_type);
         $sch_setting = $this->sch_setting_detail;
         $resultlist = json_decode($result);
         $dt_data    = array();
@@ -1931,14 +1945,35 @@ public function getAccessionReportparameter()
            
 
         //  echo "<pre>";
-        //  print_r($resultlist->data);die;
-         
+        //  print_r( $result);die;
+        
+        foreach($resultlist->data as $key => $value){
+            $row = array();
+            $row[] = $value->books_list_ids;
+            $row[] = $value->accession_no;
+            $row[] = $value->book_title;
+            
+            if(!empty($value->billdate)){
+                $row[] = $value->billdate;
+            } else {
+                $row[] = '';
+            }
+
+
+
+            $row[] = $value->books_category_name;
+            $row[] = $value->author_name;
+            
+             $dt_data[] = $row;
+        }
+
+
 
         $json_data = array(
             "draw"            => $a,
             "recordsTotal"    => $b,
             "recordsFiltered" => $c,
-            "data"            => $result,
+            "data"            =>  $dt_data,
         );
         echo json_encode($json_data);
     }

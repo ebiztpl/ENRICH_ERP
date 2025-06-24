@@ -278,7 +278,7 @@ if (set_value('book_language') == $drop->id) {
                             <div class="form-group col-md-3">
                                 <label for="exampleInputEmail1">Department <a class="btn btn-xs btn-success add_modal_data" data-id="5">+</a></label>
                                 <!-- <input  name="department" placeholder="" type="text" class="form-control"   /> -->
-                                <select id="department" name="department" class="form-control" >
+                                <select id="department" name="department[]" class="form-control" multiple>
                                 <option value="0"><?php echo $this->lang->line('select'); ?></option>
                                     <?php foreach($dropdowndata as $drop){
                                       if($drop->type == 5){  ?>

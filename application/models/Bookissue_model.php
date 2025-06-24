@@ -6,7 +6,7 @@ if (!defined('BASEPATH')) {
 
 class Bookissue_model extends MY_Model
 {
-
+    public $current_session;
     public function __construct()
     {
         parent::__construct();
@@ -266,27 +266,38 @@ class Bookissue_model extends MY_Model
             ->query_where_enable(true);
         return $this->datatables->generate('json');
     }
-
- public function studentAccession_report($start_date, $end_date, $book_category)
+public function studentAccession_report($start_date, $end_date, $book_category, $book_supplier, $book_type)
 {
-    $condition = [];
+   
+    if (empty($book_category)) {
+        return json_encode(['data' => []]);
+    }
 
+     $condition = [];
+
+   
     if (!empty($start_date) && !empty($end_date)) {
-        $condition[] = "DATE_FORMAT(books.created_at, '%Y-%m-%d') BETWEEN '" . $start_date . "' AND '" . $end_date . "'";
+        $condition[] = "books.billdate BETWEEN '$start_date' AND '$end_date'";
     }
 
-    if (!empty($book_category)) {
-        $condition[] = "books.book_category = '" . $book_category . "'";
+    $condition[] = "books.book_category = '$book_category'";
+
+    if (!empty($book_type)) {
+        $condition[] = "books.book_type = '$book_type'";
     }
 
-    $where_clause = '';
-    if (!empty($condition)) {
-        $where_clause = 'WHERE ' . implode(' AND ', $condition);
+    if (!empty($book_supplier)) {
+        $book_supplier = $this->db->escape_like_str($book_supplier);
+        $condition[] = "books.supplier_option LIKE '%$book_supplier%'";
     }
+
+    $where_clause = 'WHERE ' . implode(' AND ', $condition);
 
     $sql = "SELECT 
+                books_list.id as books_list_ids,
                 books_list.bookcode AS accession_no,
                 books.book_title,
+                books.billdate as billdate, 
                 book_category.book_category AS books_category_name,
                 library_dropdown_data.name AS author_name
             FROM books_list
@@ -302,6 +313,7 @@ class Bookissue_model extends MY_Model
 
     return $this->datatables->generate('json');
 }
+
 
     public function bookduereport($start_date, $end_date)
     {

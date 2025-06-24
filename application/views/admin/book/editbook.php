@@ -134,11 +134,11 @@ if ($editbook['book_category'] == $bookcategory->id) {
                                       if($drop->type == 6){  ?>
                                     <option value="<?=$drop->id?>" 
                                     <?php
-if ($editbook['publish'] == $drop->id) {
-            echo "selected = selected";
-        } 
-        ?>
-                                    
+                                    if ($editbook['book_type'] == $drop->id) {
+                                                echo "selected = selected";
+                                            } 
+                                            ?>
+                                                                        
                                     ><?=$drop->name?></option>
 
                                         <?php } }?>
@@ -271,15 +271,11 @@ if ($editbook['book_language'] == $drop->id) {
                             <div class="form-group col-md-3">
                                 <label for="exampleInputEmail1">Department</label>
                                 <!-- <input  name="department" placeholder="" type="text" class="form-control"   /> -->
-                                <select id="department" name="department" class="form-control" >
+                                <select id="department" name="department[]" class="form-control" multiple>
                                 <option value=""><?php echo $this->lang->line('select'); ?></option>
                                     <?php foreach($dropdowndata as $drop){
                                       if($drop->type == 5){  ?>
-                                    <option value="<?=$drop->id?>" <?php
-if ($editbook['department'] == $drop->id) {
-            echo "selected = selected";
-        } 
-        ?> ><?=$drop->name?></option>
+                                    <option value="<?=$drop->id?>"  ><?=$drop->name?></option>
 
                                         <?php } }?>
                                 </select>  
@@ -479,4 +475,15 @@ $(document).on('click', '#writeoff', function () {
     // }
 
 });
+
+
+$(document).ready(function() {
+    $('#department').select2('destroy');
+    $("#department").select2({});
+    let newArray = <?php echo json_encode(json_decode($editbook['department'])); ?>;
+    $("#department").val(newArray).trigger('change');
+});
+
+
+
 </script>

@@ -166,7 +166,12 @@ class Book extends Admin_Controller
 
             $userdata        = $this->customlib->getUserData();
             
-            
+            $department_ids = '';
+            $departmentIds = $this->input->post('department[]');
+
+            if (isset($departmentIds)) {
+                $department_ids = json_encode($departmentIds);
+            }
             $data = array(
                 'book_title'  => $this->input->post('book_title'),
                 // 'book_no'     => $this->input->post('book_no'),
@@ -178,15 +183,13 @@ class Book extends Admin_Controller
                 'supplier_option'      => $this->input->post('supplier_option') ,
                 'qty'         => $this->input->post('qty')??0,
                 'publishing_year'     => $this->input->post('publishing_year'),
-                'department'      => $this->input->post('department')??0,
+                'department'      => $department_ids ?? 0,
                 'pages_count'         => $this->input->post('pages_count')??0,
                 'perunitcost' => $perunitcost,
                 'description' => $this->input->post('description'),
                 'book_category' => $this->input->post('book_category'),
                 'book_edition'         => $this->input->post('book_edition'),
-
                 'book_type'         => $this->input->post('book_type'),
-                
                 'book_format' =>$this->input->post('book_format'),
                 'book_language' => $this->input->post('book_language')??0,
                 'generation' => $this->input->post('generation'),
@@ -307,7 +310,13 @@ $bookcopysucess++;
             }else{
                 $perunitcost    = '';
             }
-            
+
+             $department_ids = '';
+            $departmentIds = $this->input->post('department[]') ?? [];
+           
+            if (isset($departmentIds)) {
+                $department_ids = json_encode($departmentIds);
+            }
             $data = array(
                 'id'          => $this->input->post('id'),
                 'book_title'  => $this->input->post('book_title'),
@@ -319,10 +328,11 @@ $bookcopysucess++;
                 'author'      => $this->input->post('author'),
                 'qty'         => $this->input->post('qty'),
                 'publishing_year'     => $this->input->post('publishing_year'),
-                'department'      => $this->input->post('department'),
+                 'department'      => $department_ids ?? 0,
                 'pages_count'         => $this->input->post('pages_count'),
                 'supplier_option'      => $this->input->post('supplier_option') ,
                 'perunitcost' => $perunitcost,
+                'book_type'         => $this->input->post('book_type'),
                 'description' => $this->input->post('description'),
                 'book_category' => $this->input->post('book_category'),
                 'book_edition'         => $this->input->post('book_edition'),
