@@ -1,5 +1,7 @@
 <?php
 
+use Hamcrest\Type\IsInteger;
+
 if (!defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
@@ -2781,6 +2783,7 @@ $author = $this->input->post('author');
 $publisher = $this->input->post('publisher');
 $avaiblity = $this->input->post('Avaiblity');
 $writeoff = $this->input->post('writeoff');
+$departmentType  = $this->input->post('departmentType');
 $pub = $this->input->post('pub');
 $auth = $this->input->post('auth');
 $sub = $this->input->post('sub');
@@ -2820,6 +2823,7 @@ $this->session->set_userdata(array(
     'created_from'     =>  $created_from,
     'created_to'   =>  $created_to,
     'writeoff'   =>  $writeoff,
+    'departmentType'=>$departmentType,
     'pub'  =>  $pub,
     'auth'     =>  $auth,
     'sub'   =>  $sub,
@@ -2838,57 +2842,58 @@ $this->session->set_userdata(array(
      
       $this->db->select()->from('books');
 
-      if($book_title){
-        $this->db->where("book_title", $book_title);
-    }
-    if($bookcategory){
-        $this->db->where("book_category", $bookcategory);
-    }
-    if($author){
-        $this->db->where("author", $author);
-    }
-    if($publisher){
-        $this->db->where("publish", $publisher);
-    }
-    if($avaiblity){
-        $this->db->where("subject", $avaiblity);
-    }
-    
-if($created_by){
-    $this->db->where("created_by", $created_by);
-}
-if($created_from){
-    $this->db->where("created_att >=", $created_from);
-}
-if($created_to){
-    $this->db->where("created_att <=", $created_to);
-}
+        if($book_title){
+            $this->db->where("book_title", $book_title);
+        }
+        if($bookcategory){
+            $this->db->where("book_category", $bookcategory);
+        }
+      
+        if($author){
+            $this->db->where("author", $author);
+        }
+        if($publisher){
+            $this->db->where("publish", $publisher);
+        }
+        if($avaiblity){
+            $this->db->where("subject", $avaiblity);
+        }
+        
+        if($created_by){
+            $this->db->where("created_by", $created_by);
+        }
+        if($created_from){
+            $this->db->where("created_att >=", $created_from);
+        }
+        if($created_to){
+            $this->db->where("created_att <=", $created_to);
+        }
 
-if($writeoff){
-    $this->db->where("writeoff",1);
-}else{
-    $this->db->where('books.writeoff',0);
+        if($writeoff){
+            $this->db->where("writeoff",1);
+        }else{
+            $this->db->where('books.writeoff',0);
 
-}
-
-
-if($writeoff){
-    $this->db->where("writeoff",1);
-}
+        }
 
 
-if($pub){
-    $this->db->where("publish",'');
-}
-if($auth){
-    $this->db->where("author",'');
-}
-if($sub){
-    $this->db->where("subject",'');
-}
-if($dep){
-    $this->db->where("department",'');
-}
+        if($writeoff){
+            $this->db->where("writeoff",1);
+        }
+ 
+
+        if($pub){
+            $this->db->where("publish",'');
+        }
+        if($auth){
+            $this->db->where("author",'');
+        }
+        if($sub){
+            $this->db->where("subject",'');
+        }
+        if($dep){
+            $this->db->where("department",'');
+        }
 
 
 
@@ -2900,11 +2905,35 @@ if($dep){
 
     
     
+$check1 = $listbook->result_array();
 
- $check1 = $listbook->result_array();
-$arr5 = array_map (function($value){
-return $value['id'];
-} , $check1);
+if ($departmentType) {
+    $filtered = array_filter($check1, function($value) use ($departmentType) {
+        $raw = $value['department'];
+
+        if (is_numeric($raw)) {
+            $mydepartment = [$raw];
+        } else {
+            $mydepartment = json_decode($raw, true);
+            if (json_last_error() !== JSON_ERROR_NONE || !is_array($mydepartment)) {
+                return false; 
+            }
+        }
+
+        return in_array($departmentType, $mydepartment);
+    });
+
+    $arr5 = array_column($filtered, 'id');
+   
+} else {
+    $arr5 = array_column($check1, 'id');
+    
+}
+
+
+
+
+
 
 
 if(count($arr5) > 0){

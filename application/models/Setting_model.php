@@ -141,7 +141,7 @@ class Setting_model extends MY_Model {
         sch_settings.bank_account_req,
         sch_settings.bank_name_req,
         sch_settings.ifsc_code_req,
-        sch_settings.aadhaar_identification_req,
+        sch_settings.national_identification_no_aadhaar_no,
         sch_settings.local_identification_req,
         sch_settings.previous_school_req,
         sch_settings.note_req,

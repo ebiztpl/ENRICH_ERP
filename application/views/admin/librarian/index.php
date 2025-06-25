@@ -123,6 +123,9 @@ $this->session->unset_userdata('msg');
                                         <!-- <th><?php echo $this->lang->line('member_id'); ?></th> -->
                                         <th><?php echo $this->lang->line('library_card_no'); ?></th>
                                         <th><?php echo $this->lang->line('admission_no'); ?></th>
+                                        <th><?php echo $this->lang->line('class'); ?></th>
+                                        <th><?php echo $this->lang->line('duration_year'); ?></th>
+                                     
                                         <th><?php echo $this->lang->line('name'); ?></th>
                                         <th>Total Issues</th>
                                         <th><?php echo $this->lang->line('member_type'); ?></th>
@@ -173,6 +176,34 @@ if (!empty($memberList)) {
                                                 <td>
                                                     <?php echo $member['admission_no']; ?>
                                                 </td>
+                                                <td>
+                                                    <?php echo $member['classess'].'('.$member['section_year'].')' ?>
+                                                </td>
+                                                <td>
+                                                    <?php 
+                                                        $admissionYear = $member['admission_year'] . '-01-01';
+                                                            $date = new DateTime($admissionYear);
+                                                            if(!empty($member['admission_year']) && !empty($member['class_duration'])){
+                                                            $yearsToAdd = trim($member['class_duration']);
+                                                            if ($yearsToAdd !== '' && is_numeric($yearsToAdd)) {
+                                                                $interval = date_interval_create_from_date_string("$yearsToAdd years");
+                                                                if ($interval !== false) {
+                                                                    $date->add($interval);
+                                                                    echo date('Y', strtotime($admissionYear)) . '-' . $date->format('y');
+                                                                } else {
+                                                                    echo "";
+                                                                }
+                                                            } else {
+                                                                echo "";
+                                                            }
+                                                        }else {
+                                                             echo '';
+                                                        }
+
+                                                        ?>
+                                                </td>
+                                                
+                                                 
                                                 <td>
                                                     <?php if($member['member_type'] == 'student'){ ?>
                                                     <a href="<?php echo base_url(); ?>/student/view/<?= $member['stu_id']?>"><?php echo $name; ?></a> 

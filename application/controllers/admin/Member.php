@@ -94,11 +94,11 @@ class Member extends Admin_Controller
             $result = $memberList;
         }
 
-        $data['members']    = array('' => $this->lang->line('all'), 'student' => $this->lang->line('student'), 'teacher' => $this->lang->line('teacher') , 'guest' => $this->lang->line('guest'));
-  $class             = $this->class_model->get();
-        $data['classlist'] = $class;
-        $data['memberList']  = $result;
-        $data['sch_setting'] = $this->sch_setting_detail;
+        $data['members']        = array('' => $this->lang->line('all'), 'student' => $this->lang->line('student'), 'teacher' => $this->lang->line('teacher') , 'guest' => $this->lang->line('guest'));
+        $class                  = $this->class_model->get();
+        $data['classlist']      = $class;
+        $data['memberList']     = $result;
+        $data['sch_setting']    = $this->sch_setting_detail;
         $this->load->view('layout/header');
         $this->load->view('admin/librarian/index', $data);
         $this->load->view('layout/footer');
@@ -288,7 +288,8 @@ class Member extends Admin_Controller
                         $data['section_id']  = $this->input->post('section_id');
                         $data['search_text'] = $this->input->post('search_text');
                         $resultlist          = $this->student_model->searchLibraryStudent($class, $section);
-
+                      
+                        
                         $data['resultlist'] = $resultlist;
                     }
                 } else if ($search == 'search_full') {
@@ -300,6 +301,7 @@ class Member extends Admin_Controller
                     $data['resultlist']  = $resultlist;
                 }
             }
+
             $data['sch_setting'] = $this->sch_setting_detail;
             $this->load->view('layout/header', $data);
             $this->load->view('admin/member/studentSearch', $data);

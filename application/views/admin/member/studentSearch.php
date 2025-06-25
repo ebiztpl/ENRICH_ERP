@@ -99,6 +99,7 @@ if (isset($resultlist)) {
                                                 <th><?php echo $this->lang->line('library_card_no'); ?></th>
                                                 <th>Card Issue Date</th>
                                                 <th><?php echo $this->lang->line('admission_no'); ?></th>
+                                                <th><?php echo $this->lang->line('duration_year'); ?></th>
                                                 <th><?php echo $this->lang->line('student_name'); ?></th>
                                                 <th>Roll Number</th>
                                                 <th><?php echo $this->lang->line('class'); ?></th>
@@ -142,6 +143,30 @@ if (isset($resultlist)) {
 
                                                     
                                                         <td><?php echo $student['admission_no']; ?></td>
+   <td>
+                                                    <?php 
+                                                        $admissionYear = $student['admission_date'] ;
+                                                            $date = new DateTime($admissionYear);
+                                                            if(isset($admissionYear)){
+                                                            $yearsToAdd = trim($student['class_duration']);
+                                                            if ($yearsToAdd !== '' && is_numeric($yearsToAdd)) {
+                                                                $interval = date_interval_create_from_date_string("$yearsToAdd years");
+                                                                if ($interval !== false) {
+                                                                    $date->add($interval);
+                                                                    echo date('Y', strtotime($admissionYear)) . '-' . $date->format('y');
+                                                                } else {
+                                                                    echo "";
+                                                                }
+                                                            } else {
+                                                                echo "";
+                                                            }
+                                                        } else {
+                                                            echo "";
+                                                        }
+                                                        ?>
+                                                </td>
+
+
                                                         <td>
                                                             <?php echo $this->customlib->getFullName($student['firstname'], $student['middlename'], $student['lastname'], $sch_setting->middlename, $sch_setting->lastname); ?>
 

@@ -29,6 +29,7 @@ class Classes extends Admin_Controller
             )
         );
         $this->form_validation->set_rules('sections[]', $this->lang->line('section'), 'trim|required|xss_clean');
+        $this->form_validation->set_rules('duration', $this->lang->line('duration'), 'trim|required|xss_clean|numeric|greater_than[0]');
 
         if ($this->form_validation->run() == false) {
 
@@ -36,6 +37,7 @@ class Classes extends Admin_Controller
             $class       = $this->input->post('class');
             $class_array = array(
                 'class' => $this->input->post('class'),
+                'duration' => $this->input->post('duration'),
             );
             $sections = $this->input->post('sections');
             $this->classsection_model->add($class_array, $sections);

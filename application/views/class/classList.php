@@ -68,6 +68,12 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('duration_year'); ?></label><small class="req"> *</small>
+                                    <input autofocus="" id="duration" name="duration" placeholder="" type="text" class="form-control"  value="<?php echo set_value('duration'); ?>" />
+                                    <span class="text-danger"><?php echo form_error('duration'); ?></span>
+                                </div>
+
+                                <div class="form-group">
                                     <label for="exampleInputEmail1"><?php echo $this->lang->line('sections'); ?></label><small class="req"> *</small>
 
 

@@ -340,7 +340,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
 
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('class').' /'.$this->lang->line('class_school') ?></label><small class="req"> * </small>
+                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('class')?></label><small class="req"> * </small>
                                                 <select  id="class_id" name="class_id" class="form-control"  >
                                                      <option value=""><?php echo $this->lang->line('select'); ?></option>
                                                     <?php
@@ -360,7 +360,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('section').' /'.$this->lang->line('section_name_school') ?></label><small class="req"> *</small>
+                                                <label for="exampleInputEmail1"><?php echo $this->lang->line('section') ?></label><small class="req"> *</small>
                                                 <select  id="section_id" name="section_id" class="form-control" >
                                                     <option value=""><?php echo $this->lang->line('select'); ?></option>
                                                 </select>

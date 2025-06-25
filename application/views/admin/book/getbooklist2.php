@@ -96,7 +96,7 @@ display:none;
                             <div class="col-md-12">
                                 <div class="row">
                                         <?php echo $this->customlib->getCSRF(); ?>
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-2">
                                             <div class="form-group">
                                                 <label>Book Title</label> <small class="req"> </small>
                                                 <select autofocus="" id="book_title" name="book_title" class="form-control" >
@@ -141,7 +141,26 @@ display:none;
 									
 									
 									<!-- custom filter  by me -->
+                <!-- Depart ment wise filter -->
+                                <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <label>Department Type</label>
+                                                       <select id="departmentType" name="departmentType" class="form-control" >
+                                <option value=""><?php echo $this->lang->line('select'); ?></option>
+                                    <?php foreach($dropdowndata as $drop){
+                                            if($drop->type == 5){  ?>
+                                                  <option value="<?=$drop->id?>" <?php
+                                            if (set_value('departmentType') == $drop->id) {
+                                                        echo "selected = selected";
+                                                    } 
+                                                    ?> ><?=$drop->name?></option>
 
+                                        <?php } }?>
+                                           </select>  
+                                                <span class="text-danger"><?php echo form_error('book_category'); ?></span>
+                                            </div>
+                                        </div>
+                                    <!--End  Depart ment wise filter -->
 
                                 <div class="col-sm-2">
                                     <div class="form-group">   
@@ -186,7 +205,7 @@ if ($this->session->userdata('publisher') == $drop->id) {
 
 <!-- custom filter by me -->
 									
-<div class="col-sm-3">
+<div class="col-sm-2">
                                 <div class="form-group">  
                                 <label for="exampleInputEmail1">Subject</label>
                                 <select id="Avaiblity" name="Avaiblity" class="form-control" >

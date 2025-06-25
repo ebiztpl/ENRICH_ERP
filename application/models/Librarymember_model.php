@@ -21,15 +21,19 @@ class Librarymember_model extends MY_Model
     public function get()
     {
 
-        $query = "SELECT libarary_members.id as `lib_member_id`,libarary_members.renewed,libarary_members.library_card_no,libarary_members.member_type,students.admission_no,students.firstname,students.lastname,students.guardian_phone,null as `teacher_name`,null as `teacher_email`,null as `teacher_sex`,null as `teacher_phone`,students.middlename, null as staff_id,students.id as stu_id,null as emp_id, students.mobileno as mobileno FROM `libarary_members`
-         INNER JOIN students on libarary_members.member_id= students.id
+        $query = "SELECT libarary_members.id as `lib_member_id`,sections.section as section_year, classes.class as classess,classes.duration as class_duration,libarary_members.renewed,libarary_members.library_card_no,libarary_members.member_type,students.admission_no,DATE_FORMAT(admission_date, '%Y') AS admission_year,students.firstname,students.lastname,students.guardian_phone,null as `teacher_name`,null as `teacher_email`,null as `teacher_sex`,null as `teacher_phone`,students.middlename, null as staff_id,students.id as stu_id,null as emp_id, students.mobileno as mobileno FROM `libarary_members`
+          INNER JOIN students on libarary_members.member_id= students.id
+          INNER JOIN student_session on student_session.student_id= students.id
+          INNER JOIN classes on classes.id= student_session.class_id
+          INNER JOIN sections on sections.id = student_session.section_id
+
           WHERE libarary_members.member_type='student' and students.is_active = 'yes'
       
-           UNION SELECT libarary_members.id as `lib_member_id`,libarary_members.renewed,libarary_members.library_card_no,libarary_members.member_type,null,null,null,null,CONCAT_WS(' ',staff.name,staff.surname) as name,staff.email,null,staff.contact_no,null, staff.id as staff_id,null as stu_id,staff.employee_id as emp_id,null as mobileno FROM `libarary_members` 
+           UNION SELECT libarary_members.id as `lib_member_id`,null,null,null,libarary_members.renewed,libarary_members.library_card_no,libarary_members.member_type,null, null,null,null,null,CONCAT_WS(' ',staff.name,staff.surname) as name,staff.email,null,staff.contact_no,null, staff.id as staff_id,null as stu_id,staff.employee_id as emp_id,null as mobileno FROM `libarary_members` 
            INNER JOIN staff on libarary_members.member_id= staff.id
             WHERE libarary_members.member_type='teacher' 
             
-            UNION SELECT libarary_members.id as `lib_member_id`,libarary_members.renewed,libarary_members.library_card_no,libarary_members.member_type,null,null,null,null,guest.name as name,guest.email,null,guest.phone,null, guest.id as staff_id,null as stu_id,null as emp_id, null as mobileno FROM `libarary_members` 
+            UNION SELECT libarary_members.id as `lib_member_id`,null,null,null,libarary_members.renewed,libarary_members.library_card_no,libarary_members.member_type,null,null,null,null,null,guest.name as name,guest.email,null,guest.phone,null, guest.id as staff_id,null as stu_id,null as emp_id, null as mobileno FROM `libarary_members` 
            INNER JOIN guest on libarary_members.member_id= guest.id
             WHERE libarary_members.member_type='guest'";
         $query = $this->db->query($query);
@@ -160,6 +164,7 @@ class Librarymember_model extends MY_Model
 		
 		$query = "SELECT libarary_members.id as `lib_member_id`,libarary_members.library_card_no,libarary_members.member_type,null,null,null,null,CONCAT_WS(' ',staff.name,staff.surname) as name,staff.email,null,staff.contact_no,null, staff.id as staff_id,null as stu_id,staff.employee_id as emp_id FROM `libarary_members` 
 		   INNER JOIN staff on libarary_members.member_id= staff.id
+
           WHERE libarary_members.member_type='teacher'";
 		
         $query = $this->db->query($query);
@@ -178,9 +183,11 @@ class Librarymember_model extends MY_Model
         }
 
         
-        $query = "SELECT libarary_members.id as `lib_member_id`,libarary_members.renewed,libarary_members.library_card_no,libarary_members.member_type,students.admission_no,students.firstname,students.mobileno,students.lastname,students.guardian_phone,null as `teacher_name`,null as `teacher_email`,null as `teacher_sex`,null as `teacher_phone`,students.middlename, null as staff_id,students.id as stu_id,null as emp_id,student_session.class_id,student_session.section_id FROM `libarary_members`
+        $query = "SELECT libarary_members.id as `lib_member_id`,sections.section as section_year,classes.class as classess, classes.duration as class_duration ,DATE_FORMAT(admission_date, '%Y') AS admission_year,libarary_members.renewed,libarary_members.library_card_no,libarary_members.member_type,students.admission_no,students.firstname,students.mobileno,students.lastname,students.guardian_phone,null as `teacher_name`,null as `teacher_email`,null as `teacher_sex`,null as `teacher_phone`,students.middlename, null as staff_id,students.id as stu_id,null as emp_id,student_session.class_id,student_session.section_id FROM `libarary_members`
          INNER JOIN students on libarary_members.member_id= students.id
           INNER JOIN student_session on students.id= student_session.student_id
+         INNER JOIN classes on classes.id= student_session.class_id
+          INNER JOIN sections on sections.id = student_session.section_id
           WHERE libarary_members.member_type='student' and students.is_active = 'yes'" . $condition . "  ";
 
         //   echo $query;die;
