@@ -180,7 +180,7 @@ if(expt_select === "btn-all"){
 }).DataTable({
   // "scrollX": true,
 
- dom: '<"top"f><Bl>r<t>ip',
+   dom: '<"top"f><Bl>r<t>ip',
    lengthMenu: [[15, 100,-1], [15, 100,"All"]],
     buttons: [
       {

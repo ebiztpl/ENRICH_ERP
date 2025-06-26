@@ -626,6 +626,20 @@ class Systemfield extends Admin_Controller
                 $data['last_class'] = 0;
             }
         } 
+        else if($role == 'last_class_year'){  // new field no 9
+             if ($status == "yes") {
+                $data['last_class_year'] = 1;
+            } else {
+                $data['last_class_year'] = 0;
+            }
+        } 
+        else if($role == 'last_class_year_req'){  // new field no 9
+             if ($status == "yes") {
+                $data['last_class_year_req'] = 1;
+            } else {
+                $data['last_class_year_req'] = 0;
+            }
+        } 
         else if($role == 'abc_id'){  // new field no 10
              if ($status == "yes") {
                 $data['abc_id'] = 1;

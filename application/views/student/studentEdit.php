@@ -1052,7 +1052,7 @@ if ($student['guardian_is'] == "other") {
                                                                                 <th>Grade/class<?php if($sch_setting->educational_details_req){ ?><small class="req"> *</small><?php }?></th>
                                                                                 <th>Year<?php if($sch_setting->educational_details_req){ ?><small class="req"> *</small><?php }?></th>
                                                                                 <th>Percentage<?php if($sch_setting->educational_details_req){ ?><small class="req"> *</small><?php }?></th>
-                                                                                <th style="width: 10%">#</th>
+                                                                                <th style="width: 10%"></th>
                                                                             </tr>
 
 
@@ -1265,6 +1265,15 @@ echo set_value('rte', $student['rte']) == "No" ? "checked" : "";
                                                     <label for="exampleInputEmail1"><?php echo $this->lang->line('last_class'); ?></label><?php if($sch_setting->last_class_req){ ?><small class="req"> *</small><?php }?>
                                                     <input id="last_class" name="last_class" placeholder="" type="text" class="form-control"  value="<?php echo set_value('last_class' ,$student['last_class']); ?>" />
                                                     <span class="text-danger"><?php echo form_error('last_class'); ?></span>
+                                                </div>
+                                            </div>
+                                        <?php }?>
+                                        <?php if ($sch_setting->last_class_year) {?>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('last_class_year'); ?></label><?php if($sch_setting->last_class_year_req){ ?><small class="req"> *</small><?php }?>
+                                                    <input id="last_class_year" name="last_class_year" placeholder="" type="text" class="form-control"  value="<?php echo set_value('last_class_year' ,$student['last_class_year']); ?>" />
+                                                    <span class="text-danger"><?php echo form_error('last_class_year'); ?></span>
                                                 </div>
                                             </div>
                                         <?php }?>

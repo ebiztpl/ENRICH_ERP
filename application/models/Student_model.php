@@ -262,7 +262,7 @@ class Student_model extends MY_Model
             students.is_dropout, students.enrollment_no, students.SSSMID, students.pen_no, students.family_mid_no, students.apar_id,
             students.school_medium, students.last_class, students.abc_id, students.scholarship_form_no,
             students.previous_school_medium, GROUP_CONCAT(subjects.id SEPARATOR ',') AS subject_ids , student_subjects.student_session_id as student_session_ids,
-            student_subjects.subject, subjects.id as subjects_id,students.higher_education,students.swayam_ref_no,students.document_due,
+            student_subjects.subject, subjects.id as subjects_id,students.higher_education,students.swayam_ref_no,students.document_due,students.last_class_year,
             GROUP_CONCAT(subjects.name SEPARATOR ', ') AS subject_names")->from('students');
         $this->db->join('student_session', 'student_session.student_id = students.id');
         $this->db->join('classes', 'student_session.class_id = classes.id');

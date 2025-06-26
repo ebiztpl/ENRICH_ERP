@@ -276,6 +276,27 @@
                                         </td>
                                     </tr>
                                     <tr>
+                                    <td class="text-rtl-right" width="100%"><?php echo $this->lang->line('last_class_year'); ?></td>
+                                        <td>
+                                            <div class="material-switch pull-right">
+                                                <input id="last_class_year" name="last_class_year" type="checkbox" data-role="last_class_year" class="chk" data-rowid="1" value="checked" <?php if ($result->last_class_year == "1") {
+                                                    echo "checked='checked'";
+                                                }
+                                                ?> />
+                                                <label for="last_class_year" class="label-success"></label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="material-switch pull-right">
+                                                <input id="last_class_year_req" name="last_class_year_req" type="checkbox" data-role="last_class_year_req" class="chk" data-rowid="1" value="checked" <?php if ($result->last_class_year_req == "1") {
+                                                    echo "checked='checked'";
+                                                }
+                                                ?> />
+                                                <label for="last_class_year_req" class="label-success"></label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
                                     <td class="text-rtl-right" width="100%">Previous School Medium </td>
                                         <td>
                                             <div class="material-switch pull-right">

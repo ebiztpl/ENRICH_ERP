@@ -2033,7 +2033,7 @@ $lang['student_exam_rank'] = "Student Exam Rank";
 $lang['student_exams_attempt_report'] = "Student Exams Attempt Report";	
 $lang['student_feature_disable'] = "Student Feature Disable";	
 $lang['student_fees'] = "Student Fees";	
-$lang['student_fees_master_id'] = "Student Fees Master ID";	
+$lang['student_fees_master_id'] = "Student department_listFees Master ID";	
 $lang['student_gender_ratio_report'] = "Student Gender Ratio Report";	
 $lang['student_guardian'] = "Student Guardian";	
 $lang['student_guardian_panel'] = "Student / Guardian Panel";	
@@ -2048,6 +2048,10 @@ $lang['student_information'] = "Student Information";
 $lang['student_information_report'] = "Student Information Report";	
 $lang['student_leave'] = "Student Leave";	
 $lang['student_list'] = "Student List";	
+
+$lang['department_list_language'] = "Department List";	
+$lang['last_class_year'] = "Last Class Year";	
+
 $lang['student_login'] = "Student Login";	
 $lang['student_login_credential'] = "Student Login Credential";	
 $lang['student_login_credential_report'] = "Student Login Credential Report";	

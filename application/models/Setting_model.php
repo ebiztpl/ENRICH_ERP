@@ -106,6 +106,8 @@ class Setting_model extends MY_Model {
         sch_settings.state,
         sch_settings.city,
         sch_settings.higher_education,
+        sch_settings.last_class_year_req,
+        sch_settings.last_class_year,
         sch_settings.swayam_ref_no,
         sch_settings.educational_details,
         sch_settings.document_due,

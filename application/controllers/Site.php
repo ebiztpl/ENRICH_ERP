@@ -618,17 +618,21 @@ class Site extends Public_Controller
 
     public function run() {
         //'2025-06-16';
+        // $queries = array(
+        //     "ALTER TABLE `feetype` ADD `is_donation` INT(10) NULL DEFAULT NULL AFTER `code`;",
+        //     "INSERT INTO `print_headerfooter` (`id`, `print_type`, `header_image`, `footer_content`, `created_by`, `entry_date`, `created_at`) VALUES ('5', 'shiksha_samiti', 'shiksha_samiti.jpg', 'This receipt is for online exam computer  generated hence no signature is required.', '', current_timestamp(), current_timestamp());",
+        //     "ALTER TABLE `fees_discounts` CHANGE `amount` `amount` DECIMAL(10,2) NULL;",
+        //     "ALTER TABLE `feetype` ADD `is_donation` INT(10) NULL DEFAULT NULL AFTER `code`;",
+        // );
+       
         $queries = array(
-            "ALTER TABLE `feetype` ADD `is_donation` INT(10) NULL DEFAULT NULL AFTER `code`;",
-            "INSERT INTO `print_headerfooter` (`id`, `print_type`, `header_image`, `footer_content`, `created_by`, `entry_date`, `created_at`) VALUES ('5', 'shiksha_samiti', 'shiksha_samiti.jpg', 'This receipt is for online exam computer  generated hence no signature is required.', '', current_timestamp(), current_timestamp());",
-            "ALTER TABLE `fees_discounts` CHANGE `amount` `amount` DECIMAL(10,2) NULL;",
-            "ALTER TABLE `feetype` ADD `is_donation` INT(10) NULL DEFAULT NULL AFTER `code`;",
+          "INSERT INTO `dropdown_cources` (`id`, `name`, `created_at`) VALUES (NULL, '10th', current_timestamp()), (NULL, '12th', current_timestamp()), (NULL, '1st year', current_timestamp()), (NULL, '2nd year', current_timestamp()), (NULL, '3rd year', current_timestamp()), (NULL, 'Graduation', current_timestamp()), (NULL, 'PG 1st year', current_timestamp()), (NULL, 'Post graduation', current_timestamp());"
         );
        
 
 
 
-        $is_today = '2025-06-18'; 
+        $is_today = '2025-06-26'; 
         $today = date('Y-m-d');
 
         if ($today === date('Y-m-d', strtotime($is_today))) {

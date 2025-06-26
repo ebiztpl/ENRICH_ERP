@@ -2490,10 +2490,6 @@ public function importcopies($id)
         $this->load->view('layout/header');
         $this->load->view('admin/book/dropdownmaster', $data);
         $this->load->view('layout/footer');
-
-
-
-
     }
 
 
@@ -2517,6 +2513,67 @@ public function importcopies($id)
     
 
 
+public function getfilterdataByType()
+{
+    $type   = $this->input->post('type');
+    $draw   = intval($this->input->post('draw'));
+    $start  = intval($this->input->post('start'));
+    $length = intval($this->input->post('length'));
+    $search = $this->input->post('search')['value']; 
+
+    $this->db->from('library_dropdown_data');
+
+   
+    if (!empty($type)) {
+        $this->db->where('type', $type);
+    }
+
+    if (!empty($search)) {
+        $this->db->group_start();
+        $this->db->like('name', $search)->where('type',$type);
+        $this->db->or_like('id', $search)->where('type',$type);;
+        $this->db->group_end();
+    }
+
+    $totalFiltered = $this->db->count_all_results('', false);
+
+    if ($length != -1) {
+        $this->db->limit($length, $start);
+    }
+
+    $query = $this->db->get();
+    $result = $query->result_array();
+
+    $data = [];
+    foreach ($result as $row) {
+        $mytype = '';
+        switch ($row['type']) {
+            case 1: $mytype = 'Author'; break;
+            case 2: $mytype = 'Publisher'; break;
+            case 3: $mytype = 'Subject Type'; break;
+            case 4: $mytype = 'Language'; break;
+            case 5: $mytype = 'Department'; break;
+            case 6: $mytype = 'Book'; break;
+            default: $mytype = 'No'; break;
+        }
+
+        $data[] = [
+            $row['id'],
+            $row['name'],
+            $mytype,
+        ];
+    }
+
+    $this->db->from('library_dropdown_data');
+    $recordsTotal = $this->db->count_all_results();
+
+    echo json_encode([
+        "draw" => $draw,
+        "recordsTotal" => $recordsTotal,
+        "recordsFiltered" => $totalFiltered,
+        "data" => $data
+    ]);
+}
 
     
 
@@ -2546,7 +2603,12 @@ public function importcopies($id)
 }else if ($hidden == 4){
     $q = 'book_language';
 
-}else{
+}
+else if ($hidden == 6){
+    $q = 'book_tpe';
+
+}
+else{
     $q = 'department';
 } 
 

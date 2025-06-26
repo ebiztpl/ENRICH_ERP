@@ -518,9 +518,9 @@ class Student extends Admin_Controller
         }
 
        if ($this->sch_setting_detail->educational_details_req) {
-            $this->form_validation->set_rules('grade','Grade', 'trim|required|xss_clean');
-            $this->form_validation->set_rules('passing_year','Passing Year', 'trim|required|xss_clean');
-            $this->form_validation->set_rules('percentage','Percentage', 'trim|required|xss_clean');
+            // $this->form_validation->set_rules('grade','Grade', 'trim|required|xss_clean');
+            // $this->form_validation->set_rules('passing_year','Passing Year', 'trim|required|xss_clean');
+            // $this->form_validation->set_rules('percentage','Percentage', 'trim|required|xss_clean');
         }
 
         if ($this->sch_setting_detail->document_due_req) {
@@ -579,6 +579,11 @@ class Student extends Admin_Controller
         if ($this->sch_setting_detail->scholar_ship_form_req) {
             $this->form_validation->set_rules('scholarship_form_no',$this->lang->line('scholarship_form_no'), 'trim|required|xss_clean');
         }
+
+        if ($this->sch_setting_detail->last_class_year_req) {
+            $this->form_validation->set_rules('last_class_year','Last Class Year', 'trim|required|xss_clean');
+        }
+
         if ($this->sch_setting_detail->admission_date_req) {
             $this->form_validation->set_rules('admission_date', 'Admission Date', 'trim|required|xss_clean');
         }
@@ -777,6 +782,7 @@ class Student extends Admin_Controller
                 'higher_education'  => $this->input->post('higher_education') ?? '', //new field
                 'school_medium'     => $this->input->post('school_medium'),
                 'last_class'        => $this->input->post('last_class'),
+                'last_class_year' => $this->input->post('last_class_year'),
                 'abc_id'            => $this->input->post('abc_id'),
                 'scholarship_form_no'  => $this->input->post('scholarship_form_no'),
                 'enrollment_no'     => $this->input->post('enrollment_no')// new field added for enrollment number
@@ -1763,9 +1769,9 @@ class Student extends Admin_Controller
         }
 
         if ($this->sch_setting_detail->educational_details_req) {
-            $this->form_validation->set_rules('grade','Grade', 'trim|required|xss_clean');
-            $this->form_validation->set_rules('passing_year','Passing Year', 'trim|required|xss_clean');
-            $this->form_validation->set_rules('percentage','Percentage', 'trim|required|xss_clean');
+            // $this->form_validation->set_rules('grade','Grade', 'trim|required|xss_clean');
+            // $this->form_validation->set_rules('passing_year','Passing Year', 'trim|required|xss_clean');
+            // $this->form_validation->set_rules('percentage','Percentage', 'trim|required|xss_clean');
         }
 
         if ($this->sch_setting_detail->document_due_req) {
@@ -1814,6 +1820,9 @@ class Student extends Admin_Controller
         }
         if ($this->sch_setting_detail->admission_date_req) {
             $this->form_validation->set_rules('admission_date', 'Admission Date', 'trim|required|xss_clean');
+        }
+        if ($this->sch_setting_detail->last_class_year_req) {
+            $this->form_validation->set_rules('last_class_year', 'Last Class Year', 'trim|required|xss_clean');
         }
         if ($this->sch_setting_detail->stuent_height_req) {
             $this->form_validation->set_rules('height',$this->lang->line('height'), 'trim|required|xss_clean');
@@ -2010,6 +2019,7 @@ class Student extends Admin_Controller
                 'gender'            => $this->input->post('gender'),
                 'guardian_name'     => $this->input->post('guardian_name'),
                 'guardian_relation' => $this->input->post('guardian_relation'),
+                'last_class_year' => $this->input->post('last_class_year'),
                 'guardian_phone'    => $this->input->post('guardian_phone'),
                 'guardian_address'  => $this->input->post('guardian_address'),
                 'hostel_room_id'    => $hostel_room_id,

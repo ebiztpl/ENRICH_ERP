@@ -949,10 +949,10 @@ echo set_value('guardian_is') == "other" ? "checked" : "";
                                                                         <tbody id="new_append_e_row">
                                                                             <tr>
                                                                                 
-                                                                                <th>Grade<?php if($sch_setting->educational_details){ ?><small class="req"> *</small><?php }?></th>
-                                                                                <th>Year <?php if($sch_setting->educational_details){ ?><small class="req"> *</small><?php }?></th>
-                                                                                <th>Percentage <?php if($sch_setting->educational_details){ ?><small class="req"> *</small><?php }?></th>
-                                                                                <th style="width: 10%">#</th>
+                                                                                <th>Grade/Class<?php if($sch_setting->educational_details_req){ ?><small class="req"> *</small><?php }?></th>
+                                                                                <th>Year <?php if($sch_setting->educational_details_req){ ?><small class="req"> *</small><?php }?></th>
+                                                                                <th>Percentage <?php if($sch_setting->educational_details_req){ ?><small class="req"> *</small><?php }?></th>
+                                                                                <th style="width: 10%">Add More</th>
                                                                             </tr>
                                                                             <tr>
                                                                               
@@ -968,11 +968,11 @@ echo set_value('guardian_is') == "other" ? "checked" : "";
                                                                                 <span class="text-danger"><?php echo form_error('grade'); ?></span>
                                                                                 </td> 
                                                                                <td>
-                                                                                <input type="number" name="passing_year[]" class="form-control" placeholder="Enter details">
+                                                                                <input type="number" name="passing_year[]" class="form-control" value="<?php echo set_value('passing_year')?>" placeholder="Enter details">
                                                                             <span class="text-danger"><?php echo form_error('passing_year'); ?></span>   
                                                                             </td> 
                                                                                 <td>
-                                                                                <input type="text" name="percentage[]" class="form-control" placeholder="Enter percentage">
+                                                                                <input type="text" name="percentage[]" class="form-control" value="<?php echo set_value('percentage')?>" placeholder="Enter percentage">
                                                                             <span class="text-danger"><?php echo form_error('percentage'); ?></span>    
                                                                             </td>
                                                                                 <td>
@@ -1138,6 +1138,15 @@ echo set_value('guardian_is') == "other" ? "checked" : "";
                                                 </div>
                                             </div>
                                         <?php }?>
+                                        <?php if ($sch_setting->last_class_year) {?>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('last_class_year'); ?></label><?php if($sch_setting->last_class_year_req){ ?><small class="req"> *</small><?php }?>
+                                                    <input id="last_class_year" name="last_class_year" placeholder="" type="text" class="form-control"  value="<?php echo set_value('last_class_year'); ?>" />
+                                                    <span class="text-danger"><?php echo form_error('last_class_year'); ?></span>
+                                                </div>
+                                            </div>
+                                        <?php }?>
                                         <?php if ($sch_setting->previous_medium) {?>
 
                                             <div class="col-md-2">
@@ -1179,7 +1188,7 @@ echo set_value('guardian_is') == "other" ? "checked" : "";
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="exampleInputEmail1"><?php echo $this->lang->line('document_due'); ?></label><?php if($sch_setting->document_due_req){ ?><small class="req"> *</small><?php }?>
-                                                            <textarea class="form-control" rows="3" placeholder="" name="document_due"></textarea>
+                                                            <textarea class="form-control" rows="3" placeholder="" name="document_due"><?php echo set_value('document_due')?></textarea>
                                                             <span class="text-danger"><?php echo form_error('document_due'); ?></span>
                                                         </div>
                                                     </div>
