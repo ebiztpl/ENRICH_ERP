@@ -93,7 +93,12 @@ class Member extends Admin_Controller
         } else {
             $result = $memberList;
         }
-
+        $this->db->select("*");
+        $this->db->from("sessions");
+        $this->db->where("is_active",'no');
+        $sessions = $this->db->get();
+        $allSessions = $sessions->result_array();
+        $data['sessions']       = $allSessions;
         $data['members']        = array('' => $this->lang->line('all'), 'student' => $this->lang->line('student'), 'teacher' => $this->lang->line('teacher') , 'guest' => $this->lang->line('guest'));
         $class                  = $this->class_model->get();
         $data['classlist']      = $class;
@@ -751,11 +756,15 @@ public function addguestmember()
 }
 
 
-     public function renewed($id)
+     public function renewed()
     {
+        $id  = $this->input->post('libarary_members_id');
+        $renewed_session  = $this->input->post('renewed_session');
+
+
         $this->db->where('id', $id);
    
-        $this->db->update('libarary_members',array( 'renewed'	 =>1));
+        $this->db->update('libarary_members',array( 'renewed'=>1,'renewed_session'=>$renewed_session));
 
 
 

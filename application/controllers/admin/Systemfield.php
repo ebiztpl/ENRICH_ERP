@@ -54,7 +54,78 @@ class Systemfield extends Admin_Controller
                 $data['roll_number_req'] = 0;
             }
         } 
-
+        // s
+        else if ($role == 'higher_education') {
+            if ($status == "yes") {
+                $data['higher_education'] = 1;
+            } else {
+                $data['higher_education'] = 0;
+            }
+        } 
+        else if ($role == 'higher_education_req') {
+            if ($status == "yes") {
+                $data['higher_education_req'] = 1;
+            } else {
+                $data['higher_education_req'] = 0;
+            }
+        } 
+        else if ($role == 'swayam_ref_no') {
+            if ($status == "yes") {
+                $data['swayam_ref_no'] = 1;
+            } else {
+                $data['swayam_ref_no'] = 0;
+            }
+        } 
+        else if ($role == 'swayam_ref_no_req') {
+            if ($status == "yes") {
+                $data['swayam_ref_no_req'] = 1;
+            } else {
+                $data['swayam_ref_no_req'] = 0;
+            }
+        } 
+        else if ($role == 'swayam_ref_no') {
+            if ($status == "yes") {
+                $data['swayam_ref_no'] = 1;
+            } else {
+                $data['swayam_ref_no'] = 0;
+            }
+        } 
+        else if ($role == 'swayam_ref_no_req') {
+            if ($status == "yes") {
+                $data['swayam_ref_no_req'] = 1;
+            } else {
+                $data['swayam_ref_no_req'] = 0;
+            }
+        } 
+        else if ($role == 'educational_details') {
+            if ($status == "yes") {
+                $data['educational_details'] = 1;
+            } else {
+                $data['educational_details'] = 0;
+            }
+        } 
+        else if ($role == 'educational_details_req') {
+            if ($status == "yes") {
+                $data['educational_details_req'] = 1;
+            } else {
+                $data['educational_details_req'] = 0;
+            }
+        } 
+        else if ($role == 'document_due') {
+            if ($status == "yes") {
+                $data['document_due'] = 1;
+            } else {
+                $data['document_due'] = 0;
+            }
+        } 
+        else if ($role == 'document_due_req') {
+            if ($status == "yes") {
+                $data['document_due_req'] = 1;
+            } else {
+                $data['document_due_req'] = 0;
+            }
+        } 
+//e
         else if ($role == 'roll_no') {
             if ($status == "yes") {
                 $data['roll_no'] = 1;

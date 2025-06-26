@@ -120,6 +120,7 @@ class Student extends Admin_Controller
         $data['siblings']             = $this->student_model->getMySiblings($student['parent_id'], $student['id']);
 
         $data['student_doc'] = $this->student_model->getstudentdoc($id);
+        $data['education'] = $this->student_model->getStudentEducationDetails($id);
 
         $transport_fees = [];
         
@@ -409,6 +410,7 @@ class Student extends Admin_Controller
         $data['citylist']     = $city;
 
         $data['subject_grouplist'] = $this->db->select('*')->from('subject_groups')->get()->result_array();
+        $data['edudata'] = $this->db->select('*')->from('dropdown_cources')->get()->result_array();
 
         $data['vehroutelist'] = $vehroute_result;
         $custom_fields        = $this->customfield_model->getByBelong('students');
@@ -504,6 +506,25 @@ class Student extends Admin_Controller
         }
         if ($this->sch_setting_detail->last_name_req) {
             $this->form_validation->set_rules('lastname',$this->lang->line('last_name'), 'trim|required|xss_clean');
+        }
+
+        
+        if ($this->sch_setting_detail->higher_education_req) {
+            $this->form_validation->set_rules('higher_education',$this->lang->line('higher_education'), 'trim|required|xss_clean');
+        }
+
+        if ($this->sch_setting_detail->swayam_ref_no_req) {
+            $this->form_validation->set_rules('swayam_ref_no',$this->lang->line('swayam_ref_no'), 'trim|required|xss_clean');
+        }
+
+       if ($this->sch_setting_detail->educational_details_req) {
+            $this->form_validation->set_rules('grade','Grade', 'trim|required|xss_clean');
+            $this->form_validation->set_rules('passing_year','Passing Year', 'trim|required|xss_clean');
+            $this->form_validation->set_rules('percentage','Percentage', 'trim|required|xss_clean');
+        }
+
+        if ($this->sch_setting_detail->document_due_req) {
+            $this->form_validation->set_rules('document_due',$this->lang->line('document_due'), 'trim|required|xss_clean');
         }
 
         // if ($this->sch_setting_detail->mobile_number_req) {
@@ -751,6 +772,9 @@ class Student extends Admin_Controller
                 'pen_no'            => $this->input->post('pen_no'),
                 'family_mid_no'     => $this->input->post('family_mid_no'),
                 'apar_id'           => $this->input->post('apar_id'),
+                'swayam_ref_no'     => $this->input->post('swayam_ref_no') ?? '', //new field
+                'document_due'      => $this->input->post('document_due') ?? '', //new field
+                'higher_education'  => $this->input->post('higher_education') ?? '', //new field
                 'school_medium'     => $this->input->post('school_medium'),
                 'last_class'        => $this->input->post('last_class'),
                 'abc_id'            => $this->input->post('abc_id'),
@@ -926,6 +950,10 @@ class Student extends Admin_Controller
             if ($insert) {
                 $insert_id = $this->student_model->add($data_insert, $data_setting);
 
+
+                
+
+
     
                 if (!empty($custom_value_array)) {
                     $this->customfield_model->insertRecord($custom_value_array, $insert_id);
@@ -946,6 +974,30 @@ class Student extends Admin_Controller
                 if ($fee_session_group_id) {
                     $this->studentfeemaster_model->assign_bulk_fees($fee_session_group_id, $student_session_id, array());
                 }
+
+                $gradeArray     = $this->input->post('grade');
+                $passing_array  = $this->input->post('passing_year');
+                $percentage     = $this->input->post('percentage');
+
+
+                $EmptyTest1Arrayy = count(array_filter($gradeArray));
+                $EmptyTest2Arrayy = count(array_filter($passing_array));
+                $EmptyTest3Arrayy = count(array_filter($percentage));
+                if($EmptyTest1Arrayy > 0 && $EmptyTest2Arrayy > 0 && $EmptyTest3Arrayy > 0){
+
+                array_walk($gradeArray, function($value, $key) use ($insert_id, $passing_array, $percentage) {
+                        $newArrayData = [
+                            'grade'        => $value,
+                            'student_id'   => $insert_id,
+                            'passing_year' => $passing_array[$key],
+                            'percentage'   => $percentage[$key]
+                        ];
+                        $this->db->insert('education_data', $newArrayData);
+                    });
+
+                }
+
+              
 
 				$subarray = $this->input->post('subarray');
                 if (!empty($subarray)) {
@@ -1020,7 +1072,7 @@ class Student extends Admin_Controller
                     die("Error creating folder $upload_dir_path");
                 }
 
-                     $first_titlee = $this->input->post('first_title');
+                $first_titlee = $this->input->post('first_title');
                 $EmptyTestArrayy = count(array_filter($first_titlee));
                 if($EmptyTestArrayy > 0)
                 {
@@ -1591,6 +1643,7 @@ class Student extends Admin_Controller
 
 
          $data['subject_grouplist'] = $this->db->select('*')->from('subject_groups')->get()->result_array();
+        $data['edudata'] = $this->db->select('*')->from('dropdown_cources')->get()->result_array();
 
 
         $houses                     = $this->student_model->gethouselist();
@@ -1604,6 +1657,7 @@ class Student extends Admin_Controller
         $subject_result        = $this->subject_model->get();
         $data['subjectlist']   = $subject_result;
         $data['student_doc'] = $this->student_model->getstudentdoc($id);
+        $data['education'] = $this->student_model->getStudentEducationDetails($id);
 
         $data['student_subjects']  = $this->studenttransportfee_model->getsubjectsByStudentSession($student['student_session_id']);
         foreach ($custom_fields as $custom_fields_key => $custom_fields_value) {
@@ -1699,6 +1753,25 @@ class Student extends Admin_Controller
         if ($this->sch_setting_detail->religion_req) {
             $this->form_validation->set_rules('religion',$this->lang->line('religion'), 'trim|required|xss_clean');
         }
+
+        if ($this->sch_setting_detail->higher_education_req) {
+            $this->form_validation->set_rules('higher_education',$this->lang->line('higher_education'), 'trim|required|xss_clean');
+        }
+
+        if ($this->sch_setting_detail->swayam_ref_no_req) {
+            $this->form_validation->set_rules('swayam_ref_no',$this->lang->line('swayam_ref_no'), 'trim|required|xss_clean');
+        }
+
+        if ($this->sch_setting_detail->educational_details_req) {
+            $this->form_validation->set_rules('grade','Grade', 'trim|required|xss_clean');
+            $this->form_validation->set_rules('passing_year','Passing Year', 'trim|required|xss_clean');
+            $this->form_validation->set_rules('percentage','Percentage', 'trim|required|xss_clean');
+        }
+
+        if ($this->sch_setting_detail->document_due_req) {
+            $this->form_validation->set_rules('document_due',$this->lang->line('document_due'), 'trim|required|xss_clean');
+        }
+
    
         if ($this->sch_setting_detail->caste_req) {
             $this->form_validation->set_rules('cast',$this->lang->line('caste'), 'trim|required|xss_clean');
@@ -1930,6 +2003,9 @@ class Student extends Admin_Controller
                 'bank_account_no'   => $this->input->post('bank_account_no'),
                 'bank_name'         => $this->input->post('bank_name'),
                 'ifsc_code'         => $this->input->post('ifsc_code'),
+                'swayam_ref_no'     => $this->input->post('swayam_ref_no') ?? '', //new field
+                'document_due'      => $this->input->post('document_due') ?? '', //new field
+                'higher_education'  => $this->input->post('higher_education') ?? '', //new field
                 'guardian_email'    => $this->input->post('guardian_email'),
                 'gender'            => $this->input->post('gender'),
                 'guardian_name'     => $this->input->post('guardian_name'),
@@ -2148,6 +2224,36 @@ class Student extends Admin_Controller
                 'route_pickup_point_id' => $route_pickup_point_id,
                 'vehroute_id'           => $vehroute_id,
             );
+                $gradeArray     = $this->input->post('grade');
+                $passing_array  = $this->input->post('passing_year');
+                $percentage     = $this->input->post('percentage');
+
+
+                $EmptyTest1Arrayy = count(array_filter($gradeArray));
+                $EmptyTest2Arrayy = count(array_filter($passing_array));
+                $EmptyTest3Arrayy = count(array_filter($percentage));
+                if($EmptyTest1Arrayy > 0 && $EmptyTest2Arrayy > 0 && $EmptyTest3Arrayy > 0){
+
+                $this->db->where('student_id', $id);
+                $this->db->delete('education_data');
+
+                array_walk($gradeArray, function($value, $key) use ($id, $passing_array, $percentage) {
+                        $newArrayData = [
+                            'grade'        => $value,
+                            'student_id'   => $id,
+                            'passing_year' => $passing_array[$key],
+                            'percentage'   => $percentage[$key]
+                        ];
+                        $this->db->insert('education_data', $newArrayData);
+                    });
+
+                }
+
+                
+               
+
+
+                        
 
             $insert_id = $this->student_model->add_student_session($data_new);
 
@@ -2230,10 +2336,11 @@ class Student extends Admin_Controller
                 // print_r($returnids);
                 // $this->db->where_not_in('id', $returnids);
                 $to_bedeletedd=array_diff($to_bedeleted,$returnids);
-
-//  print_r($to_bedeletedd);die;
-                $this->db->where_in('id',$to_bedeletedd);
-                $this->db->delete('student_doc');
+                //  print_r($to_bedeletedd);die;
+        if(!empty($to_bedeletedd)){
+            $this->db->where_in('id',$to_bedeletedd);
+            $this->db->delete('student_doc');
+        }
 
 
 

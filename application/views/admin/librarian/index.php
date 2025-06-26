@@ -7,6 +7,47 @@
         }
     }
 </style>
+
+<div class="modal fade" id="squarespaceModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"  aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="lineModalLabel">Renew Membership</h4>
+            </div>
+            <div class="modal-body">
+                <!-- content goes here -->
+                <form action="<?php echo site_url('admin/member/renewed') ?>" id="add_member" method="post">
+                    <input type="hidden" name="libarary_members_id"  id="libarary_members_id">
+                    
+                    <div class="form-group">
+                    <label class="control-label col-sm-3" for="email">Session</label>
+                    <div class="col-sm-9">
+                    <select class="form-control" id="saurbh_session" name="renewed_session">
+                              <?php  foreach($sessions as $rows):?>
+                                <option value="<?=$rows['id']?>"><?=$rows['session']?></option>
+                              <?php  endforeach;?>
+                            </select>
+                                     <span class="text-danger" id="library_card_date"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 10px !important;">
+                        <label class="control-label col-sm-3" for="email">Date</label>
+                        <div class="col-sm-9">
+                            <input type="text" value="<?php echo set_value('library_card_date', date($this->customlib->getSchoolDateFormat())); ?>" class="form-control datee" name="library_card_date" id="library_card_date" >
+                                <span class="text-danger" id="library_card_date"></span>
+                         </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-sm add-member" data-loading-text="<i class='fa fa-spinner fa-spin '></i> <?php echo $this->lang->line('please_wait'); ?>"><?php echo $this->lang->line('add'); ?></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div class="content-wrapper" style="min-height: 946px;">
     <section class="content-header">
         <h1><i class="fa fa-book"></i> <?php //echo $this->lang->line('library'); ?> </h1>
@@ -250,7 +291,7 @@ if (!empty($memberList)) {
                                                         Issue
                                                     </a>
                                                     <?php }else{ ?>
-                                                        <a href="<?php echo base_url(); ?>admin/member/renewed/<?php echo $member['lib_member_id'] ?>" class="btn btn-danger btn-xs confirm_renew"  data-toggle="tooltip" title="Renew Membership">
+                                                        <a href="javascript:void(0)"  data-stdid="<?php echo $member['lib_member_id']; ?>" class="btn btn-danger btn-xs confirm_renew"  data-toggle="tooltip" title="Renew Membership">
                                                         Renew Membership
                                                     </a>
 
@@ -272,6 +313,17 @@ if (!empty($memberList)) {
     </section>
 </div>
 <script>
+
+$(".confirm_renew").click(function () {
+        var libarary_members_id = $(this).data('stdid');
+        $('#libarary_members_id').val(libarary_members_id);
+        $('#squarespaceModal').modal('show');
+    });
+
+
+
+
+
     $(document).ready(function () {
      
         var class_id = $('#class_id').val();
@@ -359,16 +411,27 @@ $(window).load(function() {
 
 
 });
-$(document).on('click', '.confirm_renew', function () {
+// $(document).on('click', '.confirm_renew', function () {
 
 
 
-if (confirm('Are you sure!')) {
+// if (confirm('Are you sure!')) {
 
-return true;
-}else{
-    return false;
-}
+// return true;
+// }else{
+//     return false;
+// }
+// });
+  $(document).ready(function() {
+
+    $('.datee').datepicker({
+
+format: "dd/mm/yyyy",
+weekStart: 1,
+todayBtn: "linked",
+endDate: new Date(),
+autoclose: true,
+todayHighlight: true
 });
-
+});
 </script>

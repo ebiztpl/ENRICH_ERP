@@ -1036,6 +1036,96 @@ if ($student['guardian_is'] == "other") {
                                 </div>
                             </div>
                         <?php }?>
+
+                     <!-- Part 2 -->
+   <?php if ($sch_setting->educational_details) {?>
+                                    <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="tshadow bozero">
+                                                            <h4 class="pagetitleh2"><?php echo $this->lang->line('educational_details'); ?></h4>
+                                                            <div class="row around10">
+                                                                <div class="col-md-8">
+                                                                       <table class="table">
+                                                                        <tbody id="new_append_e_row">
+                                                                            <tr>
+                                                                                
+                                                                                <th>Grade/class<?php if($sch_setting->educational_details_req){ ?><small class="req"> *</small><?php }?></th>
+                                                                                <th>Year<?php if($sch_setting->educational_details_req){ ?><small class="req"> *</small><?php }?></th>
+                                                                                <th>Percentage<?php if($sch_setting->educational_details_req){ ?><small class="req"> *</small><?php }?></th>
+                                                                                <th style="width: 10%">#</th>
+                                                                            </tr>
+
+
+<!-- fetch documents -->
+ <?php
+foreach ($education as $value) {
+
+?>
+    <tr>
+        <td>
+        <input type="hidden" name='check_grade[]' value="1" class="form-control" placeholder="">
+        <input type="hidden" name='previous_eduction_id[]' value="<?php echo $value['id']; ?>" class="form-control" placeholder="">
+
+         <select name="grade[]" class="form-control">
+            <option value="">Select Grade/class</option>
+                <?php foreach ($edudata as $edu): ?>
+                <option value="<?= htmlspecialchars($edu['id']) ?>" <?=($value['grade'] == $edu['id']) ? 'selected': ''?>>
+                <?= htmlspecialchars($edu['name']) ?>
+            </option>
+            <?php endforeach; ?>   
+        </select>
+    </td>
+        <td>
+          <input type="number" name="passing_year[]" class="form-control" value="<?=$value['passing_year']?>" placeholder="Enter details">
+
+        <span class="text-danger"><?php echo form_error('first_doc'); ?></span>
+    </td>
+        <td>
+         <input type="text" name="percentage[]" value="<?=$value['percentage']?>" class="form-control" placeholder="Enter percentage">
+        <span class="text-danger"><?php echo form_error('percentage'); ?></span>
+    </td>
+    <td class="mailbox-date pull-right white-space-nowrap">
+            <a class=" form-control btn btn-danger remove_append_button">-</a>
+    </td>
+    </tr>
+<?php
+} ?>
+
+
+                                                                            <tr>
+                                                                               <td>
+                                                                                <input type="hidden" name='check_grade[]' value="0" class="form-control" placeholder="">
+                                                                                <select name="grade[]" class="form-control">
+                                                                                    <option value="">Select Grade</option>
+                                                                                    <?php foreach ($edudata as $edu): ?>
+                                                                                        <option value="<?= htmlspecialchars($edu['id']) ?>">
+                                                                                            <?= htmlspecialchars($edu['name']) ?>
+                                                                                        </option>
+                                                                                    <?php endforeach; ?>
+                                                                                </select>
+                                                                                </td> 
+                                                                               <td>
+                                                                                <input type="number" name="passing_year[]" class="form-control" placeholder="Enter details">
+                                                                                </td> 
+                                                                                <td>
+                                                                                <input type="text" name="percentage[]" class="form-control" placeholder="Enter percentage">
+                                                                                </td>
+                                                                                <td>
+                                                                                <a class=" form-control btn btn-success new_append_education_row">+</a>
+
+                                                                                </td>
+                                                                            </tr>
+                                                                            
+
+                                                                        </tbody></table>
+                                                                </div>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+<?php }?>
+
                             <div class="tshadow mb25 bozero">
                                 <h3 class="pagetitleh2"><?php echo $this->lang->line('address_details'); ?></h3>
                                 <div class="around10">
@@ -1100,6 +1190,26 @@ if ($student['guardian_is'] == "other") {
                                             </div>
                                         <?php }?>
                                         </div>
+  <!-- point 1 -->
+                                            <div class="row">
+                                                      <?php if ($sch_setting->higher_education) {?>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1"><?php echo $this->lang->line('higher_education'); ?></label></label><?php if($sch_setting->higher_education_req){ ?><small class="req"> *</small><?php }?>
+                                                            <input id="higher_education" name="higher_education" placeholder="" type="text" class="form-control"  value="<?php echo set_value('higher_education',$student['higher_education']); ?>" />
+                                                            <span class="text-danger"><?php echo form_error('higher_education'); ?></span>
+                                                        </div>
+                                                    </div><?php }if ($sch_setting->swayam_ref_no) {?>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1"><?php echo $this->lang->line('swayam_ref_no'); ?></label></label><?php if($sch_setting->swayam_ref_no_req){ ?><small class="req"> *</small><?php }?>
+                                                            <input id="swayam_ref_no" name="swayam_ref_no" placeholder="" type="text" class="form-control"  value="<?php echo set_value('swayam_ref_no',$student['swayam_ref_no']); ?>" />
+                                                            <span class="text-danger"><?php echo form_error('swayam_ref_no'); ?></span>
+                                                        </div>
+                                                    </div><?php }?>
+                                                </div>
+
+
                                     <div class="row">
               <?php if ($sch_setting->national_identification_no_aadhaar_no) {?>
                                             <div class="col-md-4">
@@ -1185,9 +1295,9 @@ echo set_value('rte', $student['rte']) == "No" ? "checked" : "";
 
                                         <?php }?>
                                     </div>
-  <div class="row">  
+                       <div class="row around10">
                                         <?php if ($sch_setting->student_note) {?>
-                                            <div class="col-md-7">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1"><?php echo $this->lang->line('note'); ?></label><?php if($sch_setting->note_req){ ?><small class="req"> *</small><?php }?>
                                                     <textarea class="form-control" rows="3" placeholder="" name="note"><?php echo set_value('note', $student['note']); ?></textarea>
@@ -1195,8 +1305,20 @@ echo set_value('rte', $student['rte']) == "No" ? "checked" : "";
                                                 </div>
                                             </div>
                                          <?php }?>
-                                    </div>
-                                    </div>
+                                   
+
+                                       <!-- part 3 -->
+                                         <?php if ($sch_setting->document_due) {?>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1"><?php echo $this->lang->line('document_due'); ?></label><?php if($sch_setting->document_due_req){ ?><small class="req"> *</small><?php }?>
+                                                            <textarea class="form-control" rows="3" placeholder="" name="document_due"><?php echo set_value('document_due',$student['document_due'])?></textarea>
+                                                            <span class="text-danger"><?php echo form_error('document_due'); ?></span>
+                                                        </div>
+                                                    </div>
+                                             <?php }?>
+ </div>
+                            </div>
 									<!-- new code -->
 
  <div id='upload_documents_hide_show'>
@@ -1959,6 +2081,48 @@ todayHighlight: true
  </script>
 <script language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/js/bootstrap-datetimepicker.min.js"></script>
 <script>
+
+   <?php
+$options = '<option value="">Select Grade</option>';
+foreach ($edudata as $edu) {
+    $options .= '<option value="' . htmlspecialchars($edu['id']) . '">' . htmlspecialchars($edu['name']) . '</option>';
+}
+?>
+
+    $(document).on('click', '.new_append_education_row', function () {
+        var eduOptions = `<?= $options ?>`; 
+
+          $("#new_append_e_row").append(
+                    '<tr>' +
+                        '<td>' +
+                            '<input type="hidden" name="check_grade[]" value="0">' + // New hidden field
+                            '<select name="grade[]" class="form-control">' +
+                                eduOptions +
+                            '</select>' +
+                        '</td>' +
+                        '<td>' +
+                            '<input type="number" name="passing_year[]" class="form-control" placeholder="Enter details">' +
+                        '</td>' +
+                        '<td>' +
+                            '<input type="text" name="percentage[]" class="form-control" placeholder="Enter percentage">' +
+                        '</td>' +
+                        '<td>' +
+                            '<a class="form-control btn btn-danger remove_append_button">-</a>' +
+                        '</td>' +
+                    '</tr>'
+                );
+
+              
+        });
+
+
+
+
+
+
+
+
+
         $(document).on('click', '.new_append_button', function () {
             $("#new_append").append(
             '<tr>'+                                                                              

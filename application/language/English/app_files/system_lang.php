@@ -1781,6 +1781,12 @@ $lang['family_mid_no'] = "Family Mid Number";	// field added
 
 $lang['duration_year'] = "Session";	// field added
 
+$lang['higher_education'] = "Higher Education Application Number";	// field added
+$lang['swayam_ref_no'] = "Swayam Ref No/ Registration No";	// field added
+$lang['educational_details'] = "Educational Details";	// field added
+$lang['document_due'] = "Document Due";	// field added
+
+
 $lang['school_medium'] = "School Medium";	// field added
 $lang['last_class'] = "Last Class";	// field added
 $lang['abc_id'] = "ABC ID";	// field added

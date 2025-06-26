@@ -154,18 +154,55 @@ class Librarymember_model extends MY_Model
     public function getteacher()
     {
 
-       /* $query = "SELECT libarary_members.id as `lib_member_id`,libarary_members.renewed,libarary_members.library_card_no,libarary_members.member_type,students.admission_no,students.firstname,students.lastname,students.guardian_phone,null as `teacher_name`,null as `teacher_email`,null as `teacher_sex`,null as `teacher_phone`,students.middlename, null as staff_id,students.id as stu_id,null as emp_id FROM `libarary_members`
-         INNER JOIN students on libarary_members.member_id= students.id
-          WHERE libarary_members.member_type='studentt' and students.is_active = 'yes'
-           UNION SELECT libarary_members.id as `lib_member_id`,libarary_members.library_card_no,libarary_members.member_type,null,null,null,null,CONCAT_WS(' ',staff.name,staff.surname) as name,staff.email,null,staff.contact_no,null, staff.id as staff_id,null as stu_id,staff.employee_id as emp_id FROM `libarary_members` 
-           INNER JOIN staff on libarary_members.member_id= staff.id
-            WHERE libarary_members.member_type='teacher'";*/
-		
-		
-		$query = "SELECT libarary_members.id as `lib_member_id`,libarary_members.library_card_no,libarary_members.member_type,null,null,null,null,CONCAT_WS(' ',staff.name,staff.surname) as name,staff.email,null,staff.contact_no,null, staff.id as staff_id,null as stu_id,staff.employee_id as emp_id FROM `libarary_members` 
-		   INNER JOIN staff on libarary_members.member_id= staff.id
+$query = "
+            SELECT 
+                libarary_members.id as `lib_member_id`,
+                libarary_members.renewed,
+                libarary_members.library_card_no,
+                libarary_members.member_type,
+                students.admission_no,
+                students.firstname,
+                students.lastname,
+                students.guardian_phone,
+                null as `teacher_name`,
+                null as `teacher_email`,
+                null as `teacher_sex`,
+                null as `teacher_phone`,
+                students.middlename,
+                null as staff_id,
+                students.id as stu_id,
+                null as emp_id
+            FROM `libarary_members`
+            INNER JOIN students on libarary_members.member_id = students.id
+            WHERE libarary_members.member_type = 'studentt' AND students.is_active = 'yes'
 
-          WHERE libarary_members.member_type='teacher'";
+            UNION
+
+            SELECT 
+                libarary_members.id as `lib_member_id`,
+                libarary_members.renewed,
+                libarary_members.library_card_no,
+                libarary_members.member_type,
+                null,
+                null,
+                null,
+                null,
+                CONCAT_WS(' ', staff.name, staff.surname) as teacher_name,
+                staff.email as teacher_email,
+                null as teacher_sex,
+                staff.contact_no as teacher_phone,
+                null as middlename,
+                staff.id as staff_id,
+                null as stu_id,
+                staff.employee_id as emp_id
+            FROM `libarary_members`
+            INNER JOIN staff on libarary_members.member_id = staff.id
+            WHERE libarary_members.member_type = 'teacher'
+            ";
+		// $query = "SELECT libarary_members.id as `lib_member_id`,libarary_members.library_card_no,libarary_members.member_type,null,null,null,null,CONCAT_WS(' ',staff.name,staff.surname) as name,staff.email,null,staff.contact_no,null, staff.id as staff_id,null as stu_id,staff.employee_id as emp_id FROM `libarary_members` 
+		//    INNER JOIN staff on libarary_members.member_id= staff.id
+
+        //   WHERE libarary_members.member_type='teacher'";
 		
         $query = $this->db->query($query);
         return $query->result_array();
