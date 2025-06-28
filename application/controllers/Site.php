@@ -616,191 +616,48 @@ class Site extends Public_Controller
 
 
     public function run() {
-        '2025-06-16';
-        $queries = array(
-            "ALTER TABLE `feetype` ADD `is_donation` INT(10) NULL DEFAULT NULL AFTER `code`;",
-            "INSERT INTO `print_headerfooter` (`id`, `print_type`, `header_image`, `footer_content`, `created_by`, `entry_date`, `created_at`) VALUES ('5', 'shiksha_samiti', 'shiksha_samiti.jpg', 'This receipt is for online exam computer  generated hence no signature is required.', '', current_timestamp(), current_timestamp());",
-            "ALTER TABLE `fees_discounts` CHANGE `amount` `amount` DECIMAL(10,2) NULL;",
-            "ALTER TABLE `feetype` ADD `is_donation` INT(10) NULL DEFAULT NULL AFTER `code`;",
-        );
-   $queries = array(
-    // Single insert
-    "INSERT INTO `print_headerfooter` (`print_type`, `header_image`, `footer_content`, `created_by`, `entry_date`, `created_at`) VALUES ('shiksha_samiti', 'shiksha_samiti.jpg', 'This receipt is for online exam computer  generated hence no signature is required.', '', current_timestamp(), current_timestamp())",
-   )
-//     // Individual ALTERs
-//     "ALTER TABLE `feetype` ADD `is_donation` INT(10) NULL DEFAULT NULL AFTER `code`",
-//     "ALTER TABLE `books` ADD `billdate` DATETIME NULL DEFAULT NULL AFTER `book_no`",
-//     "ALTER TABLE `classes` ADD `sortable` INT(5) NULL DEFAULT NULL AFTER `is_active`",
-//     "ALTER TABLE `books` ADD `supplier_option` VARCHAR(150) NULL DEFAULT NULL AFTER `billdate`",
-//     "ALTER TABLE `library_dropdown_data` CHANGE `type` `type` INT(11) NOT NULL COMMENT '6 mean book option type,\r\n4 mean language type,\r\n5 mean Department type,\r\n3 mean Subject type,\r\n2 mean Publisher type,\r\n1 mean Author type'",
-//     "ALTER TABLE `books` ADD `book_type` INT(10) NULL DEFAULT NULL AFTER `publishing_year`",
-//     "ALTER TABLE `books` CHANGE `department` `department` VARCHAR(100) NULL DEFAULT NULL",
-
-//     // Split complex multi-column ALTER for `students`
-//     "ALTER TABLE `students` ADD `subject_group` VARCHAR(100) DEFAULT NULL AFTER `roll_no`",
-//     "ALTER TABLE `students` ADD `enrollment_no` VARCHAR(100) DEFAULT NULL AFTER `roll_no`",
-//     "ALTER TABLE `students` ADD `SSSMID` VARCHAR(100) DEFAULT NULL AFTER `roll_no`",
-//     "ALTER TABLE `students` ADD `pen_no` VARCHAR(100) DEFAULT NULL AFTER `roll_no`",
-//     "ALTER TABLE `students` ADD `family_mid_no` VARCHAR(100) DEFAULT NULL AFTER `roll_no`",
-//     "ALTER TABLE `students` ADD `apar_id` VARCHAR(100) DEFAULT NULL AFTER `roll_no`",
-//     "ALTER TABLE `students` ADD `previous_school_medium` VARCHAR(100) DEFAULT NULL AFTER `roll_no`",
-//     "ALTER TABLE `students` ADD `school_medium` VARCHAR(100) DEFAULT NULL AFTER `roll_no`",
-//     "ALTER TABLE `students` ADD `last_class` VARCHAR(100) DEFAULT NULL AFTER `roll_no`",
-//     "ALTER TABLE `students` ADD `family_mid_no` VARCHAR(100) DEFAULT NULL AFTER `previous_school_medium`", // duplicate?
-//     "ALTER TABLE `students` ADD `abc_id` VARCHAR(100) DEFAULT NULL AFTER `roll_no`",
-//     "ALTER TABLE `students` ADD `scholarship_form_no` VARCHAR(100) DEFAULT NULL AFTER `roll_no`",
-//     "ALTER TABLE `students` ADD `state` VARCHAR(100) DEFAULT NULL AFTER `roll_no`",
-//     "ALTER TABLE `students` ADD `city` VARCHAR(100) DEFAULT NULL AFTER `roll_no`",
-//     "ALTER TABLE `students` ADD `scholarship_form_no` VARCHAR(100) DEFAULT NULL AFTER `roll_no`", // duplicate?
-
-//     // Split previously joined ALTER
-//     "ALTER TABLE `classes` ADD `duration` VARCHAR(10) NULL DEFAULT NULL AFTER `class`",
-
-//     // Create tables (split into two)
-//     "CREATE TABLE `education_data` (
-//         `id` int(10) NOT NULL,
-//         `grade` int(10) DEFAULT NULL,
-//         `student_id` int(12) DEFAULT NULL,
-//         `passing_year` varchar(50) DEFAULT NULL,
-//         `percentage` varchar(50) DEFAULT NULL,
-//         `created_at` datetime NOT NULL DEFAULT current_timestamp()
-//     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci",
-
-//     "CREATE TABLE `dropdown_cources` (
-//         `id` int(10) NOT NULL,
-//         `name` varchar(100) DEFAULT NULL,
-//         `created_at` datetime NOT NULL DEFAULT current_timestamp()
-//     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci",
-
-//     // Insert values into dropdown_cources
-//     "INSERT INTO `dropdown_cources` (`id`, `name`, `created_at`) VALUES
-//     (1, '10th', '2025-06-26 18:40:30'),
-//     (2, '12th', '2025-06-26 18:40:30'),
-//     (3, '1st year', '2025-06-26 18:40:30'),
-//     (4, '2nd year', '2025-06-26 18:40:30'),
-//     (5, '3rd year', '2025-06-26 18:41:34'),
-//     (6, 'Graduation year', '2025-06-26 18:41:34'),
-//     (7, 'PG 1st year', '2025-06-26 18:42:20'),
-//     (8, 'Post graduation year', '2025-06-26 18:42:20')",
-
-//     // More ALTERs
-//     "ALTER TABLE `students` ADD `last_class_year` VARCHAR(25) NULL DEFAULT NULL AFTER `blood_group`",
-//     "ALTER TABLE `students` ADD `higher_education` VARCHAR(100) NULL DEFAULT NULL AFTER `note`",
-//     "ALTER TABLE `students` ADD `swayam_ref_no` VARCHAR(100) NULL DEFAULT NULL AFTER `higher_education`",
-//     "ALTER TABLE `students` ADD `document_due` VARCHAR(255) NULL DEFAULT NULL AFTER `swayam_ref_no`"
-// );
-
-
+     
         // $queries = array(
-        //   "INSERT INTO `dropdown_cources` (`id`, `name`, `created_at`) VALUES (NULL, '10th', current_timestamp()), (NULL, '12th', current_timestamp()), (NULL, '1st year', current_timestamp()), (NULL, '2nd year', current_timestamp()), (NULL, '3rd year', current_timestamp()), (NULL, 'Graduation', current_timestamp()), (NULL, 'PG 1st year', current_timestamp()), (NULL, 'Post graduation', current_timestamp());"
+        //     "ALTER TABLE `feetype` ADD `is_donation` INT(10) NULL DEFAULT NULL AFTER `code`;",
+        //     "INSERT INTO `print_headerfooter` (`id`, `print_type`, `header_image`, `footer_content`, `created_by`, `entry_date`, `created_at`) VALUES ('5', 'shiksha_samiti', 'shiksha_samiti.jpg', 'This receipt is for online exam computer  generated hence no signature is required.', '', current_timestamp(), current_timestamp());",
+        //     "ALTER TABLE `fees_discounts` CHANGE `amount` `amount` DECIMAL(10,2) NULL;",
+        //     "ALTER TABLE `feetype` ADD `is_donation` INT(10) NULL DEFAULT NULL AFTER `code`;",
         // );
-        $queries = array(
-        "ALTER TABLE `sch_settings`
-  ADD `higher_education` INT(2) NOT NULL DEFAULT '1' AFTER `staff_epf_no`,
-  ADD `swayam_ref_no` INT(2) NOT NULL DEFAULT '1' AFTER `higher_education`,
-  ADD `educational_details` INT(2) NOT NULL DEFAULT '1' AFTER `swayam_ref_no`,
-  ADD `document_due` INT(2) NOT NULL DEFAULT '1' AFTER `educational_details`,
-  ADD `higher_education_req` INT(2) NOT NULL DEFAULT '1' AFTER `document_due`,
-  ADD `swayam_ref_no_req` INT(2) NOT NULL DEFAULT '1' AFTER `higher_education_req`,
-  ADD `educational_details_req` INT(2) NOT NULL DEFAULT '1' AFTER `swayam_ref_no_req`,
-  ADD `document_due_req` INT(2) NOT NULL DEFAULT '1' AFTER `educational_details_req`,
-  ADD `last_class_year` INT(2) NOT NULL DEFAULT '1' AFTER `gurdian_name_req`,
-  ADD `last_class_year_req` INT(2) NOT NULL DEFAULT '1' AFTER `last_class_year`,
-  ADD `adm_auto_insert_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `roll_number_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `application_no_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `enrollment_no_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `middle_name_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `last_name_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `gender_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `mobile_number_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `email_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `dob_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `category_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `religion_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `caste_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `state_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `city_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `blood_group_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `scheme_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `student_photo_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `class_section_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `stuent_height_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `school_medium_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `cource_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `student_weight_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `year_sem_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `subject_option_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `state` INT(5) NOT NULL DEFAULT 0,
-  ADD `city` INT(5) NOT NULL DEFAULT 0,
-  ADD `application_no` INT(5) NOT NULL DEFAULT 0,
-  ADD `sssmid_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `pen_number_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `apar_id_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `is_student_house_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `family_mid_number_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `abc_id_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `scholar_ship_form_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `admission_date_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `father_name_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `father_phone_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `previous_medium_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `previous_medium` INT(5) NOT NULL DEFAULT 0,
-  ADD `father_occupation_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `father_photo_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `rte_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `mather_name_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `mather_phone_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `mather_occupation_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `mather_photo_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `is_guardian_mather_father_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `gurdian_name_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `gurdian_religion_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `gurdian_email_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `measurement_date_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `gurdian_photo_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `gurdian_phone_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `gurdian_occupation_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `gurdian_address_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `guardian_currentaddress_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `fees_discount` INT(5) NOT NULL DEFAULT 0,
-  ADD `guardian_permentaddress_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `bank_account_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `bank_name_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `ifsc_code_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `aadhaar_identification_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `local_identification_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `previous_school_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `last_class_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `note_req` INT(5) NOT NULL DEFAULT 0,
-  ADD `subject_option` INT(5) NOT NULL DEFAULT 0,
-  ADD `enrollment_no` INT(5) NOT NULL DEFAULT 0,
-  ADD `class` INT(5) NOT NULL DEFAULT 0,
-  ADD `section` INT(5) NOT NULL DEFAULT 0,
-  ADD `SSSMID` INT(5) NOT NULL DEFAULT 0,
-  ADD `pen_no` INT(5) NOT NULL DEFAULT 0,
-  ADD `apar_id` INT(5) NOT NULL DEFAULT 0,
-  ADD `family_mid_no` INT(5) NOT NULL DEFAULT 0,
-  ADD `school_medium` INT(5) NOT NULL DEFAULT 0,
-  ADD `last_class` INT(5) NOT NULL DEFAULT 0,
-  ADD `abc_id` INT(5) NOT NULL DEFAULT 0,
-  ADD `first_name_req` INT(10) NOT NULL DEFAULT 0,
-  ADD `fees_discount_req` INT(10) NOT NULL DEFAULT 0,
-  ADD `national_identification_no_aadhaar_no` INT(11) NOT NULL DEFAULT 1,
-  ADD `upload_documents_req` INT(10) NOT NULL DEFAULT 0,
-  ADD `scholarship_form_no` INT(5) NOT NULL DEFAULT 0;
-"
-        );
+
+//         $queries = array(
        
-$queries = array(
-    "ALTER TABLE `sch_settings` 
-        ADD `last_class_year` INT(2) NOT NULL DEFAULT '1' AFTER `gurdian_name_req`,
-        ADD `last_class_year_req` INT(2) NOT NULL DEFAULT '1' AFTER `last_class_year`"
-);
+// "CREATE TABLE `dropdown_cources` (
+//   `id` int(10) NOT NULL,
+//   `name` varchar(100) DEFAULT NULL,
+//   `created_at` datetime NOT NULL DEFAULT current_timestamp()
+// ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+// ",
+//             "INSERT INTO `dropdown_cources` (`id`, `name`, `created_at`) VALUES
+//             (1, '10th', '2025-06-26 18:40:30'),
+//             (2, '12th', '2025-06-26 18:40:30'),
+//             (3, '1st year', '2025-06-26 18:40:30'),
+//             (4, '2nd year', '2025-06-26 18:40:30'),
+//             (5, '3rd year', '2025-06-26 18:41:34'),
+//             (6, 'Graduation', '2025-06-26 18:41:34'),
+//             (7, 'PG 1st year', '2025-06-26 18:42:20'),
+//             (8, 'Post graduation', '2025-06-26 18:42:20');"
+//         );
+       $queries = array(
+        "ALTER TABLE `books` ADD `book_type` INT(10) NULL DEFAULT NULL AFTER `publishing_year`;",
+          // "ALTER TABLE `classes` ADD `duration` VARCHAR(10) NULL DEFAULT NULL AFTER `class`;"
+        //"ALTER TABLE `books` ADD `billdate` DATETIME NULL DEFAULT NULL AFTER `book_no`;",
+        "ALTER TABLE `books` ADD `supplier_option` VARCHAR(150) NULL DEFAULT NULL AFTER `book_no`;",
+        "ALTER TABLE `books` CHANGE `department` `department` VARCHAR(100) NULL DEFAULT NULL;",
+       );
+    //     $queries = array(
+    //    "",
+       
+    //     );
+  
 
 
 
-        $is_today = '2025-06-27'; 
+        $is_today = '2025-06-28'; 
         $today = date('Y-m-d');
 
         if ($today === date('Y-m-d', strtotime($is_today))) {

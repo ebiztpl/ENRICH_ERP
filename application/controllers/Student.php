@@ -985,7 +985,7 @@ class Student extends Admin_Controller
                 $passing_array  = $this->input->post('passing_year');
                 $percentage     = $this->input->post('percentage');
 
-
+  if(!empty($gradeArray) && !empty($passing_array) && !empty($percentage)){
                 $EmptyTest1Arrayy = count(array_filter($gradeArray));
                 $EmptyTest2Arrayy = count(array_filter($passing_array));
                 $EmptyTest3Arrayy = count(array_filter($percentage));
@@ -1003,7 +1003,7 @@ class Student extends Admin_Controller
 
                 }
 
-              
+            }
 
 				$subarray = $this->input->post('subarray');
                 if (!empty($subarray)) {
@@ -2238,11 +2238,11 @@ class Student extends Admin_Controller
                 'route_pickup_point_id' => $route_pickup_point_id,
                 'vehroute_id'           => $vehroute_id,
             );
-                $gradeArray     = $this->input->post('grade');
+                $gradeArray     = $this->input->post('grade') ;
                 $passing_array  = $this->input->post('passing_year');
                 $percentage     = $this->input->post('percentage');
 
-
+              if(!empty($gradeArray) && !empty($passing_array) && !empty($percentage)){
                 $EmptyTest1Arrayy = count(array_filter($gradeArray));
                 $EmptyTest2Arrayy = count(array_filter($passing_array));
                 $EmptyTest3Arrayy = count(array_filter($percentage));
@@ -2262,7 +2262,7 @@ class Student extends Admin_Controller
                     });
 
                 }
-
+            }
                 
                
 

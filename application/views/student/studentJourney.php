@@ -557,6 +557,44 @@ if (!empty($student["image"])) {
                                     </div>
                                 <?php } ?>
                             </div>
+
+ <div class="tshadow mb25 bozero">
+                                <?php if($sch_setting->educational_details) {
+                                ?>
+                                    <h3 class="pagetitleh2"><?php echo $this->lang->line('educational_details'); ?> </h3>
+                                    <div class="table-responsive around10 pt10">
+                                        <table class="table3 table-hover table-striped tmb0">
+                                          <tr>
+                                            <th >Grade/Class</th>
+                                            <th>Year</th>
+                                            <th>Percentage </th>
+                                        
+                                           </tr>
+                                          <?php foreach($education as $row):?>
+                                                <tr>
+                                                    <td><?php echo $row['name']; ?></td>
+                                                    <td><?php echo $row['passing_year']; ?></td>
+                                                    <td><?php echo $row['percentage']; ?></td>
+                                                </tr>
+                                      <?php endforeach; ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                <?php } ?>
+                            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
                             <?php if ($sch_setting->route_list) {
                             ?>
                                 <?php
@@ -705,6 +743,22 @@ if (!empty($student["image"])) {
                                                     <td><?php echo $student['samagra_id']; ?></td>
                                                 </tr>
                                             <?php }
+
+                                        if ($sch_setting->higher_education) { ?>
+                                                <tr>
+                                                    <td><?php echo $this->lang->line('higher_education'); ?></td>
+                                                    <td><?php echo $student['higher_education']; ?></td>
+                                                </tr>
+                                            <?php }
+
+                                            if ($sch_setting->swayam_ref_no) { ?>
+                                                <tr>
+                                                    <td><?php echo $this->lang->line('swayam_ref_no'); ?></td>
+                                                    <td><?php echo $student['swayam_ref_no']; ?></td>
+                                                </tr>
+                                            <?php }
+
+
                                             if ($sch_setting->bank_account_no) { ?>
                                                 <tr>
                                                     <td><?php echo $this->lang->line('bank_account_number'); ?></td>
