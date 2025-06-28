@@ -52,7 +52,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
                                          <div class="row">
                                          <div class="col-md-12 form-group col-md-12">
                                            
-                                                    <label><?php echo $this->lang->line('school_medium'); ?></label><br>
+                                                    <label><?php echo $this->lang->line('school_medium'); ?></label><?php if($sch_setting->school_medium_req){ ?><small class="req"> *</small> <?php }?><br>
 
                                                     <div class="form-check radio-inline">
                                                         <input class="form-check-input" type="radio" name="school_medium" id="hindi_medium" value="Hindi" 
@@ -939,6 +939,7 @@ echo set_value('guardian_is') == "other" ? "checked" : "";
                         <?php }?>
                      <!-- Part 2 -->
                       <?php if ($sch_setting->educational_details) {?>
+                            
                                     <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="tshadow bozero">
@@ -966,21 +967,22 @@ echo set_value('guardian_is') == "other" ? "checked" : "";
                                                                                     <?php endforeach; ?>
                                                                                 </select>
                                                                                 <span class="text-danger"><?php echo form_error('grade'); ?></span>
+                                                                             
                                                                                 </td> 
                                                                                <td>
-                                                                                <input type="number" name="passing_year[]" class="form-control" value="<?php echo set_value('passing_year')?>" placeholder="Enter details">
-                                                                            <span class="text-danger"><?php echo form_error('passing_year'); ?></span>   
+                                                                                <input type="number" name="passing_year[]" class="form-control" value="" placeholder="Enter details">
+                                                                                <span class="text-danger"><?php echo form_error('passing_year'); ?></span>
                                                                             </td> 
                                                                                 <td>
-                                                                                <input type="text" name="percentage[]" class="form-control" value="<?php echo set_value('percentage')?>" placeholder="Enter percentage">
-                                                                            <span class="text-danger"><?php echo form_error('percentage'); ?></span>    
+                                                                                <input type="text" name="percentage[]" class="form-control" value="" placeholder="Enter percentage">
+                                                                               
                                                                             </td>
                                                                                 <td>
                                                                                 <a class=" form-control btn btn-success new_append_education_row">+</a>
 
                                                                                 </td>
                                                                             </tr>
-                                                                            
+                                                                               
 
                                                                         </tbody></table>
                                                                 </div>
@@ -1080,74 +1082,56 @@ echo set_value('guardian_is') == "other" ? "checked" : "";
                                                             <span class="text-danger"><?php echo form_error('swayam_ref_no'); ?></span>
                                                         </div>
                                                     </div><?php }?>
-                                                  
-                                                
-                                                </div>
-                                            <div class="row around10">
-<?php if ($sch_setting->national_identification_no_aadhaar_no) {?>
+                                                     <?php if ($sch_setting->national_identification_no_aadhaar_no) {?>
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label for="exampleInputEmail1">
-    <?php echo $this->lang->line('national_identification_no_aadhaar_no'); ?>
+                                                        <?php echo $this->lang->line('national_identification_no_aadhaar_no'); ?>
                                                             </label><?php if($sch_setting->aadhaar_identification_req){ ?><small class="req"> *</small><?php }?>
                                                             <input id="adhar_no" name="adhar_no" placeholder="" type="text" class="form-control"  value="<?php echo set_value('adhar_no'); ?>" />
                                                             <span class="text-danger"><?php echo form_error('adhar_no'); ?></span>
                                                         </div>
                                                     </div>
-<?php }if ($sch_setting->local_identification_no) {?>
+                                                    <?php }?>
+                                                
+                                                </div>
+                                            <div class="row around10">
+                                             
+                                                <?php if ($sch_setting->local_identification_no) {?>
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label for="exampleInputEmail1">
-    <?php echo $this->lang->line('local_identification_number'); ?>
+                                                         <?php echo $this->lang->line('local_identification_number'); ?>
                                                             </label><?php if($sch_setting->local_identification_req){ ?><small class="req"> *</small><?php }?>
                                                             <input id="samagra_id" name="samagra_id" placeholder="" type="text" class="form-control"  value="<?php echo set_value('samagra_id'); ?>" />
                                                             <span class="text-danger"><?php echo form_error('samagra_id'); ?></span>
                                                         </div>
                                                     </div>
-<?php }if ($sch_setting->rte) {
-    ?>
-                                                    <div class="col-md-4">
-                                                        <label><?php echo $this->lang->line('rte'); ?></label><?php if($sch_setting->rte_req){ ?><small class="req"> *</small><?php }?>
-                                                        <div class="radio" style="margin-top: 2px;">
-                                                            <label><input class="radio-inline" type="radio" name="rte" value="Yes"  <?php
-                                            echo set_value('rte') == "Yes" ? "checked" : "";
-                                                ?>  ><?php echo $this->lang->line('yes'); ?></label>
-                                                            <label><input class="radio-inline" checked="checked" type="radio" name="rte" value="No" <?php
-                                            echo set_value('rte') == "No" ? "checked" : "";
-                                                ?>  ><?php echo $this->lang->line('no'); ?></label>
-                                                        </div>
-                                                        <span class="text-danger"><?php echo form_error('rte'); ?></span>
-                                                    </div>
-                                            <?php }if ($sch_setting->previous_school_details) {?>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="exampleInputEmail1"><?php echo $this->lang->line('previous_school_details'); ?></label><?php if($sch_setting->previous_school_req){ ?><small class="req"> *</small><?php }?>
-                                                            <textarea class="form-control" rows="3" placeholder="" name="previous_school"></textarea>
-                                                            <span class="text-danger"><?php echo form_error('previous_school'); ?></span>
-                                                        </div>
-                                                    </div>
-                                            <?php }?> 
+                                                    <?php }?>
 
-                                                        <!-- // new field 9-->
-                                        <?php if ($sch_setting->last_class) {?>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('last_class'); ?></label><?php if($sch_setting->last_class_req){ ?><small class="req"> *</small><?php }?>
-                                                    <input id="last_class" name="last_class" placeholder="" type="text" class="form-control"  value="<?php echo set_value('last_class'); ?>" />
-                                                    <span class="text-danger"><?php echo form_error('last_class'); ?></span>
-                                                </div>
+                                                       <!-- // new field 9-->
+                                                <?php if ($sch_setting->last_class) {?>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1"><?php echo $this->lang->line('last_class'); ?></label><?php if($sch_setting->last_class_req){ ?><small class="req"> *</small><?php }?>
+                                                            <input id="last_class" name="last_class" placeholder="" type="text" class="form-control"  value="<?php echo set_value('last_class'); ?>" />
+                                                            <span class="text-danger"><?php echo form_error('last_class'); ?></span>
+                                                        </div>
+                                                    </div>
+                                                <?php }?>
+                                                <?php if ($sch_setting->last_class_year) {?>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1"><?php echo $this->lang->line('last_class_year'); ?></label><?php if($sch_setting->last_class_year_req){ ?><small class="req"> *</small><?php }?>
+                                                            <input id="last_class_year" name="last_class_year" placeholder="" type="text" class="form-control"  value="<?php echo set_value('last_class_year'); ?>" />
+                                                            <span class="text-danger"><?php echo form_error('last_class_year'); ?></span>
+                                                        </div>
+                                                    </div>
+                                                <?php }?>
                                             </div>
-                                        <?php }?>
-                                        <?php if ($sch_setting->last_class_year) {?>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="exampleInputEmail1"><?php echo $this->lang->line('last_class_year'); ?></label><?php if($sch_setting->last_class_year_req){ ?><small class="req"> *</small><?php }?>
-                                                    <input id="last_class_year" name="last_class_year" placeholder="" type="text" class="form-control"  value="<?php echo set_value('last_class_year'); ?>" />
-                                                    <span class="text-danger"><?php echo form_error('last_class_year'); ?></span>
-                                                </div>
-                                            </div>
-                                        <?php }?>
-                                        <?php if ($sch_setting->previous_medium) {?>
+                                             <div class="row around10">
+
+                                               <?php if ($sch_setting->previous_medium) {?>
 
                                             <div class="col-md-2">
                                                
@@ -1170,9 +1154,37 @@ echo set_value('guardian_is') == "other" ? "checked" : "";
                                              
                                           
                                             </div>
-                                            </div>
+                                            <!-- </div> -->
 
                                         <?php }?>
+
+                                           
+                                            <?php if ($sch_setting->previous_school_details) {?>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1"><?php echo $this->lang->line('previous_school_details'); ?></label><?php if($sch_setting->previous_school_req){ ?><small class="req"> *</small><?php }?>
+                                                            <textarea class="form-control" rows="3" placeholder="" name="previous_school"></textarea>
+                                                            <span class="text-danger"><?php echo form_error('previous_school'); ?></span>
+                                                        </div>
+                                                    </div>
+                                            <?php }?> 
+                                        <?php if ($sch_setting->rte) {
+                                                        ?>
+                                                    <div class="col-md-4">
+                                                        <label><?php echo $this->lang->line('rte'); ?></label><?php if($sch_setting->rte_req){ ?><small class="req"> *</small><?php }?>
+                                                        <div class="radio" style="margin-top: 2px;">
+                                                            <label><input class="radio-inline" type="radio" name="rte" value="Yes"  <?php
+                                                    echo set_value('rte') == "Yes" ? "checked" : "";
+                                                       ?>  ><?php echo $this->lang->line('yes'); ?></label>
+                                                            <label><input class="radio-inline" checked="checked" type="radio" name="rte" value="No" <?php
+                                                     echo set_value('rte') == "No" ? "checked" : "";
+                                                        ?>  ><?php echo $this->lang->line('no'); ?></label>
+                                                        </div>
+                                                        <span class="text-danger"><?php echo form_error('rte'); ?></span>
+                                                    </div>
+                                        <?php }?>
+                                            </div>         
+                                      
 <div class="row around10">
                                           <?php if ($sch_setting->student_note) {?>
                                                     <div class="col-md-6">
@@ -1814,15 +1826,17 @@ $('#fee_session_group_id').multiselect({
 
   $(document).ready(function() {
 
-    $('.datee').datepicker({
-
-format: "dd/mm/yyyy",
-weekStart: 1,
-todayBtn: "linked",
-endDate: new Date(),
-autoclose: true,
-todayHighlight: true
+ $('.datee').datepicker({
+    format: "dd/mm/yyyy",
+    weekStart: 1,
+    todayBtn: "linked",
+    endDate: new Date(),
+    autoclose: true,
+    todayHighlight: true,
+    orientation: "bottom auto"  
 });
+
+
 });
  </script>
 <script language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/js/bootstrap-datetimepicker.min.js"></script>

@@ -120,8 +120,7 @@ class Student extends Admin_Controller
         $data['siblings']             = $this->student_model->getMySiblings($student['parent_id'], $student['id']);
 
         $data['student_doc'] = $this->student_model->getstudentdoc($id);
-        $data['education'] = $this->student_model->getStudentEducationDetails($id);
-
+        $data['education'] = $this->student_model->getStudentEducationDetailsFull($id);
         $transport_fees = [];
         
         $data['superadmin_visible'] = $this->customlib->superadmin_visible();
@@ -517,11 +516,9 @@ class Student extends Admin_Controller
             $this->form_validation->set_rules('swayam_ref_no',$this->lang->line('swayam_ref_no'), 'trim|required|xss_clean');
         }
 
-       if ($this->sch_setting_detail->educational_details_req) {
-            // $this->form_validation->set_rules('grade','Grade', 'trim|required|xss_clean');
-            // $this->form_validation->set_rules('passing_year','Passing Year', 'trim|required|xss_clean');
-            // $this->form_validation->set_rules('percentage','Percentage', 'trim|required|xss_clean');
-        }
+    //    if ($this->sch_setting_detail->educational_details_req) {
+    //          $this->form_validation->set_rules('grade','Grade', 'trim|required|xss_clean');
+    //     }
 
         if ($this->sch_setting_detail->document_due_req) {
             $this->form_validation->set_rules('document_due',$this->lang->line('document_due'), 'trim|required|xss_clean');
@@ -545,6 +542,9 @@ class Student extends Admin_Controller
         }
         if ($this->sch_setting_detail->state_req) {
             $this->form_validation->set_rules('state','State', 'required');
+        }
+        if ($this->sch_setting_detail->school_medium_req) {
+            $this->form_validation->set_rules('school_medium','School Medium', 'required');
         }
         if ($this->sch_setting_detail->city_req) {
             $this->form_validation->set_rules('city','City', 'required');
@@ -1743,6 +1743,11 @@ class Student extends Admin_Controller
         if ($this->sch_setting_detail->middle_name_req) {
             $this->form_validation->set_rules('middlename',$this->lang->line('middle_name'), 'trim|required|xss_clean');
         }
+
+        if ($this->sch_setting_detail->school_medium_req) {
+            $this->form_validation->set_rules('school_medium','School Medium', 'required');
+        }
+
         if ($this->sch_setting_detail->last_name_req) {
             $this->form_validation->set_rules('lastname',$this->lang->line('last_name'), 'trim|required|xss_clean');
         }
@@ -1768,11 +1773,10 @@ class Student extends Admin_Controller
             $this->form_validation->set_rules('swayam_ref_no',$this->lang->line('swayam_ref_no'), 'trim|required|xss_clean');
         }
 
-        if ($this->sch_setting_detail->educational_details_req) {
-            // $this->form_validation->set_rules('grade','Grade', 'trim|required|xss_clean');
-            // $this->form_validation->set_rules('passing_year','Passing Year', 'trim|required|xss_clean');
-            // $this->form_validation->set_rules('percentage','Percentage', 'trim|required|xss_clean');
-        }
+        // if ($this->sch_setting_detail->educational_details_req) {
+        //      $this->form_validation->set_rules('grade','Grade', 'trim|required|xss_clean');
+        //      $this->form_validation->set_rules('passing_year','Passing Year', 'trim|required|xss_clean');
+        // }
 
         if ($this->sch_setting_detail->document_due_req) {
             $this->form_validation->set_rules('document_due',$this->lang->line('document_due'), 'trim|required|xss_clean');

@@ -1275,6 +1275,15 @@ class Student_model extends MY_Model
         return $query->result_array();
 
     }
+ public function getStudentEducationDetailsFull($id) {
+    $this->db->select('dropdown_cources.name as name,education_data.passing_year,education_data.percentage')
+             ->from('education_data')
+             ->join('dropdown_cources', 'dropdown_cources.id = education_data.grade')
+             ->where('student_id', $id);
+    $query = $this->db->get();
+    return $query->result_array();
+}
+
     public function searchNameLike($searchterm)
     {
         $userdata            = $this->customlib->getUserData();
